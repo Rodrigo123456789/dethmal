@@ -11,12 +11,12 @@ public interface Pecas {
 	public static final int BRANCA = 1;
 
 	public static final int PRETA = 2;
-	
+
 	void mover(Casa atual, Casa proxima);
-	
-	void comer(Casa casa);
-	
+
+	void comer(Casa atual, Casa casa);
+
 	void setCor(int cor);
-	
+
 	int getCor();
 }

@@ -11,7 +11,7 @@ public class Dama implements Pecas {
 	private int cor = 0;
 	
 	@Override
-	public void comer(Casa casa) {
+	public void comer(Casa atual, Casa casa) {
 		// TODO Auto-generated method stub
 
 	}

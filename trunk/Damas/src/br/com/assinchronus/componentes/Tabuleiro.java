@@ -3,7 +3,7 @@ package br.com.assinchronus.componentes;
 /**
  * 
  * @author Pilon
- * @version 1.0.0
+ * @version 1.0.1
  */
 
 public class Tabuleiro {
@@ -87,5 +87,13 @@ public class Tabuleiro {
 
 			System.out.println();
 		}
+	}
+
+	public Casa[][] getTabuleiro() {
+		return tabuleiro;
+	}
+
+	public void setTabuleiro(Casa[][] tabuleiro) {
+		this.tabuleiro = tabuleiro;
 	}
 }
