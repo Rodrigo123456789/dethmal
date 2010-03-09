@@ -9,20 +9,23 @@ package br.com.assinchronus.componentes;
 public class Tabuleiro {
 	
 	//Array com todas as casas validas do jogo
-	private Casa[][] tabuleiro = new Casa[8][4];
+	private Casa[][] tabuleiro = new Casa[8][8];
 	
 	/**
 	 * Nome: Construtor
-	 * Descrição: Monta o tabuleiro
+	 * Descrio: Monta o tabuleiro
 	 */
 	public Tabuleiro() {
 
 		for (int i = 0; i < tabuleiro.length; i++) {
 			for (int j = 0; j < tabuleiro[i].length; j++) {
-				Casa casa = new Casa();
-				casa.setLinha(i);
-				casa.setColuna(j);
-				tabuleiro[i][j] = casa;
+				if ( (i % 2 ==0 && j % 2 == 0 ) || (i % 2 ==1 && j % 2 == 1 )  )
+				{
+					Casa casa = new Casa();
+					casa.setLinha(i);
+					casa.setColuna(j);
+					tabuleiro[i][j] = casa;
+				}
 			}
 		}
 
@@ -32,8 +35,8 @@ public class Tabuleiro {
 	
 	/** 
 	 * Nome: colocarPecas
-	 * Descrição: Coloca a peça no tabuleiro
-	 * @param cor - Cor da Peça
+	 * Descrio: Coloca a pea no tabuleiro
+	 * @param cor - Cor da Pea
 	 */
 	private void colocarPecas(int cor) {
 		Pecas peca = null;
@@ -52,36 +55,45 @@ public class Tabuleiro {
 
 		for (; linhaInicio <= linhaFim; linhaInicio++) {
 			for (int j = 0; j < tabuleiro[linhaInicio].length; j++) {
-				peca = new Peao();
-				casa = tabuleiro[linhaInicio][j];
+				if ( (linhaInicio % 2 ==0 && j % 2 == 0 ) || (linhaInicio % 2 ==1 && j % 2 == 1 )  )
+				{
+					peca = new Peao();
 				
-				peca.setCor(cor);
+					casa = tabuleiro[linhaInicio][j];
+				
+					peca.setCor(cor);
 
-				casa.setPeca(peca);
+					casa.setPeca(peca);
+				}
 			}
 		}
 	}
 	
 	/**
 	 * Nome: printTabuleiro
-	 * Descrição: Imprimi o tabuleiro
+	 * Descrio: Imprimi o tabuleiro
 	 */
 	public void printTabuleiro() {
 		for (int i = 0; i < tabuleiro.length; i++) {
 			for (int j = 0; j < tabuleiro[i].length; j++) {
-				if (i % 2 == 1) {
-					if (tabuleiro[i][j].getPeca() != null)
-						System.out.print("\t" + tabuleiro[i][j] + "-"
-								+ tabuleiro[i][j].getPeca().getCor() + "\t");
-					else
-						System.out.print("\t" + tabuleiro[i][j] + "\t");
-				} else {
-					if (tabuleiro[i][j].getPeca() != null)
-						System.out.print(tabuleiro[i][j] + "-"
-								+ tabuleiro[i][j].getPeca().getCor() + "\t"
-								+ "\t");
-					else
-						System.out.print(tabuleiro[i][j] + "\t" + "\t");
+					
+				if (tabuleiro[i][j]!= null)
+				{
+					if (i % 2 == 1) {
+					
+						if (tabuleiro[i][j].getPeca() != null )
+							System.out.print("\t" + tabuleiro[i][j] + "-"
+									+ tabuleiro[i][j].getPeca().getCor() + "\t");
+						else
+							System.out.print("\t" + tabuleiro[i][j] + "\t");
+					} else {
+						if (tabuleiro[i][j].getPeca() != null)
+							System.out.print(tabuleiro[i][j] + "-"
+									+ tabuleiro[i][j].getPeca().getCor() + "\t"
+									+ "\t");
+						else
+							System.out.print(tabuleiro[i][j] + "\t" + "\t");
+					}
 				}
 			}
 
