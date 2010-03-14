@@ -3,16 +3,13 @@ package br.com.assinchronus.componentes;
 /**
  * 
  * @author Pilon
- * @version 1.0.1
+ * @version 1.0.2
  */
 
 public class Peao implements Pecas {
 
 	// Cor da peça
 	private int cor = 0;
-
-	// Tipo da peça
-	private String tipo = null;
 
 	public Peao() {
 
@@ -47,13 +44,5 @@ public class Peao implements Pecas {
 
 	public void setCor(int cor) {
 		this.cor = cor;
-	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
 	}
 }
