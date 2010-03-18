@@ -9,11 +9,11 @@ package br.com.assinchronus.componentes;
 public class Casa {
 
 	private int linha = 0;
-	
+
 	private int coluna = 0;
-	
+
 	private Pecas peca = null;
-	
+
 	public Casa() {
 		// TODO Auto-generated constructor stub
 	}
@@ -47,5 +47,4 @@ public class Casa {
 		return String.valueOf(getLinha()).concat(",").concat(String.valueOf(getColuna()));
 	}
 
-	
 }

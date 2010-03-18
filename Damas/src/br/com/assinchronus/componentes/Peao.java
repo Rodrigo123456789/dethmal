@@ -3,7 +3,7 @@ package br.com.assinchronus.componentes;
 /**
  * 
  * @author Pilon
- * @version 1.0.2
+ * @version 1.0.3
  */
 
 public class Peao implements Pecas {
@@ -14,15 +14,23 @@ public class Peao implements Pecas {
 	public Peao() {
 
 	}
-
+	
+	/**
+	 * Nome: comer
+	 * 
+	 * @param atual
+	 *            - Casa atual da peça
+	 * @param proxima
+	 *            - Proxima casa da peca
+	 */
 	@Override
-	public void comer(Casa atual, Casa casa) {
-		// TODO Auto-generated method stub
-
+	public void comer(Casa atual, Casa adversaria, Casa proxima) {
+		mover(atual, proxima);
+		adversaria.setPeca(null);
 	}
 
 	/**
-	 * 
+	 * Nome: mover
 	 * 
 	 * @param atual
 	 *            - Casa atual da peça
