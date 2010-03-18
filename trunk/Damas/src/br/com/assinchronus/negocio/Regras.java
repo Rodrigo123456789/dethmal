@@ -7,7 +7,6 @@ import br.com.assinchronus.componentes.Pecas;
 
 public class Regras {
 
-	
 	public void validar(Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal) {
 
 		if ((casaInicial.getPeca() instanceof Peao)
@@ -20,9 +19,7 @@ public class Regras {
 			verificaDama(tabuleiro, casaInicial, casaFinal);
 		}
 	}
-	
-	
-	
+
 	public void moverPeaoBranca(Casa[][] tabuleiro, Casa casaInicial,
 			Casa casaFinal) {
 		if ((casaFinal.getColuna() - casaInicial.getColuna() == 1 || casaFinal
@@ -37,10 +34,10 @@ public class Regras {
 			}
 		else if ((casaFinal.getColuna() - casaInicial.getColuna()) == 2
 				&& (casaFinal.getLinha() - casaInicial.getLinha() == -2)) { // Movimento
-																			// duplo
-																			// para
-																			// a
-																			// direita
+			// duplo
+			// para
+			// a
+			// direita
 			if (tabuleiro[casaInicial.getLinha() + 1][casaFinal.getColuna() - 1]
 					.getPeca() != null
 					&& tabuleiro[casaInicial.getLinha() + 1][casaFinal
@@ -53,10 +50,10 @@ public class Regras {
 		} else {
 			if ((casaFinal.getColuna() - casaInicial.getColuna()) == -2
 					&& (casaFinal.getLinha() - casaInicial.getLinha() == -2)) { // Movimento
-																				// duplo
-																				// para
-																				// a
-																				// esquerda
+				// duplo
+				// para
+				// a
+				// esquerda
 				if (tabuleiro[casaInicial.getLinha() + 1][casaFinal.getColuna() + 1]
 						.getPeca() != null
 						&& tabuleiro[casaInicial.getLinha() + 1][casaFinal
@@ -73,9 +70,6 @@ public class Regras {
 		}
 	}
 
-	
-	
-	
 	public void moverPeaoPreta(Casa[][] tabuleiro, Casa casaInicial,
 			Casa casaFinal) {
 		if ((casaFinal.getColuna() - casaInicial.getColuna() == 1 || casaFinal
@@ -90,10 +84,10 @@ public class Regras {
 			}
 		else if ((casaFinal.getColuna() - casaInicial.getColuna()) == 2
 				&& (casaFinal.getLinha() - casaInicial.getLinha() == 2)) { // Movimento
-																			// duplo
-																			// para
-																			// a
-																			// direita
+			// duplo
+			// para
+			// a
+			// direita
 			if (tabuleiro[casaInicial.getLinha() + 1][casaFinal.getColuna() - 1]
 					.getPeca() != null
 					&& tabuleiro[casaInicial.getLinha() + 1][casaFinal
@@ -106,10 +100,10 @@ public class Regras {
 		} else {
 			if ((casaFinal.getColuna() - casaInicial.getColuna()) == -2
 					&& (casaFinal.getLinha() - casaInicial.getLinha() == 2)) { // Movimento
-																				// duplo
-																				// para
-																				// a
-																				// esquerda
+				// duplo
+				// para
+				// a
+				// esquerda
 				if (tabuleiro[casaInicial.getLinha() + 1][casaFinal.getColuna() + 1]
 						.getPeca() != null
 						&& tabuleiro[casaInicial.getLinha() + 1][casaFinal
@@ -126,14 +120,13 @@ public class Regras {
 		}
 	}
 
-	
 	public void verificaDama(Casa[][] tabuleiro, Casa casaInicial,
 			Casa casaFinal) {
 		int x; // salva a direcao horizontal do movimento
 		int y; // salva a direcao vertical do movimento
 		if (Math.abs(casaFinal.getLinha() - casaInicial.getLinha()) == Math
 				.abs(casaFinal.getColuna() - casaInicial.getColuna())) {
-			//caso o movimento tenha sido dentro de uma diagonal permitida
+			// caso o movimento tenha sido dentro de uma diagonal permitida
 			x = casaFinal.getColuna() - casaInicial.getColuna();
 			y = casaFinal.getLinha() - casaInicial.getLinha();
 			if (x > 0 && y > 0) // movimento para baixo direita
@@ -156,29 +149,24 @@ public class Regras {
 				x = -1;
 				y = -1;
 			}
-			if(casaInicial.getPeca().getCor()= Pecas.BRANCA) //Se a dama for Branca
-			{
-				
+			if (casaInicial.getPeca().getCor() == Pecas.BRANCA) { // Se a dama
+																  // for
+															      // Branca
+				moverDamaBranca(tabuleiro, casaInicial, casaFinal, x, y);
+			} else { // Se a dama for preta
+				moverDamaBranca(tabuleiro, casaInicial, casaFinal, x, y);
 			}
-			else //Se a dama for preta
-			{
-				
-			}
+		} else {
+			// chamar classe de erros: Movimento invalido
 		}
-		else
-		{
-			//chamar classe de erros: Movimento invalido
-		}
-	}
-	
-	
-	public void moverDamaBranca(Casa[][] tabuleiro, Casa casaInicial,
-			Casa casaFinal) {
 	}
 
-	
+	public void moverDamaBranca(Casa[][] tabuleiro, Casa casaInicial,
+			Casa casaFinal, int x, int y) {
+	}
+
 	public void moverDamaPreta(Casa[][] tabuleiro, Casa casaInicial,
-			Casa casaFinal) {
+			Casa casaFinal, int x, int y) {
 	}
 
 }
