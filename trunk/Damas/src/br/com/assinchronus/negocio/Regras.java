@@ -167,38 +167,63 @@ public class Regras {
 		int c = casaInicial.getColuna();
 		int z = 1; // incrementa para varrer toda a diagonal escolhida
 		int adversaria = 0; // conta as pecas adversarias no caminho
-		while (adversaria < 2 && (l + y * z) != (casaFinal.getLinha())) { 
+		while (adversaria < 2 && (l + y * z) != (casaFinal.getLinha())) {
 			// enquanto a linha analisada (comeca uma casa na frente da inicial)
-			//nao for igual a final e houver menos de 2 adversarios no caminho
+			// nao for igual a final e houver menos de 2 adversarios no caminho
 			if (tabuleiro[l + y * z][c + x * z].getPeca() != null) // Se houver
-																	// peca
+			// peca
 			{
 				if (tabuleiro[l + y * z][c + x * z].getPeca().getCor() == Pecas.BRANCA) {
 					// Se ha peca branca na casa analisada
 					// chamar erro "nao pode pular a propria peca"
 				} else { // se ha peca preta, incrementar contador de peca
-							// adversaria
+					// adversaria
 					adversaria++;
 				}
 			} else {
 				// se nao houver peca
 			}
 		}
-		if(adversaria==0)
-		{
-			//chamar metodo mover
-		}else if(adversaria==1)
-		{
-			//chamar metodo comer
-		}else if(adversaria==2)
-		{
-			//chamar msg de movimento invalido
+		if (adversaria == 0) {
+			// chamar metodo mover
+		} else if (adversaria == 1) {
+			// chamar metodo comer
+		} else if (adversaria == 2) {
+			// chamar msg de movimento invalido
 		}
 
 	}
 
 	public void moverDamaPreta(Casa[][] tabuleiro, Casa casaInicial,
 			Casa casaFinal, int x, int y) {
+		int l = casaInicial.getLinha();
+		int c = casaInicial.getColuna();
+		int z = 1; // incrementa para varrer toda a diagonal escolhida
+		int adversaria = 0; // conta as pecas adversarias no caminho
+		while (adversaria < 2 && (l + y * z) != (casaFinal.getLinha())) {
+			// enquanto a linha analisada (comeca uma casa na frente da inicial)
+			// nao for igual a final e houver menos de 2 adversarios no caminho
+			if (tabuleiro[l + y * z][c + x * z].getPeca() != null) // Se houver
+			// peca
+			{
+				if (tabuleiro[l + y * z][c + x * z].getPeca().getCor() == Pecas.PRETA) {
+					// Se ha peca branca na casa analisada
+					// chamar erro "nao pode pular a propria peca"
+				} else { // se ha peca preta, incrementar contador de peca
+					// adversaria
+					adversaria++;
+				}
+			} else {
+				// se nao houver peca
+			}
+		}
+		if (adversaria == 0) {
+			// chamar metodo mover
+		} else if (adversaria == 1) {
+			// chamar metodo comer
+		} else if (adversaria == 2) {
+			// chamar msg de movimento invalido
+		}
 	}
 
 }
