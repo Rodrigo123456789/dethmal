@@ -163,17 +163,17 @@ public class Regras {
 
 	public void moverDamaBranca(Casa[][] tabuleiro, Casa casaInicial,
 			Casa casaFinal, int x, int y) {
-		int l = casaInicial.getLinha();
-		int c = casaInicial.getColuna();
+		int linha = casaInicial.getLinha();
+		int coluna = casaInicial.getColuna();
 		int z = 1; // incrementa para varrer toda a diagonal escolhida
 		int adversaria = 0; // conta as pecas adversarias no caminho
-		while (adversaria < 2 && (l + y * z) != (casaFinal.getLinha())) {
+		while (adversaria < 2 && (linha + y * z) != (casaFinal.getLinha())) {
 			// enquanto a linha analisada (comeca uma casa na frente da inicial)
 			// nao for igual a final e houver menos de 2 adversarios no caminho
-			if (tabuleiro[l + y * z][c + x * z].getPeca() != null) // Se houver
+			if (tabuleiro[linha + y * z][coluna + x * z].getPeca() != null) // Se houver
 			// peca
 			{
-				if (tabuleiro[l + y * z][c + x * z].getPeca().getCor() == Pecas.BRANCA) {
+				if (tabuleiro[linha + y * z][coluna + x * z].getPeca().getCor() == Pecas.BRANCA) {
 					// Se ha peca branca na casa analisada
 					// chamar erro "nao pode pular a propria peca"
 				} else { // se ha peca preta, incrementar contador de peca
@@ -196,17 +196,17 @@ public class Regras {
 
 	public void moverDamaPreta(Casa[][] tabuleiro, Casa casaInicial,
 			Casa casaFinal, int x, int y) {
-		int l = casaInicial.getLinha();
-		int c = casaInicial.getColuna();
+		int linha = casaInicial.getLinha();
+		int coluna = casaInicial.getColuna();
 		int z = 1; // incrementa para varrer toda a diagonal escolhida
 		int adversaria = 0; // conta as pecas adversarias no caminho
-		while (adversaria < 2 && (l + y * z) != (casaFinal.getLinha())) {
+		while (adversaria < 2 && (linha + y * z) != (casaFinal.getLinha())) {
 			// enquanto a linha analisada (comeca uma casa na frente da inicial)
 			// nao for igual a final e houver menos de 2 adversarios no caminho
-			if (tabuleiro[l + y * z][c + x * z].getPeca() != null) // Se houver
+			if (tabuleiro[linha + y * z][coluna + x * z].getPeca() != null) // Se houver
 			// peca
 			{
-				if (tabuleiro[l + y * z][c + x * z].getPeca().getCor() == Pecas.PRETA) {
+				if (tabuleiro[linha + y * z][coluna + x * z].getPeca().getCor() == Pecas.PRETA) {
 					// Se ha peca branca na casa analisada
 					// chamar erro "nao pode pular a propria peca"
 				} else { // se ha peca preta, incrementar contador de peca
