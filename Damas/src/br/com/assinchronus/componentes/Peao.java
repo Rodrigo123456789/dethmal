@@ -39,17 +39,8 @@ public class Peao implements Pecas {
 		else
 		{
 			boolean sequencia = true;
-			String jogada = null;
-			if(atual.getPeca().getCor()==Pecas.BRANCA)
-			{
-				jogada.equals('b');
-			}
-			else
-			{
-				jogada.equals('p');
-			}
 			Casa c = new Casa();	//teste
-			r.validarPeca(sequencia, jogada, tabuleiro, proxima, c);
+			r.validarPeca(sequencia, atual.getPeca().getCor(), tabuleiro, proxima, c);
 		}
 	}
 
