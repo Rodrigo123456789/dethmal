@@ -1,4 +1,5 @@
 package br.com.assinchronus.componentes;
+import br.com.assinchronus.negocio.Regras;
 
 /**
  * 
@@ -27,10 +28,18 @@ public class Peao implements Pecas {
 	public void comer(Casa[][] tabuleiro, Casa atual, Casa adversaria, Casa proxima) {
 		mover(atual, proxima);
 		adversaria.setPeca(null);
+		Regras r = new Regras();
 		boolean finaliza;;
 		do{
-			finaliza = peaoComerSeq(tabuleiro, proxima);
+			finaliza = r.peaoComerSeq(tabuleiro, proxima);
 		}while(!finaliza);
+		if(finaliza){
+			//abrir metodo de troca de jogador
+		}
+		else
+		{
+			//pedir nova casafinal e continuar....
+		}
 	}
 
 
