@@ -8,7 +8,7 @@ package br.com.assinchronus.componentes;
 
 public class Peao implements Pecas {
 
-	// Cor da peça
+	// Cor da peca
 	private int cor = 0;
 
 	public Peao() {
@@ -19,21 +19,26 @@ public class Peao implements Pecas {
 	 * Nome: comer
 	 * 
 	 * @param atual
-	 *            - Casa atual da peça
+	 *            - Casa atual da peca
 	 * @param proxima
 	 *            - Proxima casa da peca
 	 */
 	@Override
-	public void comer(Casa atual, Casa adversaria, Casa proxima) {
+	public void comer(Casa[][] tabuleiro, Casa atual, Casa adversaria, Casa proxima) {
 		mover(atual, proxima);
 		adversaria.setPeca(null);
+		boolean finaliza;;
+		do{
+			finaliza = peaoComerSeq(tabuleiro, proxima);
+		}while(!finaliza);
 	}
+
 
 	/**
 	 * Nome: mover
 	 * 
 	 * @param atual
-	 *            - Casa atual da peça
+	 *            - Casa atual da peca
 	 * @param proxima
 	 *            - Proxima casa da peca
 	 */

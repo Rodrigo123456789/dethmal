@@ -14,7 +14,7 @@ public interface Pecas {
 
 	void mover(Casa atual, Casa proxima);
 
-	void comer(Casa atual, Casa adversaria ,Casa proxima);
+	void comer(Casa[][] tabuleiro, Casa atual, Casa adversaria ,Casa proxima);
 
 	void setCor(int cor);
 
