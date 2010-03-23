@@ -13,25 +13,27 @@ public class Regras {
 			for (int j = 0; j < tabuleiro[i].length; j++) {
 				if (((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1))
 						&& tabuleiro[i][j].getPeca() != null) {
-					if (jogada.equals('b')) { 
+					if (jogada.equals('b')) {
 						// Se for jogada do branco
 						if (tabuleiro[i][j].getPeca().getCor() == Pecas.BRANCA
-								&& (tabuleiro[i][j].getPeca() instanceof Peao)) { 
+								&& (tabuleiro[i][j].getPeca() instanceof Peao)) {
 							// Se for um peao branco
 							if (tabuleiro[i - 1][j + 1].getPeca().getCor() == Pecas.PRETA
-									&& tabuleiro[i - 2][j + 2].getPeca() == null) { 
-								// se é possível comer para a diagonal superior direita
+									&& tabuleiro[i - 2][j + 2].getPeca() == null) {
+								// se é possível comer para a diagonal superior
+								// direita
 								return true;
 							}
 							if (tabuleiro[i - 1][j - 1].getPeca().getCor() == Pecas.PRETA
-									&& tabuleiro[i - 2][j - 2].getPeca() == null) { 
-								// se é possível comer para a diagonal superior esquerda
+									&& tabuleiro[i - 2][j - 2].getPeca() == null) {
+								// se é possível comer para a diagonal superior
+								// esquerda
 								return true;
 							}
 						} else if (tabuleiro[i][j].getPeca().getCor() == Pecas.BRANCA
-								&& (tabuleiro[i][j].getPeca() instanceof Dama)) { 
+								&& (tabuleiro[i][j].getPeca() instanceof Dama)) {
 							// Se for uma dama branca
-							for (l = -1, c = -1, z = 1; z <= 6; z++) { 
+							for (l = -1, c = -1, z = 1; z <= 6; z++) {
 								// analisando diagonal superior esquerda
 								if (tabuleiro[i + l * z][j + c * z].getPeca() != null
 										&& tabuleiro[i + l * z][j + c * z]
@@ -49,7 +51,7 @@ public class Regras {
 									}
 								}
 							}
-							for (l = -1, c = +1, z = 1; z <= 6; z++) { 
+							for (l = -1, c = +1, z = 1; z <= 6; z++) {
 								// analisando diagonal superior direita
 								if (tabuleiro[i + l * z][j + c * z].getPeca() != null
 										&& tabuleiro[i + l * z][j + c * z]
@@ -67,7 +69,7 @@ public class Regras {
 									}
 								}
 							}
-							for (l = +1, c = -1, z = 1; z <= 6; z++) { 
+							for (l = +1, c = -1, z = 1; z <= 6; z++) {
 								// analisando diagonal inferior esquerda
 								if (tabuleiro[i + l * z][j + c * z].getPeca() != null
 										&& tabuleiro[i + l * z][j + c * z]
@@ -85,7 +87,7 @@ public class Regras {
 									}
 								}
 							}
-							for (l = +1, c = +1, z = 1; z <= 6; z++) { 
+							for (l = +1, c = +1, z = 1; z <= 6; z++) {
 								// analisando diagonal inferior direita
 								if (tabuleiro[i + l * z][j + c * z].getPeca() != null
 										&& tabuleiro[i + l * z][j + c * z]
@@ -104,27 +106,29 @@ public class Regras {
 								}
 							}
 						}
-					} else { 
+					} else {
 						// Se for jogada do preto
 						if (tabuleiro[i][j].getPeca().getCor() == Pecas.PRETA
-								&& (tabuleiro[i][j].getPeca() instanceof Peao)) { 
+								&& (tabuleiro[i][j].getPeca() instanceof Peao)) {
 							// Se for um peao preto
 							if (tabuleiro[i + 1][j + 1].getPeca().getCor() == Pecas.BRANCA
-									&& tabuleiro[i - 2][j + 2].getPeca() == null) { 
-								// se é possível comer para a diagonal inferior direita
+									&& tabuleiro[i - 2][j + 2].getPeca() == null) {
+								// se é possível comer para a diagonal inferior
+								// direita
 								return true;
 								// parar a analise e chamar o validar
 							}
 							if (tabuleiro[i + 1][j - 1].getPeca().getCor() == Pecas.BRANCA
-									&& tabuleiro[i - 2][j - 2].getPeca() == null) { 
-								// se é possível comer para a diagonal inferior esquerda
+									&& tabuleiro[i - 2][j - 2].getPeca() == null) {
+								// se é possível comer para a diagonal inferior
+								// esquerda
 								return true;
 								// parar a analise e chamar o validar
 							}
 						} else if (tabuleiro[i][j].getPeca().getCor() == Pecas.PRETA
 								&& (tabuleiro[i][j].getPeca() instanceof Dama)) {
 							// Se for uma dama preta
-							for (l = -1, c = -1, z = 1; z <= 6; z++) { 
+							for (l = -1, c = -1, z = 1; z <= 6; z++) {
 								// analisando diagonal superior esquerda
 								if (tabuleiro[i + l * z][j + c * z].getPeca() != null
 										&& tabuleiro[i + l * z][j + c * z]
@@ -142,7 +146,7 @@ public class Regras {
 									}
 								}
 							}
-							for (l = -1, c = +1, z = 1; z <= 6; z++) { 
+							for (l = -1, c = +1, z = 1; z <= 6; z++) {
 								// analisando diagonal superior direita
 								if (tabuleiro[i + l * z][j + c * z].getPeca() != null
 										&& tabuleiro[i + l * z][j + c * z]
@@ -160,7 +164,7 @@ public class Regras {
 									}
 								}
 							}
-							for (l = +1, c = -1, z = 1; z <= 6; z++) { 
+							for (l = +1, c = -1, z = 1; z <= 6; z++) {
 								// analisando diagonal inferior esquerda
 								if (tabuleiro[i + l * z][j + c * z].getPeca() != null
 										&& tabuleiro[i + l * z][j + c * z]
@@ -178,7 +182,7 @@ public class Regras {
 									}
 								}
 							}
-							for (l = +1, c = +1, z = 1; z <= 6; z++) { 
+							for (l = +1, c = +1, z = 1; z <= 6; z++) {
 								// analisando diagonal inferior direita
 								if (tabuleiro[i + l * z][j + c * z].getPeca() != null
 										&& tabuleiro[i + l * z][j + c * z]
@@ -204,27 +208,34 @@ public class Regras {
 		return false;
 	}
 
-	public void validar(Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal) {
+	public void validarPeca(String jogada, Casa[][] tabuleiro, Casa casaInicial,
+			Casa casaFinal) {
+
+		boolean obrigatoria = analisaTabuleiro(jogada, tabuleiro);
 
 		if ((casaInicial.getPeca() instanceof Peao)
 				&& (casaInicial.getPeca().getCor() == Pecas.BRANCA)) {
-			moverPeaoBranca(tabuleiro, casaInicial, casaFinal);
+			moverPeaoBranca(obrigatoria, tabuleiro, casaInicial, casaFinal);
 		} else if ((casaInicial.getPeca() instanceof Peao)
 				&& (casaInicial.getPeca().getCor() == Pecas.PRETA)) {
-			moverPeaoPreta(tabuleiro, casaInicial, casaFinal);
+			moverPeaoPreta(obrigatoria, tabuleiro, casaInicial, casaFinal);
 		} else if (casaInicial.getPeca() instanceof Dama) {
-			verificaDama(tabuleiro, casaInicial, casaFinal);
+			verificaDama(obrigatoria, tabuleiro, casaInicial, casaFinal);
 		}
 	}
 
-	public void moverPeaoBranca(Casa[][] tabuleiro, Casa casaInicial,
-			Casa casaFinal) {
+	public void moverPeaoBranca(boolean obrigatoria, Casa[][] tabuleiro,
+			Casa casaInicial, Casa casaFinal) {
 		if (casaFinal.getPeca() != null) {
 			// mandar o erro de já tem peça aki!
 		} else {
 			if (Math.abs(casaFinal.getColuna() - casaInicial.getColuna()) == 1
 					&& (casaFinal.getLinha() - casaInicial.getLinha() == -1)) {
-				// chamar metodo mover -> passar casa inicial e final
+				if (obrigatoria) {
+					// Mensagem de jogada invalida
+				} else {
+					// chamar metodo mover -> passar casa inicial e final
+				}
 			} else if ((casaFinal.getColuna() - casaInicial.getColuna()) == 2
 					&& (casaFinal.getLinha() - casaInicial.getLinha() == -2)) {
 				// Movimento duplo para a direita
@@ -256,14 +267,18 @@ public class Regras {
 		}
 	}
 
-	public void moverPeaoPreta(Casa[][] tabuleiro, Casa casaInicial,
-			Casa casaFinal) {
+	public void moverPeaoPreta(boolean obrigatoria, Casa[][] tabuleiro,
+			Casa casaInicial, Casa casaFinal) {
 		if (casaFinal.getPeca() != null) {
 			// mandar o erro de já tem peça aki!
 		} else {
 			if (Math.abs(casaFinal.getColuna() - casaInicial.getColuna()) == 1
 					&& (casaFinal.getLinha() - casaInicial.getLinha() == 1)) {
-				// chamar metodo mover -> passar casa inicial e final
+				if (obrigatoria) {
+					// Mensagem de jogada invalida
+				} else {
+					// chamar metodo mover -> passar casa inicial e final
+				}
 			} else if ((casaFinal.getColuna() - casaInicial.getColuna()) == 2
 					&& (casaFinal.getLinha() - casaInicial.getLinha() == 2)) {
 				// Movimento duplo para a direita
@@ -295,8 +310,8 @@ public class Regras {
 		}
 	}
 
-	public void verificaDama(Casa[][] tabuleiro, Casa casaInicial,
-			Casa casaFinal) {
+	public void verificaDama(boolean obrigatoria, Casa[][] tabuleiro,
+			Casa casaInicial, Casa casaFinal) {
 		int x; // salva a direcao horizontal do movimento
 		int y; // salva a direcao vertical do movimento
 		if (Math.abs(casaFinal.getLinha() - casaInicial.getLinha()) == Math
@@ -326,18 +341,20 @@ public class Regras {
 			}
 			if (casaInicial.getPeca().getCor() == Pecas.BRANCA) {
 				// Se a dama for Branca
-				moverDamaBranca(tabuleiro, casaInicial, casaFinal, x, y);
+				moverDamaBranca(obrigatoria, tabuleiro, casaInicial, casaFinal,
+						x, y);
 			} else {
 				// Se a dama for preta
-				moverDamaPreta(tabuleiro, casaInicial, casaFinal, x, y);
+				moverDamaPreta(obrigatoria, tabuleiro, casaInicial, casaFinal,
+						x, y);
 			}
 		} else {
 			// chamar classe de erros: Movimento invalido
 		}
 	}
 
-	public void moverDamaBranca(Casa[][] tabuleiro, Casa casaInicial,
-			Casa casaFinal, int x, int y) {
+	public void moverDamaBranca(boolean obrigatoria, Casa[][] tabuleiro,
+			Casa casaInicial, Casa casaFinal, int x, int y) {
 		int linha = casaInicial.getLinha();
 		int coluna = casaInicial.getColuna();
 		int z = 1; // incrementa para varrer toda a diagonal escolhida
@@ -361,7 +378,11 @@ public class Regras {
 			z++;
 		}
 		if (adversaria == 0) {
-			// chamar metodo mover
+			if (obrigatoria) {
+				// Mensagem de jogada invalida
+			} else {
+				// chamar metodo mover
+			}
 		} else if (adversaria == 1) {
 			// chamar metodo comer
 		} else if (adversaria == 2) {
@@ -370,8 +391,8 @@ public class Regras {
 
 	}
 
-	public void moverDamaPreta(Casa[][] tabuleiro, Casa casaInicial,
-			Casa casaFinal, int x, int y) {
+	public void moverDamaPreta(boolean obrigatoria, Casa[][] tabuleiro,
+			Casa casaInicial, Casa casaFinal, int x, int y) {
 		int linha = casaInicial.getLinha();
 		int coluna = casaInicial.getColuna();
 		int z = 1; // incrementa para varrer toda a diagonal escolhida
@@ -380,7 +401,7 @@ public class Regras {
 			// enquanto a linha analisada (comeca uma casa na frente da inicial)
 			// nao for igual a final e houver menos de 2 adversarios no caminho
 			if (tabuleiro[linha + y * z][coluna + x * z].getPeca() != null) // Se
-																			// houver
+			// houver
 			// peca
 			{
 				if (tabuleiro[linha + y * z][coluna + x * z].getPeca().getCor() == Pecas.PRETA) {
@@ -395,7 +416,11 @@ public class Regras {
 			}
 		}
 		if (adversaria == 0) {
-			// chamar metodo mover
+			if (obrigatoria) {
+				// Mensagem de jogada invalida
+			} else {
+				// chamar metodo mover
+			}
 		} else if (adversaria == 1) {
 			// chamar metodo comer
 		} else if (adversaria == 2) {
@@ -403,4 +428,8 @@ public class Regras {
 		}
 	}
 
+	public boolean peaoComerSeq(Casa[][] tabuleiro, Casa casaInicial){
+		return false;
+	}
+	
 }
