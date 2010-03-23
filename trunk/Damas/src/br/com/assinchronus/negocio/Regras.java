@@ -429,6 +429,18 @@ public class Regras {
 	}
 
 	public boolean peaoComerSeq(Casa[][] tabuleiro, Casa casaInicial){
+		if(tabuleiro[casaInicial.getLinha()+1][casaInicial.getColuna()+1].getPeca()!=null && tabuleiro[casaInicial.getLinha()+1][casaInicial.getColuna()+1].getPeca().getCor()!=casaInicial.getPeca().getCor() && tabuleiro[casaInicial.getLinha()+2][casaInicial.getColuna()+2].getPeca()==null){
+			return true;
+		}
+		if(tabuleiro[casaInicial.getLinha()+1][casaInicial.getColuna()-1].getPeca()!=null && tabuleiro[casaInicial.getLinha()+1][casaInicial.getColuna()-1].getPeca().getCor()!=casaInicial.getPeca().getCor() && tabuleiro[casaInicial.getLinha()+2][casaInicial.getColuna()-2].getPeca()==null){
+			return true;
+		}
+		if(tabuleiro[casaInicial.getLinha()-1][casaInicial.getColuna()+1].getPeca()!=null && tabuleiro[casaInicial.getLinha()-1][casaInicial.getColuna()+1].getPeca().getCor()!=casaInicial.getPeca().getCor() && tabuleiro[casaInicial.getLinha()-2][casaInicial.getColuna()+2].getPeca()==null){
+			return true;
+		}
+		if(tabuleiro[casaInicial.getLinha()-1][casaInicial.getColuna()-1].getPeca()!=null && tabuleiro[casaInicial.getLinha()-1][casaInicial.getColuna()-1].getPeca().getCor()!=casaInicial.getPeca().getCor() && tabuleiro[casaInicial.getLinha()-2][casaInicial.getColuna()-2].getPeca()==null){
+			return true;
+		}
 		return false;
 	}
 	
