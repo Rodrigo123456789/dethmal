@@ -208,10 +208,18 @@ public class Regras {
 		return false;
 	}
 
-	public void validarPeca(String jogada, Casa[][] tabuleiro, Casa casaInicial,
+	public void validarPeca(boolean sequencia, String jogada, Casa[][] tabuleiro, Casa casaInicial,
 			Casa casaFinal) {
-
-		boolean obrigatoria = analisaTabuleiro(jogada, tabuleiro);
+		//se for a primeira jogada, ele testa pra ver se tem captura obrigatoria
+		//se nao for a primeira, ele nao analisa o tabuleiro e vai direto com obrigatoria true.
+		
+		
+		boolean obrigatoria=true;
+		if(!sequencia){
+			obrigatoria = analisaTabuleiro(jogada, tabuleiro);
+		}
+		
+		
 
 		if ((casaInicial.getPeca() instanceof Peao)
 				&& (casaInicial.getPeca().getCor() == Pecas.BRANCA)) {
