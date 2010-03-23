@@ -7,13 +7,13 @@ import br.com.assinchronus.componentes.Pecas;
 
 public class Regras {
 
-	public boolean analisaTabuleiro(String jogada, Casa[][] tabuleiro) {
+	public boolean analisaTabuleiro(int jogada, Casa[][] tabuleiro) {
 		int z, l, c;
 		for (int i = 0; i < tabuleiro.length; i++) {
 			for (int j = 0; j < tabuleiro[i].length; j++) {
 				if (((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1))
 						&& tabuleiro[i][j].getPeca() != null) {
-					if (jogada.equals('b')) {
+					if (jogada == Pecas.BRANCA) {
 						// Se for jogada do branco
 						if (tabuleiro[i][j].getPeca().getCor() == Pecas.BRANCA
 								&& (tabuleiro[i][j].getPeca() instanceof Peao)) {
@@ -208,7 +208,7 @@ public class Regras {
 		return false;
 	}
 
-	public void validarPeca(boolean sequencia, String jogada, Casa[][] tabuleiro, Casa casaInicial,
+	public void validarPeca(boolean sequencia, int jogada, Casa[][] tabuleiro, Casa casaInicial,
 			Casa casaFinal) {
 		//se for a primeira jogada, ele testa pra ver se tem captura obrigatoria
 		//se nao for a primeira, ele nao analisa o tabuleiro e vai direto com obrigatoria true.
