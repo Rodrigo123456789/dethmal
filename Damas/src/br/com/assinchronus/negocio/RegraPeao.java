@@ -1,5 +1,8 @@
 package br.com.assinchronus.negocio;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.assinchronus.componentes.Casa;
 import br.com.assinchronus.componentes.Pecas;
 
@@ -91,8 +94,12 @@ public class RegraPeao {
 		}
 	}
 
-	//mudar este metodo para retornar uma lista com casas I e F.
-	public boolean verificaSequenciaPeao(Casa[][] tabuleiro, Casa casaInicial) {
+	public List<Casa[]> verificaSequenciaPeao(Casa[][] tabuleiro,
+			Casa casaInicial) {
+
+		Casa[] acao = new Casa[2];
+		List<Casa[]> jogadaspossiveis = new ArrayList<Casa[]>();
+
 		if (tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() + 1]
 				.getPeca() != null
 				&& tabuleiro[casaInicial.getLinha() + 1][casaInicial
@@ -100,7 +107,10 @@ public class RegraPeao {
 						.getPeca().getCor()
 				&& tabuleiro[casaInicial.getLinha() + 2][casaInicial
 						.getColuna() + 2].getPeca() == null) {
-			return true;
+			acao[1] = casaInicial;
+			acao[2] = tabuleiro[casaInicial.getLinha() + 2][casaInicial
+					.getColuna() + 2];
+			jogadaspossiveis.add(acao);
 		}
 		if (tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() - 1]
 				.getPeca() != null
@@ -109,7 +119,10 @@ public class RegraPeao {
 						.getPeca().getCor()
 				&& tabuleiro[casaInicial.getLinha() + 2][casaInicial
 						.getColuna() - 2].getPeca() == null) {
-			return true;
+			acao[1] = casaInicial;
+			acao[2] = tabuleiro[casaInicial.getLinha() + 2][casaInicial
+					.getColuna() - 2];
+			jogadaspossiveis.add(acao);
 		}
 		if (tabuleiro[casaInicial.getLinha() - 1][casaInicial.getColuna() + 1]
 				.getPeca() != null
@@ -118,7 +131,10 @@ public class RegraPeao {
 						.getPeca().getCor()
 				&& tabuleiro[casaInicial.getLinha() - 2][casaInicial
 						.getColuna() + 2].getPeca() == null) {
-			return true;
+			acao[1] = casaInicial;
+			acao[2] = tabuleiro[casaInicial.getLinha() - 2][casaInicial
+					.getColuna() + 2];
+			jogadaspossiveis.add(acao);
 		}
 		if (tabuleiro[casaInicial.getLinha() - 1][casaInicial.getColuna() - 1]
 				.getPeca() != null
@@ -127,9 +143,12 @@ public class RegraPeao {
 						.getPeca().getCor()
 				&& tabuleiro[casaInicial.getLinha() - 2][casaInicial
 						.getColuna() - 2].getPeca() == null) {
-			return true;
+			acao[1] = casaInicial;
+			acao[2] = tabuleiro[casaInicial.getLinha() - 2][casaInicial
+					.getColuna() - 2];
+			jogadaspossiveis.add(acao);
 		}
-		return false;
+		return jogadaspossiveis;
 	}
 
 }

@@ -1,5 +1,7 @@
 package br.com.assinchronus.componentes;
 
+import java.util.List;
+
 import br.com.assinchronus.negocio.RegraGeral;
 import br.com.assinchronus.negocio.RegraPeao;
 
@@ -16,10 +18,11 @@ public class Peao implements Pecas {
 			Casa proxima) {
 		mover(atual, proxima);
 		adversaria.setPeca(null);
+
 		RegraGeral rg = new RegraGeral();
 		RegraPeao rp = new RegraPeao();
-		boolean finaliza = rp.verificaSequenciaPeao(tabuleiro, proxima);
-		if (finaliza) {
+		List<Casa[]> finaliza = rp.verificaSequenciaPeao(tabuleiro, proxima);
+		if (finaliza.isEmpty()) {
 			// abrir metodo de troca de jogador
 		} else {
 			boolean sequencia = true;

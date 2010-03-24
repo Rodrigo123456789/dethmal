@@ -1,17 +1,23 @@
 package br.com.assinchronus.negocio;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.assinchronus.componentes.Casa;
 import br.com.assinchronus.componentes.Dama;
 import br.com.assinchronus.componentes.Peao;
 import br.com.assinchronus.componentes.Pecas;
 
 public class RegraGeral {
-
+	
 	RegraPeao rp = new RegraPeao();
 	RegraDama rd = new RegraDama();
 
+	
 	public boolean verificaCapturaObrigatoria(int jogada, Casa[][] tabuleiro) {
 		int z, l, c;
+		Casa[] casa = new Casa[2];
+		List<Casa[]> obrigatoria = new ArrayList<Casa[]>();
 		for (int i = 0; i < tabuleiro.length; i++) {
 			for (int j = 0; j < tabuleiro[i].length; j++) {
 				if (((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1))
@@ -25,13 +31,17 @@ public class RegraGeral {
 									&& tabuleiro[i - 2][j + 2].getPeca() == null) {
 								// se é possível comer para a diagonal superior
 								// direita
-								return true;
+								casa[0] = tabuleiro[i][j];
+								casa[1] = tabuleiro[i - 2][j + 2];
+								obrigatoria.add(casa);
 							}
 							if (tabuleiro[i - 1][j - 1].getPeca().getCor() == Pecas.PRETA
 									&& tabuleiro[i - 2][j - 2].getPeca() == null) {
 								// se é possível comer para a diagonal superior
 								// esquerda
-								return true;
+								casa[0] = tabuleiro[i][j];
+								casa[1] = tabuleiro[i - 2][j - 2];
+								obrigatoria.add(casa);
 							}
 						} else if (tabuleiro[i][j].getPeca().getCor() == Pecas.BRANCA
 								&& (tabuleiro[i][j].getPeca() instanceof Dama)) {
@@ -48,9 +58,10 @@ public class RegraGeral {
 												.getPeca().getCor() == Pecas.PRETA) {
 									if (tabuleiro[i + l * (z + 1)][j + c
 											* (z + 1)].getPeca() == null) {
-										return true;
-									} else {
-										break;
+										casa[0] = tabuleiro[i][j];
+										casa[1] = tabuleiro[i + l * (z + 1)][j
+												+ c * (z + 1)];
+										obrigatoria.add(casa);
 									}
 								}
 							}
@@ -66,9 +77,10 @@ public class RegraGeral {
 												.getPeca().getCor() == Pecas.PRETA) {
 									if (tabuleiro[i + l * (z + 1)][j + c
 											* (z + 1)].getPeca() == null) {
-										return true;
-									} else {
-										break;
+										casa[0] = tabuleiro[i][j];
+										casa[1] = tabuleiro[i + l * (z + 1)][j
+												+ c * (z + 1)];
+										obrigatoria.add(casa);
 									}
 								}
 							}
@@ -84,9 +96,10 @@ public class RegraGeral {
 												.getPeca().getCor() == Pecas.PRETA) {
 									if (tabuleiro[i + l * (z + 1)][j + c
 											* (z + 1)].getPeca() == null) {
-										return true;
-									} else {
-										break;
+										casa[0] = tabuleiro[i][j];
+										casa[1] = tabuleiro[i + l * (z + 1)][j
+												+ c * (z + 1)];
+										obrigatoria.add(casa);
 									}
 								}
 							}
@@ -102,9 +115,10 @@ public class RegraGeral {
 												.getPeca().getCor() == Pecas.PRETA) {
 									if (tabuleiro[i + l * (z + 1)][j + c
 											* (z + 1)].getPeca() == null) {
-										return true;
-									} else {
-										break;
+										casa[0] = tabuleiro[i][j];
+										casa[1] = tabuleiro[i + l * (z + 1)][j
+												+ c * (z + 1)];
+										obrigatoria.add(casa);
 									}
 								}
 							}
@@ -115,18 +129,20 @@ public class RegraGeral {
 								&& (tabuleiro[i][j].getPeca() instanceof Peao)) {
 							// Se for um peao preto
 							if (tabuleiro[i + 1][j + 1].getPeca().getCor() == Pecas.BRANCA
-									&& tabuleiro[i - 2][j + 2].getPeca() == null) {
+									&& tabuleiro[i + 2][j + 2].getPeca() == null) {
 								// se é possível comer para a diagonal inferior
 								// direita
-								return true;
-								// parar a analise e chamar o validar
+								casa[0] = tabuleiro[i][j];
+								casa[1] = tabuleiro[i + 2][j + 2];
+								obrigatoria.add(casa);
 							}
 							if (tabuleiro[i + 1][j - 1].getPeca().getCor() == Pecas.BRANCA
-									&& tabuleiro[i - 2][j - 2].getPeca() == null) {
+									&& tabuleiro[i + 2][j - 2].getPeca() == null) {
 								// se é possível comer para a diagonal inferior
 								// esquerda
-								return true;
-								// parar a analise e chamar o validar
+								casa[0] = tabuleiro[i][j];
+								casa[1] = tabuleiro[i + 2][j - 2];
+								obrigatoria.add(casa);
 							}
 						} else if (tabuleiro[i][j].getPeca().getCor() == Pecas.PRETA
 								&& (tabuleiro[i][j].getPeca() instanceof Dama)) {
@@ -143,9 +159,10 @@ public class RegraGeral {
 												.getPeca().getCor() == Pecas.BRANCA) {
 									if (tabuleiro[i + l * (z + 1)][j + c
 											* (z + 1)].getPeca() == null) {
-										return true;
-									} else {
-										break;
+										casa[0] = tabuleiro[i][j];
+										casa[1] = tabuleiro[i + l * (z + 1)][j
+												+ c * (z + 1)];
+										obrigatoria.add(casa);
 									}
 								}
 							}
@@ -161,9 +178,10 @@ public class RegraGeral {
 												.getPeca().getCor() == Pecas.BRANCA) {
 									if (tabuleiro[i + l * (z + 1)][j + c
 											* (z + 1)].getPeca() == null) {
-										return true;
-									} else {
-										break;
+										casa[0] = tabuleiro[i][j];
+										casa[1] = tabuleiro[i + l * (z + 1)][j
+												+ c * (z + 1)];
+										obrigatoria.add(casa);
 									}
 								}
 							}
@@ -179,9 +197,10 @@ public class RegraGeral {
 												.getPeca().getCor() == Pecas.BRANCA) {
 									if (tabuleiro[i + l * (z + 1)][j + c
 											* (z + 1)].getPeca() == null) {
-										return true;
-									} else {
-										break;
+										casa[0] = tabuleiro[i][j];
+										casa[1] = tabuleiro[i + l * (z + 1)][j
+												+ c * (z + 1)];
+										obrigatoria.add(casa);
 									}
 								}
 							}
@@ -197,9 +216,10 @@ public class RegraGeral {
 												.getPeca().getCor() == Pecas.BRANCA) {
 									if (tabuleiro[i + l * (z + 1)][j + c
 											* (z + 1)].getPeca() == null) {
-										return true;
-									} else {
-										break;
+										casa[0] = tabuleiro[i][j];
+										casa[1] = tabuleiro[i + l * (z + 1)][j
+												+ c * (z + 1)];
+										obrigatoria.add(casa);
 									}
 								}
 							}

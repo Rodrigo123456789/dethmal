@@ -1,10 +1,9 @@
 package br.com.assinchronus.negocio;
 
 import br.com.assinchronus.componentes.Casa;
-import br.com.assinchronus.componentes.Pecas;
 
 public class RegraDama {
-	
+
 	public void verificaDiagonalDama(boolean obrigatoria, Casa[][] tabuleiro,
 			Casa casaInicial, Casa casaFinal) {
 		int x; // salva a direcao horizontal do movimento
@@ -34,21 +33,14 @@ public class RegraDama {
 				x = -1;
 				y = -1;
 			}
-			if (casaInicial.getPeca().getCor() == Pecas.BRANCA) {
-				// Se a dama for Branca
-				verificaJogadaDBranca(obrigatoria, tabuleiro, casaInicial,
-						casaFinal, x, y);
-			} else {
-				// Se a dama for preta
-				verificaJogadaDPreta(obrigatoria, tabuleiro, casaInicial,
-						casaFinal, x, y);
-			}
+			verificaJogadaDama(obrigatoria, tabuleiro, casaInicial, casaFinal,
+					x, y);
 		} else {
 			// chamar classe de erros: Movimento invalido
 		}
 	}
 
-	public void verificaJogadaDBranca(boolean obrigatoria, Casa[][] tabuleiro,
+	public void verificaJogadaDama(boolean obrigatoria, Casa[][] tabuleiro,
 			Casa casaInicial, Casa casaFinal, int x, int y) {
 		int linha = casaInicial.getLinha();
 		int coluna = casaInicial.getColuna();
@@ -60,15 +52,14 @@ public class RegraDama {
 			if (tabuleiro[linha + y * z][coluna + x * z].getPeca() != null)
 			// Se houver peca
 			{
-				if (tabuleiro[linha + y * z][coluna + x * z].getPeca().getCor() == Pecas.BRANCA) {
+				if (tabuleiro[linha + y * z][coluna + x * z].getPeca().getCor() == casaInicial
+						.getPeca().getCor()) {
 					// Se ha peca branca na casa analisada
 					// chamar erro "nao pode pular a propria peca"
 				} else { // se ha peca preta, incrementar contador de peca
 					// adversaria
 					adversaria++;
 				}
-			} else {
-				// se nao houver peca
 			}
 			z++;
 		}
@@ -86,42 +77,25 @@ public class RegraDama {
 
 	}
 
-	public void verificaJogadaDPreta(boolean obrigatoria, Casa[][] tabuleiro,
-			Casa casaInicial, Casa casaFinal, int x, int y) {
-		int linha = casaInicial.getLinha();
-		int coluna = casaInicial.getColuna();
-		int z = 1; // incrementa para varrer toda a diagonal escolhida
-		int adversaria = 0; // conta as pecas adversarias no caminho
-		while (adversaria < 2 && (linha + y * z) != (casaFinal.getLinha())) {
-			// enquanto a linha analisada (comeca uma casa na frente da inicial)
-			// nao for igual a final e houver menos de 2 adversarios no caminho
-			if (tabuleiro[linha + y * z][coluna + x * z].getPeca() != null) // Se
-			// houver
-			// peca
-			{
-				if (tabuleiro[linha + y * z][coluna + x * z].getPeca().getCor() == Pecas.PRETA) {
-					// Se ha peca branca na casa analisada
-					// chamar erro "nao pode pular a propria peca"
-				} else { // se ha peca preta, incrementar contador de peca
-					// adversaria
-					adversaria++;
-				}
-			} else {
-				// se nao houver peca
-			}
-		}
-		if (adversaria == 0) {
-			if (obrigatoria) {
-				// Mensagem de jogada invalida
-			} else {
-				// chamar metodo mover
-			}
-		} else if (adversaria == 1) {
-			// chamar metodo comer
-		} else if (adversaria == 2) {
-			// chamar msg de movimento invalido
-		}
-	}
-
 	
+	//Antigo metodo de verificacao de Dama Preta
+	/*
+	 * public void verificaJogadaDPreta(boolean obrigatoria, Casa[][] tabuleiro,
+	 * Casa casaInicial, Casa casaFinal, int x, int y) { int linha =
+	 * casaInicial.getLinha(); int coluna = casaInicial.getColuna(); int z = 1;
+	 * // incrementa para varrer toda a diagonal escolhida int adversaria = 0;
+	 * // conta as pecas adversarias no caminho while (adversaria < 2 && (linha
+	 * + y * z) != (casaFinal.getLinha())) { // enquanto a linha analisada
+	 * (comeca uma casa na frente da inicial) // nao for igual a final e houver
+	 * menos de 2 adversarios no caminho if (tabuleiro[linha + y * z][coluna + x
+	 * * z].getPeca() != null) // Se // houver // peca { if (tabuleiro[linha + y
+	 * * z][coluna + x * z].getPeca().getCor() == Pecas.PRETA) { // Se ha peca
+	 * branca na casa analisada // chamar erro "nao pode pular a propria peca" }
+	 * else { // se ha peca preta, incrementar contador de peca // adversaria
+	 * adversaria++; } } else { // se nao houver peca } } if (adversaria == 0) {
+	 * if (obrigatoria) { // Mensagem de jogada invalida } else { // chamar
+	 * metodo mover } } else if (adversaria == 1) { // chamar metodo comer }
+	 * else if (adversaria == 2) { // chamar msg de movimento invalido } }
+	 */
+
 }
