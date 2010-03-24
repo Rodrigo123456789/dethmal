@@ -1,4 +1,3 @@
-package br.com.assinchronus.gui;
 
 
 
@@ -7,7 +6,7 @@ package br.com.assinchronus.gui;
  *
  * Created on 22/03/2010, 19:58:42
  */
-
+package br.com.assinchronus.gui;
 /**
  *
  * @author Matheus
@@ -357,8 +356,9 @@ public class Jogo extends javax.swing.JFrame {
         jButton57.setEnabled(false);
         getContentPane().add(jButton57);
         jButton57.setBounds(640, 20, 89, 89);
-
+ 
         jButton58.setBackground(new java.awt.Color(102, 102, 102));
+        jButton58.setIcon(new javax.swing.ImageIcon( "src/images/peca.png")); // NOI18N
         getContentPane().add(jButton58);
         jButton58.setBounds(10, 20, 89, 89);
 
@@ -368,6 +368,7 @@ public class Jogo extends javax.swing.JFrame {
         jButton59.setBounds(100, 20, 89, 89);
 
         jButton60.setBackground(new java.awt.Color(102, 102, 102));
+        jButton60.setIcon(new javax.swing.ImageIcon("src/images/pecapreta.png")); // NOI18N
         getContentPane().add(jButton60);
         jButton60.setBounds(190, 20, 89, 89);
 
@@ -377,6 +378,7 @@ public class Jogo extends javax.swing.JFrame {
         jButton61.setBounds(280, 20, 89, 89);
 
         jButton62.setBackground(new java.awt.Color(102, 102, 102));
+        jButton62.setIcon(new javax.swing.ImageIcon("src/images/dama.png")); // NOI18N
         getContentPane().add(jButton62);
         jButton62.setBounds(370, 20, 89, 89);
 
@@ -386,6 +388,7 @@ public class Jogo extends javax.swing.JFrame {
         jButton63.setBounds(460, 20, 89, 89);
 
         jButton64.setBackground(new java.awt.Color(102, 102, 102));
+        jButton64.setIcon(new javax.swing.ImageIcon("src/images/damapreta.png")); // NOI18N
         getContentPane().add(jButton64);
         jButton64.setBounds(550, 20, 89, 89);
 
