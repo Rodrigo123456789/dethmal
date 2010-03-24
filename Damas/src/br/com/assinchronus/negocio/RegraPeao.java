@@ -8,14 +8,14 @@ import br.com.assinchronus.componentes.Pecas;
 
 public class RegraPeao {
 
-	public void verificaJogadaPBranco(boolean obrigatoria, Casa[][] tabuleiro,
+	public void verificaJogadaPBranco(List<Casa[]> obrigatoria, Casa[][] tabuleiro,
 			Casa casaInicial, Casa casaFinal) {
 		if (casaFinal.getPeca() != null) {
 			// mandar o erro de já tem peça aki!
 		} else {
 			if (Math.abs(casaFinal.getColuna() - casaInicial.getColuna()) == 1
 					&& (casaFinal.getLinha() - casaInicial.getLinha() == -1)) {
-				if (obrigatoria) {
+				if (!obrigatoria.isEmpty()) {
 					// Mensagem de jogada invalida
 				} else {
 					// chamar metodo mover -> passar casa inicial e final
@@ -51,14 +51,14 @@ public class RegraPeao {
 		}
 	}
 
-	public void verificaJogadaPPreto(boolean obrigatoria, Casa[][] tabuleiro,
+	public void verificaJogadaPPreto(List<Casa[]> obrigatoria, Casa[][] tabuleiro,
 			Casa casaInicial, Casa casaFinal) {
 		if (casaFinal.getPeca() != null) {
 			// mandar o erro de já tem peça aki!
 		} else {
 			if (Math.abs(casaFinal.getColuna() - casaInicial.getColuna()) == 1
 					&& (casaFinal.getLinha() - casaInicial.getLinha() == 1)) {
-				if (obrigatoria) {
+				if (!obrigatoria.isEmpty()) {
 					// Mensagem de jogada invalida
 				} else {
 					// chamar metodo mover -> passar casa inicial e final
@@ -100,16 +100,11 @@ public class RegraPeao {
 		Casa[] acao = new Casa[2];
 		List<Casa[]> jogadaspossiveis = new ArrayList<Casa[]>();
 
-		if (tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() + 1]
-				.getPeca() != null
-				&& tabuleiro[casaInicial.getLinha() + 1][casaInicial
-						.getColuna() + 1].getPeca().getCor() != casaInicial
-						.getPeca().getCor()
-				&& tabuleiro[casaInicial.getLinha() + 2][casaInicial
-						.getColuna() + 2].getPeca() == null) {
-			acao[1] = casaInicial;
-			acao[2] = tabuleiro[casaInicial.getLinha() + 2][casaInicial
-					.getColuna() + 2];
+		if (tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() + 1].getPeca() != null
+			&& tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() + 1].getPeca().getCor() != casaInicial.getPeca().getCor()
+			&& tabuleiro[casaInicial.getLinha() + 2][casaInicial.getColuna() + 2].getPeca() == null) {
+			acao[0] = casaInicial;
+			acao[1] = tabuleiro[casaInicial.getLinha() + 2][casaInicial.getColuna() + 2];
 			jogadaspossiveis.add(acao);
 		}
 		if (tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() - 1]
@@ -119,8 +114,8 @@ public class RegraPeao {
 						.getPeca().getCor()
 				&& tabuleiro[casaInicial.getLinha() + 2][casaInicial
 						.getColuna() - 2].getPeca() == null) {
-			acao[1] = casaInicial;
-			acao[2] = tabuleiro[casaInicial.getLinha() + 2][casaInicial
+			acao[0] = casaInicial;
+			acao[1] = tabuleiro[casaInicial.getLinha() + 2][casaInicial
 					.getColuna() - 2];
 			jogadaspossiveis.add(acao);
 		}
@@ -131,8 +126,8 @@ public class RegraPeao {
 						.getPeca().getCor()
 				&& tabuleiro[casaInicial.getLinha() - 2][casaInicial
 						.getColuna() + 2].getPeca() == null) {
-			acao[1] = casaInicial;
-			acao[2] = tabuleiro[casaInicial.getLinha() - 2][casaInicial
+			acao[0] = casaInicial;
+			acao[1] = tabuleiro[casaInicial.getLinha() - 2][casaInicial
 					.getColuna() + 2];
 			jogadaspossiveis.add(acao);
 		}
@@ -143,8 +138,8 @@ public class RegraPeao {
 						.getPeca().getCor()
 				&& tabuleiro[casaInicial.getLinha() - 2][casaInicial
 						.getColuna() - 2].getPeca() == null) {
-			acao[1] = casaInicial;
-			acao[2] = tabuleiro[casaInicial.getLinha() - 2][casaInicial
+			acao[0] = casaInicial;
+			acao[1] = tabuleiro[casaInicial.getLinha() - 2][casaInicial
 					.getColuna() - 2];
 			jogadaspossiveis.add(acao);
 		}
