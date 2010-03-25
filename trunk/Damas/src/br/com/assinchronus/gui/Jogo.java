@@ -13,8 +13,6 @@ import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-
 import br.com.assinchronus.componentes.Casa;
 import br.com.assinchronus.componentes.Pecas;
 import br.com.assinchronus.componentes.Tabuleiro;
