@@ -6,23 +6,39 @@
 package br.com.assinchronus.gui;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import br.com.assinchronus.componentes.Casa;
+import br.com.assinchronus.componentes.Tabuleiro;
 
 /**
  * 
  * @author Matheus
  */
-public class Jogo extends javax.swing.JFrame {
+public class Jogo extends JFrame implements ActionListener{
 
 	/**
 	 * SerialVersion
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	
 	private JButton[][] buttons = new JButton[8][8];
-
+	
+	private javax.swing.JMenu jMenu1;
+	private javax.swing.JMenu jMenu2;
+	private javax.swing.JMenuBar jMenuBar1;
+	
+	Map<JButton, Casa> mapaTabuleiro = new HashMap<JButton, Casa>();
+	
+	Tabuleiro tabuleiro = new Tabuleiro();
+	
 	/** Creates new form Tabuleiro */
 	public Jogo() {
 		initComponents();
@@ -44,17 +60,18 @@ public class Jogo extends javax.swing.JFrame {
     			buttons[i][j] = new JButton();
     			if ((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)){
     				buttons[i][j].setBackground(black);
-    		        getContentPane().add(buttons[i][j]);
-    		        buttons[i][j].setText(i+" "+j);
-    		        buttons[i][j].setBounds(coluna, linha, 89, 89);
     			}else{
     				buttons[i][j].setBackground(white);
     				buttons[i][j].setEnabled(false);
-    		        getContentPane().add(buttons[i][j]);
-    		        buttons[i][j].setText(i+" "+j);
-    		        buttons[i][j].setBounds(coluna, linha, 89, 89);
     			}
     			
+    			getContentPane().add(buttons[i][j]);
+		        buttons[i][j].setText(i+" "+j);
+		        buttons[i][j].setBounds(coluna, linha, 89, 89);
+		        buttons[i][j].addActionListener(this);
+    			
+		        mapaTabuleiro.put(buttons[i][j], tabuleiro.getTabuleiro()[i][j]);
+		        
     			coluna += 90;
     		}
     		
@@ -93,12 +110,14 @@ public class Jogo extends javax.swing.JFrame {
 			}
 		});
 	}
-
-	// Variables declaration - do not modify//GEN-BEGIN:variables
-
-	private javax.swing.JMenu jMenu1;
-	private javax.swing.JMenu jMenu2;
-	private javax.swing.JMenuBar jMenuBar1;
-	// End of variables declaration//GEN-END:variables
-
+	
+	int x, y;
+	int x1, y1;
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Casa casa = mapaTabuleiro.get(e.getSource());
+		JOptionPane.showMessageDialog(null, casa.getPeca().getCor());
+		
+	}
 }
