@@ -50,6 +50,7 @@ public class RegraDama {
 		int z = 1; // incrementa para varrer toda a diagonal escolhida
 		int adversaria = 0; // conta as pecas adversarias no caminho
 		while (adversaria < 2 && (linha + y * z) != (casaFinal.getLinha())) {
+			//ATENCAO: ESSE WHILE PODE DAR ERRO SE O PLAYER NAO CLICAR EM DIAGONAL!!
 			// enquanto a linha analisada (comeca uma casa na frente da inicial)
 			// nao for igual a final e houver menos de 2 adversarios no caminho
 			if (tabuleiro[linha + y * z][coluna + x * z].getPeca() != null)
@@ -87,8 +88,7 @@ public class RegraDama {
 
 		for (l = -1, c = -1, z = 1; z <= 6; z++) {
 			// analisando diagonal superior esquerda
-			if (casaInicial.getLinha() + l * (z + 1) > -1 && casaInicial.getLinha() + l * (z + 1) < 8 && casaInicial.getColuna() + c * (z + 1) > -1
-					&& casaInicial.getColuna() + c * (z + 1) < 8) {
+			if (casaInicial.getLinha() + l * (z + 1) > -1 && casaInicial.getColuna() + c * (z + 1) > -1) {
 				if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca() != null) {
 					if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() == casaInicial.getPeca().getCor()
 							|| tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() != null) {
@@ -105,8 +105,7 @@ public class RegraDama {
 		}
 		for (l = -1, c = +1, z = 1; z <= 6; z++) {
 			// analisando diagonal superior direita
-			if (casaInicial.getLinha() + l * (z + 1) > -1 && casaInicial.getLinha() + l * (z + 1) < 8 && casaInicial.getColuna() + c * (z + 1) > -1
-					&& casaInicial.getColuna() + c * (z + 1) < 8) {
+			if (casaInicial.getLinha() + l * (z + 1) > -1 && casaInicial.getColuna() + c * (z + 1) < 8) {
 				if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca() != null) {
 					if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() == casaInicial.getPeca().getCor()
 							|| tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() != null) {
@@ -123,8 +122,7 @@ public class RegraDama {
 		}
 		for (l = +1, c = -1, z = 1; z <= 6; z++) {
 			// analisando diagonal inferior esquerda
-			if (casaInicial.getLinha() + l * (z + 1) > -1 && casaInicial.getLinha() + l * (z + 1) < 8 && casaInicial.getColuna() + c * (z + 1) > -1
-					&& casaInicial.getColuna() + c * (z + 1) < 8) {
+			if (casaInicial.getLinha() + l * (z + 1) < 8 && casaInicial.getColuna() + c * (z + 1) > -1) {
 				if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca() != null) {
 					if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() == casaInicial.getPeca().getCor()
 							|| tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() != null) {
@@ -141,8 +139,7 @@ public class RegraDama {
 		}
 		for (l = +1, c = +1, z = 1; z <= 6; z++) {
 			// analisando diagonal inferior direita
-			if (casaInicial.getLinha() + l * (z + 1) > -1 && casaInicial.getLinha() + l * (z + 1) < 8 && casaInicial.getColuna() + c * (z + 1) > -1
-					&& casaInicial.getColuna() + c * (z + 1) < 8) {
+			if (casaInicial.getLinha() + l * (z + 1) < 8 && casaInicial.getColuna() + c * (z + 1) < 8) {
 				if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca() != null) {
 					if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() == casaInicial.getPeca().getCor()
 							|| tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() != null) {
