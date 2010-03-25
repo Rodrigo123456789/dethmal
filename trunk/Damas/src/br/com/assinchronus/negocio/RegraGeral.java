@@ -26,7 +26,7 @@ public class RegraGeral {
 						if (tabuleiro[i][j].getPeca().getCor() == Pecas.BRANCA
 								&& (tabuleiro[i][j].getPeca() instanceof Peao)) {
 							// Se for um peao branco
-							if (j + 2 < 8 && j - 2 > -1 && i + 2 < 8 && i - 2 > -1) {
+							if (i - 2 > -1 && j + 2 < 8) {
 								if (tabuleiro[i - 1][j + 1].getPeca() != null && tabuleiro[i - 1][j + 1].getPeca().getCor() == Pecas.PRETA
 										&& tabuleiro[i - 2][j + 2].getPeca() == null) {
 									// se é possível comer para a diagonal
@@ -37,7 +37,7 @@ public class RegraGeral {
 									obrigatoria.add(casa);
 								}
 							}
-							if (j + 2 < 8 && j - 2 > -1 && i + 2 < 8 && i - 2 > -1) {
+							if (i - 2 > -1 && j - 2 > -1) {
 								if (tabuleiro[i - 1][j - 1].getPeca() != null && tabuleiro[i - 1][j - 1].getPeca().getCor() == Pecas.PRETA
 										&& tabuleiro[i - 2][j - 2].getPeca() == null) {
 									// se é possível comer para a diagonal
@@ -53,7 +53,7 @@ public class RegraGeral {
 							// Se for uma dama branca
 							for (l = -1, c = -1, z = 1; z <= 6; z++) {
 								// analisando diagonal superior esquerda
-								if ((i + l * (z + 1)) > -1 && (i + l * (z + 1)) < 8 && (j + c * (z + 1)) > -1 && (j + c * (z + 1)) < 8) {
+								if ((i + l * (z + 1)) > -1 && (j + c * (z + 1)) > -1) {
 									if (tabuleiro[i + l * z][j + c * z].getPeca() != null
 											&& tabuleiro[i + l * z][j + c * z]
 													.getPeca().getCor() == Pecas.PRETA) {
@@ -69,7 +69,7 @@ public class RegraGeral {
 							}
 							for (l = -1, c = +1, z = 1; z <= 6; z++) {
 								// analisando diagonal superior direita
-								if ((i + l * (z + 1)) > -1 && (i + l * (z + 1)) < 8 && (j + c * (z + 1)) > -1 && (j + c * (z + 1)) < 8) {
+								if ((i + l * (z + 1)) > -1 && (j + c * (z + 1)) < 8) {
 									if (tabuleiro[i + l * z][j + c * z].getPeca() != null
 											&& tabuleiro[i + l * z][j + c * z]
 													.getPeca().getCor() == Pecas.PRETA) {
@@ -85,7 +85,7 @@ public class RegraGeral {
 							}
 							for (l = +1, c = -1, z = 1; z <= 6; z++) {
 								// analisando diagonal inferior esquerda
-								if ((i + l * (z + 1)) > -1 && (i + l * (z + 1)) < 8 && (j + c * (z + 1)) > -1 && (j + c * (z + 1)) < 8) {
+								if ((i + l * (z + 1)) < 8 && (j + c * (z + 1)) > -1) {
 									if (tabuleiro[i + l * z][j + c * z].getPeca() != null
 											&& tabuleiro[i + l * z][j + c * z]
 													.getPeca().getCor() == Pecas.PRETA) {
@@ -101,7 +101,7 @@ public class RegraGeral {
 							}
 							for (l = +1, c = +1, z = 1; z <= 6; z++) {
 								// analisando diagonal inferior direita
-								if ((i + l * (z + 1)) > -1 && (i + l * (z + 1)) < 8 && (j + c * (z + 1)) > -1 && (j + c * (z + 1)) < 8) {
+								if ((i + l * (z + 1)) < 8 && (j + c * (z + 1)) < 8) {
 									if (tabuleiro[i + l * z][j + c * z].getPeca() != null
 											&& tabuleiro[i + l * z][j + c * z]
 													.getPeca().getCor() == Pecas.PRETA) {
@@ -121,7 +121,7 @@ public class RegraGeral {
 						if (tabuleiro[i][j].getPeca().getCor() == Pecas.PRETA
 								&& (tabuleiro[i][j].getPeca() instanceof Peao)) {
 							// Se for um peao preto
-							if (j + 2 < 8 && j - 2 > -1 && i + 2 < 8 && i - 2 > -1) {
+							if (i + 2 < 8 && j + 2 < 8) {
 								if (tabuleiro[i + 1][j + 1].getPeca().getCor() == Pecas.BRANCA
 										&& tabuleiro[i + 2][j + 2].getPeca() == null) {
 									// se é possível comer para a diagonal
@@ -132,7 +132,7 @@ public class RegraGeral {
 									obrigatoria.add(casa);
 								}
 							}
-							if (j + 2 < 8 && j - 2 > -1 && i + 2 < 8 && i - 2 > -1) {
+							if (i + 2 < 8 && j - 2 > -1) {
 								if (tabuleiro[i + 1][j - 1].getPeca().getCor() == Pecas.BRANCA
 										&& tabuleiro[i + 2][j - 2].getPeca() == null) {
 									// se é possível comer para a diagonal
@@ -148,7 +148,7 @@ public class RegraGeral {
 							// Se for uma dama preta
 							for (l = -1, c = -1, z = 1; z <= 6; z++) {
 								// analisando diagonal superior esquerda
-								if ((i + l * (z + 1)) > -1 && (i + l * (z + 1)) < 8 && (j + c * (z + 1)) > -1 && (j + c * (z + 1)) < 8) {
+								if ((i + l * (z + 1)) > -1 && (j + c * (z + 1)) > -1) {
 									if (tabuleiro[i + l * z][j + c * z].getPeca() != null
 											&& tabuleiro[i + l * z][j + c * z]
 													.getPeca().getCor() == Pecas.BRANCA) {
@@ -164,7 +164,7 @@ public class RegraGeral {
 							}
 							for (l = -1, c = +1, z = 1; z <= 6; z++) {
 								// analisando diagonal superior direita
-								if ((i + l * (z + 1)) > -1 && (i + l * (z + 1)) < 8 && (j + c * (z + 1)) > -1 && (j + c * (z + 1)) < 8) {
+								if ((i + l * (z + 1)) > -1 && (j + c * (z + 1)) < 8) {
 									if (tabuleiro[i + l * z][j + c * z].getPeca() != null
 											&& tabuleiro[i + l * z][j + c * z]
 													.getPeca().getCor() == Pecas.BRANCA) {
@@ -180,7 +180,7 @@ public class RegraGeral {
 							}
 							for (l = +1, c = -1, z = 1; z <= 6; z++) {
 								// analisando diagonal inferior esquerda
-								if ((i + l * (z + 1)) > -1 && (i + l * (z + 1)) < 8 && (j + c * (z + 1)) > -1 && (j + c * (z + 1)) < 8) {
+								if ((i + l * (z + 1)) < 8 && (j + c * (z + 1)) > -1) {
 									if (tabuleiro[i + l * z][j + c * z].getPeca() != null
 											&& tabuleiro[i + l * z][j + c * z]
 													.getPeca().getCor() == Pecas.BRANCA) {
