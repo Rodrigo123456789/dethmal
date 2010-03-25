@@ -50,7 +50,7 @@ public class RegraPeao {
 				// inválido
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -103,48 +103,56 @@ public class RegraPeao {
 		Casa[] acao = new Casa[2];
 		List<Casa[]> jogadaspossiveis = new ArrayList<Casa[]>();
 
-		if (tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() + 1].getPeca() != null
-			&& tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() + 1].getPeca().getCor() != casaInicial.getPeca().getCor()
-			&& tabuleiro[casaInicial.getLinha() + 2][casaInicial.getColuna() + 2].getPeca() == null) {
-			acao[0] = casaInicial;
-			acao[1] = tabuleiro[casaInicial.getLinha() + 2][casaInicial.getColuna() + 2];
-			jogadaspossiveis.add(acao);
+		if (casaInicial.getLinha() + 2 < 8 && casaInicial.getLinha() - 2 > -1 && casaInicial.getColuna() + 2 < 8 && casaInicial.getColuna() - 2 > -1) {
+			if (tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() + 1].getPeca() != null
+					&& tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() + 1].getPeca().getCor() != casaInicial.getPeca().getCor()
+					&& tabuleiro[casaInicial.getLinha() + 2][casaInicial.getColuna() + 2].getPeca() == null) {
+				acao[0] = casaInicial;
+				acao[1] = tabuleiro[casaInicial.getLinha() + 2][casaInicial.getColuna() + 2];
+				jogadaspossiveis.add(acao);
+			}
 		}
-		if (tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() - 1]
-				.getPeca() != null
-				&& tabuleiro[casaInicial.getLinha() + 1][casaInicial
-						.getColuna() - 1].getPeca().getCor() != casaInicial
-						.getPeca().getCor()
-				&& tabuleiro[casaInicial.getLinha() + 2][casaInicial
-						.getColuna() - 2].getPeca() == null) {
-			acao[0] = casaInicial;
-			acao[1] = tabuleiro[casaInicial.getLinha() + 2][casaInicial
-					.getColuna() - 2];
-			jogadaspossiveis.add(acao);
+		if (casaInicial.getLinha() + 2 < 8 && casaInicial.getLinha() - 2 > -1 && casaInicial.getColuna() + 2 < 8 && casaInicial.getColuna() - 2 > -1) {
+			if (tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() - 1]
+					.getPeca() != null
+					&& tabuleiro[casaInicial.getLinha() + 1][casaInicial
+							.getColuna() - 1].getPeca().getCor() != casaInicial
+							.getPeca().getCor()
+					&& tabuleiro[casaInicial.getLinha() + 2][casaInicial
+							.getColuna() - 2].getPeca() == null) {
+				acao[0] = casaInicial;
+				acao[1] = tabuleiro[casaInicial.getLinha() + 2][casaInicial
+						.getColuna() - 2];
+				jogadaspossiveis.add(acao);
+			}
 		}
-		if (tabuleiro[casaInicial.getLinha() - 1][casaInicial.getColuna() + 1]
-				.getPeca() != null
-				&& tabuleiro[casaInicial.getLinha() - 1][casaInicial
-						.getColuna() + 1].getPeca().getCor() != casaInicial
-						.getPeca().getCor()
-				&& tabuleiro[casaInicial.getLinha() - 2][casaInicial
-						.getColuna() + 2].getPeca() == null) {
-			acao[0] = casaInicial;
-			acao[1] = tabuleiro[casaInicial.getLinha() - 2][casaInicial
-					.getColuna() + 2];
-			jogadaspossiveis.add(acao);
+		if (casaInicial.getLinha() + 2 < 8 && casaInicial.getLinha() - 2 > -1 && casaInicial.getColuna() + 2 < 8 && casaInicial.getColuna() - 2 > -1) {
+			if (tabuleiro[casaInicial.getLinha() - 1][casaInicial.getColuna() + 1]
+					.getPeca() != null
+					&& tabuleiro[casaInicial.getLinha() - 1][casaInicial
+							.getColuna() + 1].getPeca().getCor() != casaInicial
+							.getPeca().getCor()
+					&& tabuleiro[casaInicial.getLinha() - 2][casaInicial
+							.getColuna() + 2].getPeca() == null) {
+				acao[0] = casaInicial;
+				acao[1] = tabuleiro[casaInicial.getLinha() - 2][casaInicial
+						.getColuna() + 2];
+				jogadaspossiveis.add(acao);
+			}
 		}
-		if (tabuleiro[casaInicial.getLinha() - 1][casaInicial.getColuna() - 1]
-				.getPeca() != null
-				&& tabuleiro[casaInicial.getLinha() - 1][casaInicial
-						.getColuna() - 1].getPeca().getCor() != casaInicial
-						.getPeca().getCor()
-				&& tabuleiro[casaInicial.getLinha() - 2][casaInicial
-						.getColuna() - 2].getPeca() == null) {
-			acao[0] = casaInicial;
-			acao[1] = tabuleiro[casaInicial.getLinha() - 2][casaInicial
-					.getColuna() - 2];
-			jogadaspossiveis.add(acao);
+		if (casaInicial.getLinha() + 2 < 8 && casaInicial.getLinha() - 2 > -1 && casaInicial.getColuna() + 2 < 8 && casaInicial.getColuna() - 2 > -1) {
+			if (tabuleiro[casaInicial.getLinha() - 1][casaInicial.getColuna() - 1]
+					.getPeca() != null
+					&& tabuleiro[casaInicial.getLinha() - 1][casaInicial
+							.getColuna() - 1].getPeca().getCor() != casaInicial
+							.getPeca().getCor()
+					&& tabuleiro[casaInicial.getLinha() - 2][casaInicial
+							.getColuna() - 2].getPeca() == null) {
+				acao[0] = casaInicial;
+				acao[1] = tabuleiro[casaInicial.getLinha() - 2][casaInicial
+						.getColuna() - 2];
+				jogadaspossiveis.add(acao);
+			}
 		}
 		return jogadaspossiveis;
 	}
