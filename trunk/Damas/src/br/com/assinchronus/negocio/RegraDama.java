@@ -79,98 +79,84 @@ public class RegraDama {
 		}
 
 	}
-	
-	public List<Casa[]> verificaSequenciaDama(Casa[][] tabuleiro, Casa casaInicial){
+
+	public List<Casa[]> verificaSequenciaDama(Casa[][] tabuleiro, Casa casaInicial) {
 		int z, l, c;
 		Casa[] acao = new Casa[2];
 		List<Casa[]> jogadaspossiveis = new ArrayList<Casa[]>();
-		
+
 		for (l = -1, c = -1, z = 1; z <= 6; z++) {
 			// analisando diagonal superior esquerda
-			if(tabuleiro[casaInicial.getLinha()+ l * z][casaInicial.getColuna()+ c * z].getPeca() != null)
-			{
-				if(tabuleiro[casaInicial.getLinha()+ l * z][casaInicial.getColuna()+ c * z].getPeca().getCor() == casaInicial.getPeca().getCor()
-				|| tabuleiro[casaInicial.getLinha()+ l * (z+1)][casaInicial.getColuna()+ c * (z+1)].getPeca()!=null)
-				{
-					break;
-				}
-				if ((tabuleiro[casaInicial.getLinha()+ l * z][casaInicial.getColuna()+ c * z].getPeca().getCor() != casaInicial.getPeca().getCor()) &&(tabuleiro[casaInicial.getLinha()+ l * (z + 1)][casaInicial.getColuna()+ c * (z + 1)].getPeca() == null)) {
-					acao[0] = tabuleiro[casaInicial.getLinha()][casaInicial.getColuna()];
-					acao[1] = tabuleiro[casaInicial.getLinha()+ l * (z + 1)][casaInicial.getColuna()+ c * (z + 1)];
-					jogadaspossiveis.add(acao);
+			if (casaInicial.getLinha() + l * (z + 1) > -1 && casaInicial.getLinha() + l * (z + 1) < 8 && casaInicial.getColuna() + c * (z + 1) > -1
+					&& casaInicial.getColuna() + c * (z + 1) < 8) {
+				if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca() != null) {
+					if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() == casaInicial.getPeca().getCor()
+							|| tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() != null) {
+						break;
+					}
+					if ((tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() != casaInicial.getPeca().getCor())
+							&& (tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() == null)) {
+						acao[0] = tabuleiro[casaInicial.getLinha()][casaInicial.getColuna()];
+						acao[1] = tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)];
+						jogadaspossiveis.add(acao);
+					}
 				}
 			}
 		}
 		for (l = -1, c = +1, z = 1; z <= 6; z++) {
 			// analisando diagonal superior direita
-			if(tabuleiro[casaInicial.getLinha()+ l * z][casaInicial.getColuna()+ c * z].getPeca() != null)
-			{
-				if(tabuleiro[casaInicial.getLinha()+ l * z][casaInicial.getColuna()+ c * z].getPeca().getCor() == casaInicial.getPeca().getCor()
-				|| tabuleiro[casaInicial.getLinha()+ l * (z+1)][casaInicial.getColuna()+ c * (z+1)].getPeca()!=null)
-				{
-					break;
-				}
-				if ((tabuleiro[casaInicial.getLinha()+ l * z][casaInicial.getColuna()+ c * z].getPeca().getCor() != casaInicial.getPeca().getCor()) &&(tabuleiro[casaInicial.getLinha()+ l * (z + 1)][casaInicial.getColuna()+ c * (z + 1)].getPeca() == null)) {
-					acao[0] = tabuleiro[casaInicial.getLinha()][casaInicial.getColuna()];
-					acao[1] = tabuleiro[casaInicial.getLinha()+ l * (z + 1)][casaInicial.getColuna()+ c * (z + 1)];
-					jogadaspossiveis.add(acao);
+			if (casaInicial.getLinha() + l * (z + 1) > -1 && casaInicial.getLinha() + l * (z + 1) < 8 && casaInicial.getColuna() + c * (z + 1) > -1
+					&& casaInicial.getColuna() + c * (z + 1) < 8) {
+				if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca() != null) {
+					if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() == casaInicial.getPeca().getCor()
+							|| tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() != null) {
+						break;
+					}
+					if ((tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() != casaInicial.getPeca().getCor())
+							&& (tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() == null)) {
+						acao[0] = tabuleiro[casaInicial.getLinha()][casaInicial.getColuna()];
+						acao[1] = tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)];
+						jogadaspossiveis.add(acao);
+					}
 				}
 			}
 		}
 		for (l = +1, c = -1, z = 1; z <= 6; z++) {
 			// analisando diagonal inferior esquerda
-			if(tabuleiro[casaInicial.getLinha()+ l * z][casaInicial.getColuna()+ c * z].getPeca() != null)
-			{
-				if(tabuleiro[casaInicial.getLinha()+ l * z][casaInicial.getColuna()+ c * z].getPeca().getCor() == casaInicial.getPeca().getCor()
-				|| tabuleiro[casaInicial.getLinha()+ l * (z+1)][casaInicial.getColuna()+ c * (z+1)].getPeca()!=null)
-				{
-					break;
-				}
-				if ((tabuleiro[casaInicial.getLinha()+ l * z][casaInicial.getColuna()+ c * z].getPeca().getCor() != casaInicial.getPeca().getCor()) &&(tabuleiro[casaInicial.getLinha()+ l * (z + 1)][casaInicial.getColuna()+ c * (z + 1)].getPeca() == null)) {
-					acao[0] = tabuleiro[casaInicial.getLinha()][casaInicial.getColuna()];
-					acao[1] = tabuleiro[casaInicial.getLinha()+ l * (z + 1)][casaInicial.getColuna()+ c * (z + 1)];
-					jogadaspossiveis.add(acao);
+			if (casaInicial.getLinha() + l * (z + 1) > -1 && casaInicial.getLinha() + l * (z + 1) < 8 && casaInicial.getColuna() + c * (z + 1) > -1
+					&& casaInicial.getColuna() + c * (z + 1) < 8) {
+				if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca() != null) {
+					if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() == casaInicial.getPeca().getCor()
+							|| tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() != null) {
+						break;
+					}
+					if ((tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() != casaInicial.getPeca().getCor())
+							&& (tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() == null)) {
+						acao[0] = tabuleiro[casaInicial.getLinha()][casaInicial.getColuna()];
+						acao[1] = tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)];
+						jogadaspossiveis.add(acao);
+					}
 				}
 			}
 		}
 		for (l = +1, c = +1, z = 1; z <= 6; z++) {
 			// analisando diagonal inferior direita
-			if(tabuleiro[casaInicial.getLinha()+ l * z][casaInicial.getColuna()+ c * z].getPeca() != null)
-			{
-				if(tabuleiro[casaInicial.getLinha()+ l * z][casaInicial.getColuna()+ c * z].getPeca().getCor() == casaInicial.getPeca().getCor()
-				|| tabuleiro[casaInicial.getLinha()+ l * (z+1)][casaInicial.getColuna()+ c * (z+1)].getPeca()!=null)
-				{
-					break;
-				}
-				if ((tabuleiro[casaInicial.getLinha()+ l * z][casaInicial.getColuna()+ c * z].getPeca().getCor() != casaInicial.getPeca().getCor()) &&(tabuleiro[casaInicial.getLinha()+ l * (z + 1)][casaInicial.getColuna()+ c * (z + 1)].getPeca() == null)) {
-					acao[0] = tabuleiro[casaInicial.getLinha()][casaInicial.getColuna()];
-					acao[1] = tabuleiro[casaInicial.getLinha()+ l * (z + 1)][casaInicial.getColuna()+ c * (z + 1)];
-					jogadaspossiveis.add(acao);
+			if (casaInicial.getLinha() + l * (z + 1) > -1 && casaInicial.getLinha() + l * (z + 1) < 8 && casaInicial.getColuna() + c * (z + 1) > -1
+					&& casaInicial.getColuna() + c * (z + 1) < 8) {
+				if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca() != null) {
+					if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() == casaInicial.getPeca().getCor()
+							|| tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() != null) {
+						break;
+					}
+					if ((tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() != casaInicial.getPeca().getCor())
+							&& (tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() == null)) {
+						acao[0] = tabuleiro[casaInicial.getLinha()][casaInicial.getColuna()];
+						acao[1] = tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)];
+						jogadaspossiveis.add(acao);
+					}
 				}
 			}
 		}
 		return jogadaspossiveis;
 	}
-
-	
-	//Antigo metodo de verificacao de Dama Preta
-	/*
-	 * public void verificaJogadaDPreta(boolean obrigatoria, Casa[][] tabuleiro,
-	 * Casa casaInicial, Casa casaFinal, int x, int y) { int linha =
-	 * casaInicial.getLinha(); int coluna = casaInicial.getColuna(); int z = 1;
-	 * // incrementa para varrer toda a diagonal escolhida int adversaria = 0;
-	 * // conta as pecas adversarias no caminho while (adversaria < 2 && (linha
-	 * + y * z) != (casaFinal.getLinha())) { // enquanto a linha analisada
-	 * (comeca uma casa na frente da inicial) // nao for igual a final e houver
-	 * menos de 2 adversarios no caminho if (tabuleiro[linha + y * z][coluna + x
-	 * * z].getPeca() != null) // Se // houver // peca { if (tabuleiro[linha + y
-	 * * z][coluna + x * z].getPeca().getCor() == Pecas.PRETA) { // Se ha peca
-	 * branca na casa analisada // chamar erro "nao pode pular a propria peca" }
-	 * else { // se ha peca preta, incrementar contador de peca // adversaria
-	 * adversaria++; } } else { // se nao houver peca } } if (adversaria == 0) {
-	 * if (obrigatoria) { // Mensagem de jogada invalida } else { // chamar
-	 * metodo mover } } else if (adversaria == 1) { // chamar metodo comer }
-	 * else if (adversaria == 2) { // chamar msg de movimento invalido } }
-	 */
-
 }
