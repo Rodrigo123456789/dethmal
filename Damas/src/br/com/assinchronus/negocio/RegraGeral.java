@@ -10,11 +10,11 @@ import br.com.assinchronus.componentes.Pecas;
 
 public class RegraGeral {
 	
-	RegraPeao rp = new RegraPeao();
-	RegraDama rd = new RegraDama();
+	static RegraPeao rp = new RegraPeao();
+	static RegraDama rd = new RegraDama();
 
 	
-	public List<Casa[]> verificaCapturaObrigatoria(int jogada, Casa[][] tabuleiro) {
+	public static List<Casa[]> verificaCapturaObrigatoria(int jogada, Casa[][] tabuleiro) {
 		int z, l, c;
 		Casa[] casa = new Casa[2];
 		List<Casa[]> obrigatoria = new ArrayList<Casa[]>();
@@ -27,7 +27,7 @@ public class RegraGeral {
 						if (tabuleiro[i][j].getPeca().getCor() == Pecas.BRANCA
 								&& (tabuleiro[i][j].getPeca() instanceof Peao)) {
 							// Se for um peao branco
-							if (tabuleiro[i - 1][j + 1].getPeca().getCor() == Pecas.PRETA
+							if (j + 1 < 8 && tabuleiro[i - 1][j + 1].getPeca() != null && tabuleiro[i - 1][j + 1].getPeca().getCor() == Pecas.PRETA
 									&& tabuleiro[i - 2][j + 2].getPeca() == null) {
 								// se é possível comer para a diagonal superior
 								// direita
@@ -35,7 +35,7 @@ public class RegraGeral {
 								casa[1] = tabuleiro[i - 2][j + 2];
 								obrigatoria.add(casa);
 							}
-							if (tabuleiro[i - 1][j - 1].getPeca().getCor() == Pecas.PRETA
+							if (tabuleiro[i - 1][j - 1].getPeca() != null && tabuleiro[i - 1][j - 1].getPeca().getCor() == Pecas.PRETA
 									&& tabuleiro[i - 2][j - 2].getPeca() == null) {
 								// se é possível comer para a diagonal superior
 								// esquerda
@@ -43,7 +43,7 @@ public class RegraGeral {
 								casa[1] = tabuleiro[i - 2][j - 2];
 								obrigatoria.add(casa);
 							}
-						} else if (tabuleiro[i][j].getPeca().getCor() == Pecas.BRANCA
+						} else if (tabuleiro[i][j].getPeca() != null && tabuleiro[i][j].getPeca().getCor() == Pecas.BRANCA
 								&& (tabuleiro[i][j].getPeca() instanceof Dama)) {
 							// Se for uma dama branca
 							for (l = -1, c = -1, z = 1; z <= 6; z++) {
@@ -191,7 +191,7 @@ public class RegraGeral {
 		return obrigatoria;
 	}
 
-	public void validarPeca(boolean sequencia, int jogada, Casa[][] tabuleiro,
+	public static Casa validarPeca(boolean sequencia, int jogada, Casa[][] tabuleiro,
 			Casa casaInicial, Casa casaFinal) {
 
 		List<Casa[]> obrigatoria = null;
@@ -203,7 +203,7 @@ public class RegraGeral {
 
 		if ((casaInicial.getPeca() instanceof Peao)
 				&& (casaInicial.getPeca().getCor() == Pecas.BRANCA)) {
-			rp.verificaJogadaPBranco(obrigatoria, tabuleiro, casaInicial,
+			return rp.verificaJogadaPBranco(obrigatoria, tabuleiro, casaInicial,
 					casaFinal);
 		} else if ((casaInicial.getPeca() instanceof Peao)
 				&& (casaInicial.getPeca().getCor() == Pecas.PRETA)) {
@@ -213,6 +213,8 @@ public class RegraGeral {
 			rd.verificaDiagonalDama(obrigatoria, tabuleiro, casaInicial,
 					casaFinal);
 		}
+		
+		return null;
 	}
 
 }

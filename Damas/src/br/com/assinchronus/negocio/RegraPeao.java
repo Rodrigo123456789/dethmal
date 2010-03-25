@@ -8,7 +8,7 @@ import br.com.assinchronus.componentes.Pecas;
 
 public class RegraPeao {
 
-	public void verificaJogadaPBranco(List<Casa[]> obrigatoria, Casa[][] tabuleiro,
+	public Casa verificaJogadaPBranco(List<Casa[]> obrigatoria, Casa[][] tabuleiro,
 			Casa casaInicial, Casa casaFinal) {
 		if (casaFinal.getPeca() != null) {
 			// mandar o erro de já tem peça aki!
@@ -18,7 +18,8 @@ public class RegraPeao {
 				if (!obrigatoria.isEmpty()) {
 					// Mensagem de jogada invalida
 				} else {
-					// chamar metodo mover -> passar casa inicial e final
+					casaInicial.getPeca().mover(casaInicial, casaFinal);
+					return casaInicial;
 				}
 			} else if ((casaFinal.getColuna() - casaInicial.getColuna()) == 2
 					&& (casaFinal.getLinha() - casaInicial.getLinha() == -2)) {
@@ -49,6 +50,8 @@ public class RegraPeao {
 				// inválido
 			}
 		}
+		
+		return null;
 	}
 
 	public void verificaJogadaPPreto(List<Casa[]> obrigatoria, Casa[][] tabuleiro,
