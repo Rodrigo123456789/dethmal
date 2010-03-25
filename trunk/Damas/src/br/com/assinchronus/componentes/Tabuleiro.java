@@ -9,15 +9,15 @@ package br.com.assinchronus.componentes;
 public class Tabuleiro {
 
 	// Array com todas as casas validas do jogo
-	private Casa[][] tabuleiro = new Casa[8][8];
+	private Casa[][] tabuleiro = new Casa[10][10];
 
 	/**
 	 * Nome: Construtor Descrio: Monta o tabuleiro
 	 */
 	public Tabuleiro() {
 
-		for (int i = 0; i < tabuleiro.length; i++) {
-			for (int j = 0; j < tabuleiro[i].length; j++) {
+		for (int i = 1; i < tabuleiro.length - 1; i++) {
+			for (int j = 1; j < tabuleiro[i].length - 1; j++) {
 				if ((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) {
 					Casa casa = new Casa();
 					casa.setLinha(i);
@@ -45,15 +45,15 @@ public class Tabuleiro {
 		int linhaFim = 0;
 
 		if (cor == Peao.BRANCA) {
-			linhaInicio = 5;
-			linhaFim = 7;
+			linhaInicio = 6;
+			linhaFim = 8;
 		} else if (cor == Peao.PRETA) {
-			linhaInicio = 0;
-			linhaFim = 2;
+			linhaInicio = 1;
+			linhaFim = 3;
 		}
 
 		for (; linhaInicio <= linhaFim; linhaInicio++) {
-			for (int j = 0; j < tabuleiro[linhaInicio].length; j++) {
+			for (int j = 1; j < tabuleiro[linhaInicio].length - 1; j++) {
 				if ((linhaInicio % 2 == 0 && j % 2 == 0) || (linhaInicio % 2 == 1 && j % 2 == 1)) {
 					peca = new Peao();
 
@@ -71,11 +71,11 @@ public class Tabuleiro {
 	 * Nome: printTabuleiro Descrio: Imprimi o tabuleiro
 	 */
 	public void printTabuleiro() {
-		for (int i = 0; i < tabuleiro.length; i++) {
-			for (int j = 0; j < tabuleiro[i].length; j++) {
+		for (int i = 1; i < tabuleiro.length - 1; i++) {
+			for (int j = 1; j < tabuleiro[i].length - 1; j++) {
 
 				if (tabuleiro[i][j] != null) {
-					if (i % 2 == 1) {
+					if (i % 2 == 0) {
 
 						if (tabuleiro[i][j].getPeca() != null)
 							System.out.print("\t" + tabuleiro[i][j] + "-" + tabuleiro[i][j].getPeca().getCor() + "\t");

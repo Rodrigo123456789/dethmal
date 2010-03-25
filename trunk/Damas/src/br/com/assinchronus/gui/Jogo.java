@@ -16,7 +16,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import br.com.assinchronus.componentes.Casa;
+import br.com.assinchronus.componentes.Pecas;
 import br.com.assinchronus.componentes.Tabuleiro;
+import br.com.assinchronus.negocio.RegraGeral;
 
 /**
  * 
@@ -111,13 +113,22 @@ public class Jogo extends JFrame implements ActionListener{
 		});
 	}
 	
-	int x, y;
-	int x1, y1;
+	private void refresh(){
+		
+	}
+	
+	Casa casaInicial;
+	Casa casaFinal;
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Casa casa = mapaTabuleiro.get(e.getSource());
-		JOptionPane.showMessageDialog(null, casa.getPeca().getCor());
-		
+		if(casaInicial == null){
+			casaInicial = mapaTabuleiro.get(e.getSource());
+		}else{
+			casaFinal = mapaTabuleiro.get(e.getSource());
+			Casa modificada =  RegraGeral.validarPeca(false, Pecas.BRANCA, tabuleiro.getTabuleiro(), casaInicial, casaFinal);
+			buttons[modificada.getLinha()][modificada.getColuna()].setText("0");
+			
+		}
 	}
 }
