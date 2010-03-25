@@ -234,7 +234,7 @@ public class RegraGeral {
 					casaFinal);
 		} else if ((casaInicial.getPeca() instanceof Peao)
 				&& (casaInicial.getPeca().getCor() == Pecas.PRETA)) {
-			rp.verificaJogadaPPreto(obrigatoria, tabuleiro, casaInicial,
+			return rp.verificaJogadaPPreto(obrigatoria, tabuleiro, casaInicial,
 					casaFinal);
 		} else if (casaInicial.getPeca() instanceof Dama) {
 			rd.verificaDiagonalDama(obrigatoria, tabuleiro, casaInicial,
