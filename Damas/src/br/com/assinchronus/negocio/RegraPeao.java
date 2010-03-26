@@ -31,7 +31,7 @@ public class RegraPeao {
 	public void verificaJogadaPBranco(List<Casa[]> obrigatoria, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal) throws JogadaInvalida {
 		if (Math.abs(casaFinal.getColuna() - casaInicial.getColuna()) == 1 && (casaFinal.getLinha() - casaInicial.getLinha() == -1)) {
 			if (!obrigatoria.isEmpty()) {
-				throw new JogadaInvalida("Você deve capturar uma peça");
+				throw new JogadaInvalida("Voce deve capturar uma peca");
 			} else {
 				casaInicial.getPeca().mover(casaInicial, casaFinal);
 			}
@@ -41,7 +41,7 @@ public class RegraPeao {
 			if (adversaria.getPeca() != null && adversaria.getPeca().getCor() == Pecas.PRETA) {
 				casaInicial.getPeca().comer(casaInicial, adversaria, casaFinal);
 			} else {
-				throw new JogadaInvalida("Jogada inválida");
+				throw new JogadaInvalida("Jogada invalida");
 			}
 		} else if ((casaFinal.getColuna() - casaInicial.getColuna()) == -2 && (casaFinal.getLinha() - casaInicial.getLinha() == -2)) {
 			// Movimento duplo para a esquerda
@@ -49,10 +49,10 @@ public class RegraPeao {
 			if (adversaria.getPeca() != null && adversaria.getPeca().getCor() == Pecas.PRETA) {
 				casaInicial.getPeca().comer(casaInicial, adversaria, casaFinal);
 			} else {
-				throw new JogadaInvalida("Jogada inválida");
+				throw new JogadaInvalida("Jogada invalida");
 			}
 		} else {
-			throw new JogadaInvalida("Jogada inválida");
+			throw new JogadaInvalida("Jogada invalida");
 		}
 
 	}
@@ -73,7 +73,7 @@ public class RegraPeao {
 	public void verificaJogadaPPreto(List<Casa[]> obrigatoria, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal) throws JogadaInvalida {
 		if (Math.abs(casaFinal.getColuna() - casaInicial.getColuna()) == 1 && (casaFinal.getLinha() - casaInicial.getLinha() == 1)) {
 			if (!obrigatoria.isEmpty()) {
-				throw new JogadaInvalida("Você deve capturar uma peça");
+				throw new JogadaInvalida("Voce deve capturar uma peca");
 			} else {
 				casaInicial.getPeca().mover(casaInicial, casaFinal);
 			}
@@ -85,16 +85,16 @@ public class RegraPeao {
 			} else {
 				throw new JogadaInvalida("Jogada inválida");
 			}
-		} else if ((casaFinal.getColuna() - casaInicial.getColuna()) == -2 && (casaFinal.getLinha() - casaInicial.getLinha() == -2)) {
+		} else if ((casaFinal.getColuna() - casaInicial.getColuna()) == -2 && (casaFinal.getLinha() - casaInicial.getLinha() == 2)) {
 			// Movimento duplo para a esquerda
 			Casa adversaria = tabuleiro[casaInicial.getLinha() + 1][casaFinal.getColuna() + 1];
 			if (adversaria.getPeca() != null && adversaria.getPeca().getCor() == Pecas.BRANCA) {
 				casaInicial.getPeca().comer(casaInicial, adversaria, casaFinal);
 			} else {
-				throw new JogadaInvalida("Jogada inválida");
+				throw new JogadaInvalida("Jogada invalida");
 			}
 		} else {
-			throw new JogadaInvalida("Jogada inválida");
+			throw new JogadaInvalida("Jogada invalida");
 		}
 	}
 
