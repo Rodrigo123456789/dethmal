@@ -7,12 +7,10 @@ import br.com.assinchronus.componentes.Casa;
 
 public class RegraDama {
 
-	public void verificaDiagonalDama(List<Casa[]> obrigatoria, Casa[][] tabuleiro,
-			Casa casaInicial, Casa casaFinal) {
+	public void verificaDiagonalDama(List<Casa[]> obrigatoria, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal) {
 		int x; // salva a direcao horizontal do movimento
 		int y; // salva a direcao vertical do movimento
-		if (Math.abs(casaFinal.getLinha() - casaInicial.getLinha()) == Math
-				.abs(casaFinal.getColuna() - casaInicial.getColuna())) {
+		if (Math.abs(casaFinal.getLinha() - casaInicial.getLinha()) == Math.abs(casaFinal.getColuna() - casaInicial.getColuna())) {
 			// caso o movimento tenha sido dentro de uma diagonal permitida
 			x = casaFinal.getColuna() - casaInicial.getColuna();
 			y = casaFinal.getLinha() - casaInicial.getLinha();
@@ -36,28 +34,26 @@ public class RegraDama {
 				x = -1;
 				y = -1;
 			}
-			verificaJogadaDama(obrigatoria, tabuleiro, casaInicial, casaFinal,
-					x, y);
+			verificaJogadaDama(obrigatoria, tabuleiro, casaInicial, casaFinal, x, y);
 		} else {
 			// chamar classe de erros: Movimento invalido
 		}
 	}
 
-	public void verificaJogadaDama(List<Casa[]> obrigatoria, Casa[][] tabuleiro,
-			Casa casaInicial, Casa casaFinal, int x, int y) {
+	public void verificaJogadaDama(List<Casa[]> obrigatoria, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal, int x, int y) {
 		int linha = casaInicial.getLinha();
 		int coluna = casaInicial.getColuna();
 		int z = 1; // incrementa para varrer toda a diagonal escolhida
 		int adversaria = 0; // conta as pecas adversarias no caminho
 		while (adversaria < 2 && (linha + y * z) != (casaFinal.getLinha())) {
-			//ATENCAO: ESSE WHILE PODE DAR ERRO SE O PLAYER NAO CLICAR EM DIAGONAL!!
+			// ATENCAO: ESSE WHILE PODE DAR ERRO SE O PLAYER NAO CLICAR EM
+			// DIAGONAL!!
 			// enquanto a linha analisada (comeca uma casa na frente da inicial)
 			// nao for igual a final e houver menos de 2 adversarios no caminho
 			if (tabuleiro[linha + y * z][coluna + x * z].getPeca() != null)
 			// Se houver peca
 			{
-				if (tabuleiro[linha + y * z][coluna + x * z].getPeca().getCor() == casaInicial
-						.getPeca().getCor()) {
+				if (tabuleiro[linha + y * z][coluna + x * z].getPeca().getCor() == casaInicial.getPeca().getCor()) {
 					// Se ha peca branca na casa analisada
 					// chamar erro "nao pode pular a propria peca"
 				} else { // se ha peca preta, incrementar contador de peca

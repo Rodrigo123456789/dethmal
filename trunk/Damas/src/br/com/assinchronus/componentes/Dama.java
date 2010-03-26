@@ -5,7 +5,7 @@ public class Dama implements Pecas {
 	private int cor = 0;
 
 	@Override
-	public void comer(Casa[][] tabuleiro, Casa atual, Casa adversaria, Casa casa) {
+	public void comer(Casa atual, Casa adversaria, Casa casa) {
 		// TODO Auto-generated method stub
 
 	}
