@@ -7,6 +7,7 @@ import br.com.assinchronus.componentes.Casa;
 import br.com.assinchronus.componentes.Dama;
 import br.com.assinchronus.componentes.Peao;
 import br.com.assinchronus.componentes.Pecas;
+import br.com.assinchronus.exception.JogadaInvalida;
 
 public class RegraGeral {
 
@@ -19,12 +20,10 @@ public class RegraGeral {
 		List<Casa[]> obrigatoria = new ArrayList<Casa[]>();
 		for (int i = 0; i < tabuleiro.length; i++) {
 			for (int j = 0; j < tabuleiro[i].length; j++) {
-				if (((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1))
-						&& tabuleiro[i][j].getPeca() != null) {
+				if (((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) && tabuleiro[i][j].getPeca() != null) {
 					if (jogada == Pecas.BRANCA) {
 						// Se for jogada do branco
-						if (tabuleiro[i][j].getPeca().getCor() == Pecas.BRANCA
-								&& (tabuleiro[i][j].getPeca() instanceof Peao)) {
+						if (tabuleiro[i][j].getPeca().getCor() == Pecas.BRANCA && (tabuleiro[i][j].getPeca() instanceof Peao)) {
 							// Se for um peao branco
 							if (i - 2 > -1 && j + 2 < 8) {
 								if (tabuleiro[i - 1][j + 1].getPeca() != null && tabuleiro[i - 1][j + 1].getPeca().getCor() == Pecas.PRETA
@@ -54,14 +53,10 @@ public class RegraGeral {
 							for (l = -1, c = -1, z = 1; z <= 6; z++) {
 								// analisando diagonal superior esquerda
 								if ((i + l * (z + 1)) > -1 && (j + c * (z + 1)) > -1) {
-									if (tabuleiro[i + l * z][j + c * z].getPeca() != null
-											&& tabuleiro[i + l * z][j + c * z]
-													.getPeca().getCor() == Pecas.PRETA) {
-										if (tabuleiro[i + l * (z + 1)][j + c
-												* (z + 1)].getPeca() == null) {
+									if (tabuleiro[i + l * z][j + c * z].getPeca() != null && tabuleiro[i + l * z][j + c * z].getPeca().getCor() == Pecas.PRETA) {
+										if (tabuleiro[i + l * (z + 1)][j + c * (z + 1)].getPeca() == null) {
 											casa[0] = tabuleiro[i][j];
-											casa[1] = tabuleiro[i + l * (z + 1)][j
-													+ c * (z + 1)];
+											casa[1] = tabuleiro[i + l * (z + 1)][j + c * (z + 1)];
 											obrigatoria.add(casa);
 										}
 									}
@@ -70,14 +65,10 @@ public class RegraGeral {
 							for (l = -1, c = +1, z = 1; z <= 6; z++) {
 								// analisando diagonal superior direita
 								if ((i + l * (z + 1)) > -1 && (j + c * (z + 1)) < 8) {
-									if (tabuleiro[i + l * z][j + c * z].getPeca() != null
-											&& tabuleiro[i + l * z][j + c * z]
-													.getPeca().getCor() == Pecas.PRETA) {
-										if (tabuleiro[i + l * (z + 1)][j + c
-												* (z + 1)].getPeca() == null) {
+									if (tabuleiro[i + l * z][j + c * z].getPeca() != null && tabuleiro[i + l * z][j + c * z].getPeca().getCor() == Pecas.PRETA) {
+										if (tabuleiro[i + l * (z + 1)][j + c * (z + 1)].getPeca() == null) {
 											casa[0] = tabuleiro[i][j];
-											casa[1] = tabuleiro[i + l * (z + 1)][j
-													+ c * (z + 1)];
+											casa[1] = tabuleiro[i + l * (z + 1)][j + c * (z + 1)];
 											obrigatoria.add(casa);
 										}
 									}
@@ -86,14 +77,10 @@ public class RegraGeral {
 							for (l = +1, c = -1, z = 1; z <= 6; z++) {
 								// analisando diagonal inferior esquerda
 								if ((i + l * (z + 1)) < 8 && (j + c * (z + 1)) > -1) {
-									if (tabuleiro[i + l * z][j + c * z].getPeca() != null
-											&& tabuleiro[i + l * z][j + c * z]
-													.getPeca().getCor() == Pecas.PRETA) {
-										if (tabuleiro[i + l * (z + 1)][j + c
-												* (z + 1)].getPeca() == null) {
+									if (tabuleiro[i + l * z][j + c * z].getPeca() != null && tabuleiro[i + l * z][j + c * z].getPeca().getCor() == Pecas.PRETA) {
+										if (tabuleiro[i + l * (z + 1)][j + c * (z + 1)].getPeca() == null) {
 											casa[0] = tabuleiro[i][j];
-											casa[1] = tabuleiro[i + l * (z + 1)][j
-													+ c * (z + 1)];
+											casa[1] = tabuleiro[i + l * (z + 1)][j + c * (z + 1)];
 											obrigatoria.add(casa);
 										}
 									}
@@ -102,14 +89,10 @@ public class RegraGeral {
 							for (l = +1, c = +1, z = 1; z <= 6; z++) {
 								// analisando diagonal inferior direita
 								if ((i + l * (z + 1)) < 8 && (j + c * (z + 1)) < 8) {
-									if (tabuleiro[i + l * z][j + c * z].getPeca() != null
-											&& tabuleiro[i + l * z][j + c * z]
-													.getPeca().getCor() == Pecas.PRETA) {
-										if (tabuleiro[i + l * (z + 1)][j + c
-												* (z + 1)].getPeca() == null) {
+									if (tabuleiro[i + l * z][j + c * z].getPeca() != null && tabuleiro[i + l * z][j + c * z].getPeca().getCor() == Pecas.PRETA) {
+										if (tabuleiro[i + l * (z + 1)][j + c * (z + 1)].getPeca() == null) {
 											casa[0] = tabuleiro[i][j];
-											casa[1] = tabuleiro[i + l * (z + 1)][j
-													+ c * (z + 1)];
+											casa[1] = tabuleiro[i + l * (z + 1)][j + c * (z + 1)];
 											obrigatoria.add(casa);
 										}
 									}
@@ -118,12 +101,10 @@ public class RegraGeral {
 						}
 					} else {
 						// Se for jogada do preto
-						if (tabuleiro[i][j].getPeca().getCor() == Pecas.PRETA
-								&& (tabuleiro[i][j].getPeca() instanceof Peao)) {
+						if (tabuleiro[i][j].getPeca().getCor() == Pecas.PRETA && (tabuleiro[i][j].getPeca() instanceof Peao)) {
 							// Se for um peao preto
 							if (i + 2 < 8 && j + 2 < 8) {
-								if (tabuleiro[i + 1][j + 1].getPeca().getCor() == Pecas.BRANCA
-										&& tabuleiro[i + 2][j + 2].getPeca() == null) {
+								if (tabuleiro[i + 1][j + 1].getPeca().getCor() == Pecas.BRANCA && tabuleiro[i + 2][j + 2].getPeca() == null) {
 									// se é possível comer para a diagonal
 									// inferior
 									// direita
@@ -133,8 +114,7 @@ public class RegraGeral {
 								}
 							}
 							if (i + 2 < 8 && j - 2 > -1) {
-								if (tabuleiro[i + 1][j - 1].getPeca().getCor() == Pecas.BRANCA
-										&& tabuleiro[i + 2][j - 2].getPeca() == null) {
+								if (tabuleiro[i + 1][j - 1].getPeca().getCor() == Pecas.BRANCA && tabuleiro[i + 2][j - 2].getPeca() == null) {
 									// se é possível comer para a diagonal
 									// inferior
 									// esquerda
@@ -143,20 +123,15 @@ public class RegraGeral {
 									obrigatoria.add(casa);
 								}
 							}
-						} else if (tabuleiro[i][j].getPeca().getCor() == Pecas.PRETA
-								&& (tabuleiro[i][j].getPeca() instanceof Dama)) {
+						} else if (tabuleiro[i][j].getPeca().getCor() == Pecas.PRETA && (tabuleiro[i][j].getPeca() instanceof Dama)) {
 							// Se for uma dama preta
 							for (l = -1, c = -1, z = 1; z <= 6; z++) {
 								// analisando diagonal superior esquerda
 								if ((i + l * (z + 1)) > -1 && (j + c * (z + 1)) > -1) {
-									if (tabuleiro[i + l * z][j + c * z].getPeca() != null
-											&& tabuleiro[i + l * z][j + c * z]
-													.getPeca().getCor() == Pecas.BRANCA) {
-										if (tabuleiro[i + l * (z + 1)][j + c
-												* (z + 1)].getPeca() == null) {
+									if (tabuleiro[i + l * z][j + c * z].getPeca() != null && tabuleiro[i + l * z][j + c * z].getPeca().getCor() == Pecas.BRANCA) {
+										if (tabuleiro[i + l * (z + 1)][j + c * (z + 1)].getPeca() == null) {
 											casa[0] = tabuleiro[i][j];
-											casa[1] = tabuleiro[i + l * (z + 1)][j
-													+ c * (z + 1)];
+											casa[1] = tabuleiro[i + l * (z + 1)][j + c * (z + 1)];
 											obrigatoria.add(casa);
 										}
 									}
@@ -165,14 +140,10 @@ public class RegraGeral {
 							for (l = -1, c = +1, z = 1; z <= 6; z++) {
 								// analisando diagonal superior direita
 								if ((i + l * (z + 1)) > -1 && (j + c * (z + 1)) < 8) {
-									if (tabuleiro[i + l * z][j + c * z].getPeca() != null
-											&& tabuleiro[i + l * z][j + c * z]
-													.getPeca().getCor() == Pecas.BRANCA) {
-										if (tabuleiro[i + l * (z + 1)][j + c
-												* (z + 1)].getPeca() == null) {
+									if (tabuleiro[i + l * z][j + c * z].getPeca() != null && tabuleiro[i + l * z][j + c * z].getPeca().getCor() == Pecas.BRANCA) {
+										if (tabuleiro[i + l * (z + 1)][j + c * (z + 1)].getPeca() == null) {
 											casa[0] = tabuleiro[i][j];
-											casa[1] = tabuleiro[i + l * (z + 1)][j
-													+ c * (z + 1)];
+											casa[1] = tabuleiro[i + l * (z + 1)][j + c * (z + 1)];
 											obrigatoria.add(casa);
 										}
 									}
@@ -181,14 +152,10 @@ public class RegraGeral {
 							for (l = +1, c = -1, z = 1; z <= 6; z++) {
 								// analisando diagonal inferior esquerda
 								if ((i + l * (z + 1)) < 8 && (j + c * (z + 1)) > -1) {
-									if (tabuleiro[i + l * z][j + c * z].getPeca() != null
-											&& tabuleiro[i + l * z][j + c * z]
-													.getPeca().getCor() == Pecas.BRANCA) {
-										if (tabuleiro[i + l * (z + 1)][j + c
-												* (z + 1)].getPeca() == null) {
+									if (tabuleiro[i + l * z][j + c * z].getPeca() != null && tabuleiro[i + l * z][j + c * z].getPeca().getCor() == Pecas.BRANCA) {
+										if (tabuleiro[i + l * (z + 1)][j + c * (z + 1)].getPeca() == null) {
 											casa[0] = tabuleiro[i][j];
-											casa[1] = tabuleiro[i + l * (z + 1)][j
-													+ c * (z + 1)];
+											casa[1] = tabuleiro[i + l * (z + 1)][j + c * (z + 1)];
 											obrigatoria.add(casa);
 										}
 									}
@@ -197,14 +164,10 @@ public class RegraGeral {
 							for (l = +1, c = +1, z = 1; z <= 6; z++) {
 								// analisando diagonal inferior direita
 								if ((i + l * (z + 1)) > -1 && (i + l * (z + 1)) < 8 && (j + c * (z + 1)) > -1 && (j + c * (z + 1)) < 8) {
-									if (tabuleiro[i + l * z][j + c * z].getPeca() != null
-											&& tabuleiro[i + l * z][j + c * z]
-													.getPeca().getCor() == Pecas.BRANCA) {
-										if (tabuleiro[i + l * (z + 1)][j + c
-												* (z + 1)].getPeca() == null) {
+									if (tabuleiro[i + l * z][j + c * z].getPeca() != null && tabuleiro[i + l * z][j + c * z].getPeca().getCor() == Pecas.BRANCA) {
+										if (tabuleiro[i + l * (z + 1)][j + c * (z + 1)].getPeca() == null) {
 											casa[0] = tabuleiro[i][j];
-											casa[1] = tabuleiro[i + l * (z + 1)][j
-													+ c * (z + 1)];
+											casa[1] = tabuleiro[i + l * (z + 1)][j + c * (z + 1)];
 											obrigatoria.add(casa);
 										}
 									}
@@ -218,8 +181,7 @@ public class RegraGeral {
 		return obrigatoria;
 	}
 
-	public static Casa validarPeca(boolean sequencia, int jogada, Casa[][] tabuleiro,
-			Casa casaInicial, Casa casaFinal) {
+	public static void validarPeca(boolean sequencia, int jogada, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal) throws JogadaInvalida{
 
 		List<Casa[]> obrigatoria = null;
 		// se primeira jogada, testa pra ver se tem captura obrigatoria
@@ -228,20 +190,13 @@ public class RegraGeral {
 			obrigatoria = verificaCapturaObrigatoria(jogada, tabuleiro);
 		}
 
-		if ((casaInicial.getPeca() instanceof Peao)
-				&& (casaInicial.getPeca().getCor() == Pecas.BRANCA)) {
-			return rp.verificaJogadaPBranco(obrigatoria, tabuleiro, casaInicial,
-					casaFinal);
-		} else if ((casaInicial.getPeca() instanceof Peao)
-				&& (casaInicial.getPeca().getCor() == Pecas.PRETA)) {
-			return rp.verificaJogadaPPreto(obrigatoria, tabuleiro, casaInicial,
-					casaFinal);
+		if ((casaInicial.getPeca() instanceof Peao) && (casaInicial.getPeca().getCor() == Pecas.BRANCA)) {
+			rp.verificaJogadaPBranco(obrigatoria, tabuleiro, casaInicial, casaFinal);
+		} else if ((casaInicial.getPeca() instanceof Peao) && (casaInicial.getPeca().getCor() == Pecas.PRETA)) {
+			rp.verificaJogadaPPreto(obrigatoria, tabuleiro, casaInicial, casaFinal);
 		} else if (casaInicial.getPeca() instanceof Dama) {
-			rd.verificaDiagonalDama(obrigatoria, tabuleiro, casaInicial,
-					casaFinal);
+			rd.verificaDiagonalDama(obrigatoria, tabuleiro, casaInicial, casaFinal);
 		}
-
-		return null;
 	}
 
 }
