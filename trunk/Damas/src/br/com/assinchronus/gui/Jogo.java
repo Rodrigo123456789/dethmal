@@ -45,7 +45,7 @@ public class Jogo extends JFrame implements ActionListener {
 	ImageIcon iconBlack = new ImageIcon(getClass().getResource("/images/pecapreta.png"));
 	ImageIcon iconKingWhite = new ImageIcon(getClass().getResource("/images/damapreta.png"));
 	ImageIcon iconKingBlack = new ImageIcon(getClass().getResource("/images/dama.png"));
-	
+
 	public static void main(String args[]) {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -124,7 +124,7 @@ public class Jogo extends JFrame implements ActionListener {
 			casaFinal = mapaTabuleiro.get(e.getSource());
 			try {
 				RegraGeral.validarPeca(false, Pecas.BRANCA, tabuleiro.getTabuleiro(), casaInicial, casaFinal);
-				
+
 				atualizaTabuleiro();
 			} catch (JogadaInvalida e1) {
 				// TODO Auto-generated catch block

@@ -181,7 +181,7 @@ public class RegraGeral {
 		return obrigatoria;
 	}
 
-	public static void validarPeca(boolean sequencia, int jogada, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal) throws JogadaInvalida{
+	public static List<Casa[]> validarPeca(boolean sequencia, int jogada, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal) throws JogadaInvalida {
 
 		List<Casa[]> obrigatoria = null;
 		// se primeira jogada, testa pra ver se tem captura obrigatoria
@@ -191,12 +191,12 @@ public class RegraGeral {
 		}
 
 		if ((casaInicial.getPeca() instanceof Peao) && (casaInicial.getPeca().getCor() == Pecas.BRANCA)) {
-			rp.verificaJogadaPBranco(obrigatoria, tabuleiro, casaInicial, casaFinal);
+			return rp.verificaJogadaPBranco(obrigatoria, tabuleiro, casaInicial, casaFinal);
 		} else if ((casaInicial.getPeca() instanceof Peao) && (casaInicial.getPeca().getCor() == Pecas.PRETA)) {
-			rp.verificaJogadaPPreto(obrigatoria, tabuleiro, casaInicial, casaFinal);
+			return rp.verificaJogadaPPreto(obrigatoria, tabuleiro, casaInicial, casaFinal);
 		} else if (casaInicial.getPeca() instanceof Dama) {
 			rd.verificaDiagonalDama(obrigatoria, tabuleiro, casaInicial, casaFinal);
 		}
+		return null;
 	}
-
 }
