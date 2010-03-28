@@ -121,27 +121,29 @@ public class Jogo extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		
-			if (casaInicial == null) {
-				if (jogada== mapaTabuleiro.get(e.getSource()).getPeca().getCor())
+		if (casaInicial == null) {
+			if (mapaTabuleiro.get(e.getSource()).getPeca() != null) {
+				if (jogada == mapaTabuleiro.get(e.getSource()).getPeca().getCor())
 				{
 					casaInicial = mapaTabuleiro.get(e.getSource());
-				}
-				else
-				{
+				} else {
 					System.out.println("Esta não é sua peça");
 				}
-			} else {
+
+			} else
+				System.out.println("Casa vazia selecione outra");
+		} else {
+			if (mapaTabuleiro.get(e.getSource()).getPeca() == null)
+			{
 				casaFinal = mapaTabuleiro.get(e.getSource());
 				try {
-					RegraGeral.validarPeca(Pecas.BRANCA, tabuleiro.getTabuleiro(), casaInicial, casaFinal);
+					RegraGeral.validarPeca(Pecas.BRANCA, tabuleiro.getTabuleiro(),
+							casaInicial, casaFinal);
 	
 					atualizaTabuleiro();
-					if (RegraGeral.getSequencia())
-					{
-						casaInicial=casaFinal;
-						casaFinal=null;
+					if (RegraGeral.getSequencia()) {
+						casaInicial = casaFinal;
+						casaFinal = null;
 						return;
 					}
 				} catch (JogadaInvalida e1) {
@@ -150,13 +152,17 @@ public class Jogo extends JFrame implements ActionListener {
 				} finally {
 					casaInicial = null;
 					casaFinal = null;
-					if(jogada==1)
-						jogada=2;
+					if (jogada == 1)
+						jogada = 2;
 					else
-						jogada=1;
+						jogada = 1;
 				}
 			}
-		
+			else
+			{
+				casaInicial = mapaTabuleiro.get(e.getSource());
+			}
+		}
 	}
 
 	public void atualizaTabuleiro() {
