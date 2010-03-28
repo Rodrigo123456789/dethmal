@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import br.com.assinchronus.componentes.Casa;
+import br.com.assinchronus.componentes.Dama;
 import br.com.assinchronus.componentes.Peao;
 import br.com.assinchronus.componentes.Pecas;
 import br.com.assinchronus.componentes.Tabuleiro;
@@ -45,8 +46,8 @@ public class Jogo extends JFrame implements ActionListener {
 
 	ImageIcon iconWhite = new ImageIcon(getClass().getResource("/images/peca.png"));
 	ImageIcon iconBlack = new ImageIcon(getClass().getResource("/images/pecapreta.png"));
-	ImageIcon iconKingWhite = new ImageIcon(getClass().getResource("/images/damapreta.png"));
-	ImageIcon iconKingBlack = new ImageIcon(getClass().getResource("/images/dama.png"));
+	ImageIcon iconKingWhite = new ImageIcon(getClass().getResource("/images/dama.png"));
+	ImageIcon iconKingBlack = new ImageIcon(getClass().getResource("/images/damapreta.png"));
 
 	public static void main(String args[]) {
 		java.awt.EventQueue.invokeLater(new Runnable() {
@@ -178,13 +179,27 @@ public class Jogo extends JFrame implements ActionListener {
 
 						if (tab[i][j].getPeca().getCor() == 1) {
 							if (tab[i][j].getPeca() instanceof Peao) {
-								buttons[i][j].setIcon(iconWhite);
+								if(i==0)
+								{
+									tab[i][j].setPeca(new Dama());
+									tab[i][j].getPeca().setCor(1);
+									buttons[i][j].setIcon(iconKingWhite);
+								}
+								else
+									buttons[i][j].setIcon(iconWhite);
 							} else {
 								buttons[i][j].setIcon(iconKingWhite);
 							}
 						} else if (tab[i][j].getPeca().getCor() == 2) {
 							if (tab[i][j].getPeca() instanceof Peao) {
-								buttons[i][j].setIcon(iconBlack);
+								if(i==7)
+								{
+									tab[i][j].setPeca(new Dama());
+									tab[i][j].getPeca().setCor(2);
+									buttons[i][j].setIcon(iconKingBlack);
+								}
+								else
+									buttons[i][j].setIcon(iconBlack);
 							} else {
 								buttons[i][j].setIcon(iconKingBlack);
 							}
