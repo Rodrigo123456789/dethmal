@@ -1,17 +1,21 @@
 package br.com.assinchronus.componentes;
-//erro svn
+
+import br.com.assinchronus.negocio.RegraFinal;
+
 public class Peao implements Pecas {
 
 	private int cor = 0;
-
-	public Peao() {
-
-	}
+	RegraFinal rf = new RegraFinal();
 
 	@Override
 	public void comer(Casa atual, Casa adversaria, Casa proxima) {
 		mover(atual, proxima);
 		adversaria.setPeca(null);
+		if(atual.getPeca().getCor()==1){
+			rf.setQtdDamaBranco(rf.getQtdPeaoBranco()-1);
+		}else{
+			rf.setQtdDamaPreto(rf.getQtdPeaoPreto()-1);
+		}
 	}
 
 	@Override

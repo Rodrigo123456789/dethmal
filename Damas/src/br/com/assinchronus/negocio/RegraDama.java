@@ -45,9 +45,8 @@ public class RegraDama {
 		int coluna = casaInicial.getColuna();
 		int z = 1; // incrementa para varrer toda a diagonal escolhida
 		int adversaria = 0; // conta as pecas adversarias no caminho
+		Casa capturada = new Casa();
 		while (adversaria < 2 && (linha + y * z) != (casaFinal.getLinha())) {
-			// ATENCAO: ESSE WHILE PODE DAR ERRO SE O PLAYER NAO CLICAR EM
-			// DIAGONAL!!
 			// enquanto a linha analisada (comeca uma casa na frente da inicial)
 			// nao for igual a final e houver menos de 2 adversarios no caminho
 			if (tabuleiro[linha + y * z][coluna + x * z].getPeca() != null)
@@ -59,6 +58,9 @@ public class RegraDama {
 				} else { // se ha peca preta, incrementar contador de peca
 					// adversaria
 					adversaria++;
+					if(adversaria==1){
+						capturada = tabuleiro[linha + y * z][coluna + x * z];
+					}
 				}
 			}
 			z++;
@@ -67,10 +69,10 @@ public class RegraDama {
 			if (!obrigatoria.isEmpty()) {
 				// Mensagem de jogada invalida
 			} else {
-				// chamar metodo mover
+				casaInicial.getPeca().mover(casaInicial, casaFinal);
 			}
 		} else if (adversaria == 1) {
-			// chamar metodo comer
+			casaFinal.getPeca().comer(casaInicial, capturada, casaFinal);
 		} else if (adversaria == 2) {
 			// chamar msg de movimento invalido
 		}

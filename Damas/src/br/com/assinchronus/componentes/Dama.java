@@ -1,19 +1,28 @@
 package br.com.assinchronus.componentes;
-//erro svn
-public class Dama implements Pecas {
 
+import br.com.assinchronus.negocio.RegraFinal;
+
+public class Dama implements Pecas {
+	
+	RegraFinal rf = new RegraFinal();
 	private int cor = 0;
 
 	@Override
-	public void comer(Casa atual, Casa adversaria, Casa casa) {
-		// TODO Auto-generated method stub
-
+	public void comer(Casa atual, Casa adversaria, Casa proxima) {
+		mover(atual, proxima);
+		adversaria.setPeca(null);
+		if(atual.getPeca().getCor()==1){
+			rf.setQtdDamaBranco(rf.getQtdDamaBranco()-1);
+		}else{
+			rf.setQtdDamaPreto(rf.getQtdDamaPreto()-1);
+		}		
 	}
 
 	@Override
 	public void mover(Casa atual, Casa proxima) {
-		// TODO Auto-generated method stub
-
+		Pecas peca = atual.getPeca();
+		atual.setPeca(null);
+		proxima.setPeca(peca);
 	}
 
 	public int getCor() {
