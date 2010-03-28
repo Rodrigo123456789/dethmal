@@ -1,5 +1,5 @@
 package br.com.assinchronus.exception;
-
+//erro svn
 public class JogadaInvalida extends Exception {
 
 	/**

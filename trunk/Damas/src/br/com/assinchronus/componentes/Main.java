@@ -1,5 +1,5 @@
 package br.com.assinchronus.componentes;
-
+//erro svn
 import javax.swing.JOptionPane;
 
 import br.com.assinchronus.gui.Jogo;
