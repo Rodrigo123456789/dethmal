@@ -1,5 +1,5 @@
 package br.com.assinchronus.componentes;
-
+//erro svn
 public class Dama implements Pecas {
 
 	private int cor = 0;

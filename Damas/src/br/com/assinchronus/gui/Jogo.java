@@ -27,6 +27,7 @@ public class Jogo extends JFrame implements ActionListener {
 	/**
 	 * SerialVersion
 	 */
+	//erro svn
 	private static final long serialVersionUID = 1L;
 
 	private javax.swing.JMenu jMenu1;
