@@ -13,7 +13,8 @@ public class RegraGeral {
 
 	static RegraPeao rp = new RegraPeao();
 	static RegraDama rd = new RegraDama();
-
+	private static boolean sequencia=false;
+	
 	public static List<Casa[]> verificaCapturaObrigatoria(int jogada, Casa[][] tabuleiro) {
 		int z, l, c;
 		Casa[] casa = new Casa[2];
@@ -181,12 +182,12 @@ public class RegraGeral {
 		return obrigatoria;
 	}
 
-	public static List<Casa[]> validarPeca(boolean sequencia, int jogada, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal) throws JogadaInvalida {
+	public static List<Casa[]> validarPeca(int jogada, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal) throws JogadaInvalida {
 
 		List<Casa[]> obrigatoria = null;
 		// se primeira jogada, testa pra ver se tem captura obrigatoria
 		// se nao for a primeira, vai direto com obrigatoria true.
-		if (!sequencia) {
+		if (!getSequencia()) {
 			obrigatoria = verificaCapturaObrigatoria(jogada, tabuleiro);
 		}
 
@@ -198,5 +199,13 @@ public class RegraGeral {
 			rd.verificaDiagonalDama(obrigatoria, tabuleiro, casaInicial, casaFinal);
 		}
 		return null;
+	}
+
+	public void setSequencia(boolean sequencia) {
+		this.sequencia = sequencia;
+	}
+
+	public static boolean getSequencia() {
+		return sequencia;
 	}
 }

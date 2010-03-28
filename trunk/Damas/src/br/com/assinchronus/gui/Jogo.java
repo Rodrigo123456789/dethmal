@@ -21,6 +21,7 @@ import br.com.assinchronus.componentes.Pecas;
 import br.com.assinchronus.componentes.Tabuleiro;
 import br.com.assinchronus.exception.JogadaInvalida;
 import br.com.assinchronus.negocio.RegraGeral;
+import br.com.assinchronus.negocio.RegraFinal;
 
 public class Jogo extends JFrame implements ActionListener {
 
@@ -58,6 +59,7 @@ public class Jogo extends JFrame implements ActionListener {
 	/** Creates new form Tabuleiro */
 	public Jogo() {
 		initComponents();
+		
 	}
 
 	private void initComponents() {
@@ -119,22 +121,42 @@ public class Jogo extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (casaInicial == null) {
-			casaInicial = mapaTabuleiro.get(e.getSource());
-		} else {
-			casaFinal = mapaTabuleiro.get(e.getSource());
-			try {
-				RegraGeral.validarPeca(false, Pecas.BRANCA, tabuleiro.getTabuleiro(), casaInicial, casaFinal);
-
-				atualizaTabuleiro();
-			} catch (JogadaInvalida e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} finally {
-				casaInicial = null;
-				casaFinal = null;
+		
+		
+			if (casaInicial == null) {
+				if (jogada== mapaTabuleiro.get(e.getSource()).getPeca().getCor())
+				{
+					casaInicial = mapaTabuleiro.get(e.getSource());
+				}
+				else
+				{
+					System.out.println("Esta não é sua peça");
+				}
+			} else {
+				casaFinal = mapaTabuleiro.get(e.getSource());
+				try {
+					RegraGeral.validarPeca(Pecas.BRANCA, tabuleiro.getTabuleiro(), casaInicial, casaFinal);
+	
+					atualizaTabuleiro();
+					if (RegraGeral.getSequencia())
+					{
+						casaInicial=casaFinal;
+						casaFinal=null;
+						return;
+					}
+				} catch (JogadaInvalida e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} finally {
+					casaInicial = null;
+					casaFinal = null;
+					if(jogada==1)
+						jogada=2;
+					else
+						jogada=1;
+				}
 			}
-		}
+		
 	}
 
 	public void atualizaTabuleiro() {
