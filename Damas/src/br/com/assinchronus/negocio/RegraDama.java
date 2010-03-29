@@ -7,6 +7,14 @@ import br.com.assinchronus.componentes.Casa;
 
 public class RegraDama {
 
+	RegraGeral rg = new RegraGeral();
+/**
+ * 
+ * @param obrigatoria	lista das jogadas obrigatorias
+ * @param tabuleiro		tabuleiro atual do jogo
+ * @param casaInicial	casa clicada para jogar
+ * @param casaFinal		casa de destino final
+ */
 	public void verificaDiagonalDama(List<Casa[]> obrigatoria, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal) {
 		int x; // salva a direcao horizontal do movimento
 		int y; // salva a direcao vertical do movimento
@@ -40,6 +48,16 @@ public class RegraDama {
 		}
 	}
 
+	/**
+	 * 
+	 * @param obrigatoria	lista das jogadas obrigatorias
+	 * @param tabuleiro		tabuleiro atual do jogo
+	 * @param casaInicial	casa clicada para jogar
+	 * @param casaFinal		casa de destino final
+	 * @param x				direcao horizontal do movimento da dama
+	 * @param y				direcao vertical do movimento da dama
+	 */
+	
 	public void verificaJogadaDama(List<Casa[]> obrigatoria, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal, int x, int y) {
 		int linha = casaInicial.getLinha();
 		int coluna = casaInicial.getColuna();
@@ -58,7 +76,7 @@ public class RegraDama {
 				} else { // se ha peca preta, incrementar contador de peca
 					// adversaria
 					adversaria++;
-					if(adversaria==1){
+					if (adversaria == 1) {
 						capturada = tabuleiro[linha + y * z][coluna + x * z];
 					}
 				}
@@ -73,12 +91,24 @@ public class RegraDama {
 			}
 		} else if (adversaria == 1) {
 			casaFinal.getPeca().comer(casaInicial, capturada, casaFinal);
+			if (verificaSequenciaDama(tabuleiro, casaFinal).isEmpty()) {
+				rg.setSequencia(false);
+			} else {
+				rg.setSequencia(true);
+			}
+
 		} else if (adversaria == 2) {
 			// chamar msg de movimento invalido
 		}
 
 	}
 
+	/**
+	 * 
+	 * @param tabuleiro		Tabuleiro atual do jogo
+	 * @param casaInicial	Casa em que a peca parou
+	 * @return				Lista de jogadas possiveis para sequencia
+	 */
 	public List<Casa[]> verificaSequenciaDama(Casa[][] tabuleiro, Casa casaInicial) {
 		int z, l, c;
 		Casa[] acao = new Casa[2];
