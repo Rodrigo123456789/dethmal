@@ -161,7 +161,10 @@ public class Jogo extends JFrame implements ActionListener {
 			}
 			else
 			{
-				casaInicial = mapaTabuleiro.get(e.getSource());
+				if(mapaTabuleiro.get(e.getSource()).getPeca().getCor() == jogada)
+					casaInicial = mapaTabuleiro.get(e.getSource());
+				else
+					casaInicial = null;
 			}
 		}
 	}
