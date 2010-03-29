@@ -1,5 +1,5 @@
 package br.com.assinchronus.negocio;
-//erro svn
+
 import java.util.ArrayList;
 import java.util.List;
 
