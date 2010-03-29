@@ -5,7 +5,7 @@ package br.com.assinchronus.componentes;
  * @author Pilon
  * @version 1.0.0
  */
-//erro svn
+
 public class Casa {
 
 	private int linha = 0;

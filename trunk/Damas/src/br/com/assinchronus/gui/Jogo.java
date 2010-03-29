@@ -22,14 +22,13 @@ import br.com.assinchronus.componentes.Pecas;
 import br.com.assinchronus.componentes.Tabuleiro;
 import br.com.assinchronus.exception.JogadaInvalida;
 import br.com.assinchronus.negocio.RegraGeral;
-import br.com.assinchronus.negocio.RegraFinal;
 
 public class Jogo extends JFrame implements ActionListener {
 
 	/**
 	 * SerialVersion
 	 */
-	//erro svn
+	// erro svn
 	private static final long serialVersionUID = 1L;
 
 	private javax.swing.JMenu jMenu1;
@@ -60,7 +59,7 @@ public class Jogo extends JFrame implements ActionListener {
 	/** Creates new form Tabuleiro */
 	public Jogo() {
 		initComponents();
-		
+
 	}
 
 	private void initComponents() {
@@ -124,8 +123,7 @@ public class Jogo extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (casaInicial == null) {
 			if (mapaTabuleiro.get(e.getSource()).getPeca() != null) {
-				if (jogada == mapaTabuleiro.get(e.getSource()).getPeca().getCor())
-				{
+				if (jogada == mapaTabuleiro.get(e.getSource()).getPeca().getCor()) {
 					casaInicial = mapaTabuleiro.get(e.getSource());
 				} else {
 					System.out.println("Esta não é sua peça");
@@ -134,14 +132,12 @@ public class Jogo extends JFrame implements ActionListener {
 			} else
 				System.out.println("Casa vazia selecione outra");
 		} else {
-			if (mapaTabuleiro.get(e.getSource()).getPeca() == null)
-			{
+			if (mapaTabuleiro.get(e.getSource()).getPeca() == null) {
 				casaFinal = mapaTabuleiro.get(e.getSource());
 				try {
-					
-					RegraGeral.validarPeca(Pecas.BRANCA, tabuleiro.getTabuleiro(),
-							casaInicial, casaFinal);
-	
+
+					RegraGeral.validarPeca(Pecas.BRANCA, tabuleiro.getTabuleiro(), casaInicial, casaFinal);
+
 					atualizaTabuleiro();
 					if (RegraGeral.getSequencia()) {
 						casaInicial = casaFinal;
@@ -154,17 +150,15 @@ public class Jogo extends JFrame implements ActionListener {
 				} finally {
 					casaInicial = null;
 					casaFinal = null;
-					if (jogada == 1 &&  RegraGeral.getSequencia()==false)
+					if (jogada == 1 && RegraGeral.getSequencia() == false)
 						jogada = 2;
-					else if(jogada == 2 &&  RegraGeral.getSequencia()==false)
+					else if (jogada == 2 && RegraGeral.getSequencia() == false)
 						jogada = 1;
 				}
-			}
-			else
-			{
-				if(mapaTabuleiro.get(e.getSource()).getPeca().getCor() == jogada && RegraGeral.getSequencia()==false)
+			} else {
+				if (mapaTabuleiro.get(e.getSource()).getPeca().getCor() == jogada && RegraGeral.getSequencia() == false)
 					casaInicial = mapaTabuleiro.get(e.getSource());
-				else if (mapaTabuleiro.get(e.getSource()).getPeca().getCor() != jogada && RegraGeral.getSequencia()==false)
+				else if (mapaTabuleiro.get(e.getSource()).getPeca().getCor() != jogada && RegraGeral.getSequencia() == false)
 					casaInicial = null;
 			}
 		}
@@ -183,26 +177,22 @@ public class Jogo extends JFrame implements ActionListener {
 
 						if (tab[i][j].getPeca().getCor() == 1) {
 							if (tab[i][j].getPeca() instanceof Peao) {
-								if(i==0)
-								{
+								if (i == 0) {
 									tab[i][j].setPeca(new Dama());
 									tab[i][j].getPeca().setCor(1);
 									buttons[i][j].setIcon(iconKingWhite);
-								}
-								else
+								} else
 									buttons[i][j].setIcon(iconWhite);
 							} else {
 								buttons[i][j].setIcon(iconKingWhite);
 							}
 						} else if (tab[i][j].getPeca().getCor() == 2) {
 							if (tab[i][j].getPeca() instanceof Peao) {
-								if(i==7)
-								{
+								if (i == 7) {
 									tab[i][j].setPeca(new Dama());
 									tab[i][j].getPeca().setCor(2);
 									buttons[i][j].setIcon(iconKingBlack);
-								}
-								else
+								} else
 									buttons[i][j].setIcon(iconBlack);
 							} else {
 								buttons[i][j].setIcon(iconKingBlack);
