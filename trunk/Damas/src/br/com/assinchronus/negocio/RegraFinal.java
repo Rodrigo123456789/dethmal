@@ -2,6 +2,11 @@ package br.com.assinchronus.negocio;
 
 import br.com.assinchronus.componentes.*;
 
+/**
+ * 
+ * @author vinicius
+ *
+ */
 public class RegraFinal {
 
 	int qtdPeaoBranco;
@@ -11,6 +16,11 @@ public class RegraFinal {
 	
 	RegraGeral rg = new RegraGeral();
 
+	/**
+	 * 
+	 * @param tabuleiro		Tabuleiro atual do jogo
+	 * @return				Retorna a false se o jogador estiver IMOBILIZADO = fim de jogo
+	 */
 	public boolean verificaPecasBranca(Casa[][] tabuleiro) {
 		for (int i = 0; i < tabuleiro.length; i++) {
 			for (int j = 0; j < tabuleiro[i].length; j++) {
@@ -46,6 +56,11 @@ public class RegraFinal {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * @param tabuleiro		Tabuleiro atual do jogo
+	 * @return				Retorna a false se o jogador estiver IMOBILIZADO = fim de jogo
+	 */
 	public boolean verificaPecasPreta(Casa[][] tabuleiro) {
 		for (int i = 0; i < tabuleiro.length; i++) {
 			for (int j = 0; j < tabuleiro[i].length; j++) {

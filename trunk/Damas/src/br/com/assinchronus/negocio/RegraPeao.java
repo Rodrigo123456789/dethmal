@@ -1,4 +1,5 @@
 package br.com.assinchronus.negocio;
+
 //erro svn
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +13,9 @@ import br.com.assinchronus.exception.JogadaInvalida;
  * @author Vinicius
  * 
  */
-
 public class RegraPeao {
+
+	RegraGeral rg = new RegraGeral();
 
 	/**
 	 * 
@@ -30,12 +32,13 @@ public class RegraPeao {
 	 */
 	public List<Casa[]> verificaJogadaPBranco(List<Casa[]> obrigatoria, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal) throws JogadaInvalida {
 		List<Casa[]> sequencia = new ArrayList<Casa[]>();
+		sequencia.clear();
 		if (Math.abs(casaFinal.getColuna() - casaInicial.getColuna()) == 1 && (casaFinal.getLinha() - casaInicial.getLinha() == -1)) {
 			if (!obrigatoria.isEmpty()) {
 				throw new JogadaInvalida("Voce deve capturar uma peca");
 			} else {
 				casaInicial.getPeca().mover(casaInicial, casaFinal);
-				sequencia = null;
+				sequencia.clear();
 			}
 		} else if ((casaFinal.getColuna() - casaInicial.getColuna()) == 2 && (casaFinal.getLinha() - casaInicial.getLinha() == -2)) {
 			Casa adversaria = tabuleiro[casaInicial.getLinha() - 1][casaFinal.getColuna() - 1];
@@ -58,6 +61,11 @@ public class RegraPeao {
 		} else {
 			throw new JogadaInvalida("Jogada invalida");
 		}
+		if (sequencia.isEmpty()) {
+			rg.setSequencia(false);
+		} else {
+			rg.setSequencia(true);
+		}
 		return sequencia;
 
 	}
@@ -77,12 +85,13 @@ public class RegraPeao {
 	 */
 	public List<Casa[]> verificaJogadaPPreto(List<Casa[]> obrigatoria, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal) throws JogadaInvalida {
 		List<Casa[]> sequencia = new ArrayList<Casa[]>();
+		sequencia.clear();
 		if (Math.abs(casaFinal.getColuna() - casaInicial.getColuna()) == 1 && (casaFinal.getLinha() - casaInicial.getLinha() == 1)) {
 			if (!obrigatoria.isEmpty()) {
 				throw new JogadaInvalida("Voce deve capturar uma peca");
 			} else {
 				casaInicial.getPeca().mover(casaInicial, casaFinal);
-				sequencia = null;
+				sequencia.clear();
 			}
 		} else if ((casaFinal.getColuna() - casaInicial.getColuna()) == 2 && (casaFinal.getLinha() - casaInicial.getLinha() == 2)) {
 			// Movimento duplo para a direita
@@ -104,6 +113,11 @@ public class RegraPeao {
 			}
 		} else {
 			throw new JogadaInvalida("Jogada invalida");
+		}
+		if (sequencia.isEmpty()) {
+			rg.setSequencia(false);
+		} else {
+			rg.setSequencia(true);
 		}
 		return sequencia;
 	}

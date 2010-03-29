@@ -1,4 +1,5 @@
 package br.com.assinchronus.negocio;
+
 //erro svn
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +10,23 @@ import br.com.assinchronus.componentes.Peao;
 import br.com.assinchronus.componentes.Pecas;
 import br.com.assinchronus.exception.JogadaInvalida;
 
+/**
+ * 
+ * @author vinicius
+ *
+ */
 public class RegraGeral {
 
 	static RegraPeao rp = new RegraPeao();
 	static RegraDama rd = new RegraDama();
-	private static boolean sequencia=false;
-	
+	private static boolean sequencia = false;
+
+	/**
+	 * 
+	 * @param jogada		Indica de quem eh a vez
+	 * @param tabuleiro		Tabuleiro atual do jogo
+	 * @return
+	 */
 	public static List<Casa[]> verificaCapturaObrigatoria(int jogada, Casa[][] tabuleiro) {
 		int z, l, c;
 		Casa[] casa = new Casa[2];
@@ -182,9 +194,19 @@ public class RegraGeral {
 		return obrigatoria;
 	}
 
+	/**
+	 * 
+	 * @param jogada		Indica de quem eh a vez
+	 * @param tabuleiro		Tabuleiro atual do jogo
+	 * @param casaInicial	Casa com a peca do jogador
+	 * @param casaFinal		Casa de destino final
+	 * @return				Retorna a lista de jogadas obrigatorias (para a IA)
+	 * @throws JogadaInvalida
+	 */
 	public static List<Casa[]> validarPeca(int jogada, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal) throws JogadaInvalida {
 
-		List<Casa[]> obrigatoria = null;
+		List<Casa[]> obrigatoria = new ArrayList<Casa[]>();
+		obrigatoria.clear();
 		// se primeira jogada, testa pra ver se tem captura obrigatoria
 		// se nao for a primeira, vai direto com obrigatoria true.
 		if (!getSequencia()) {
