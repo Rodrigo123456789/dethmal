@@ -138,6 +138,7 @@ public class Jogo extends JFrame implements ActionListener {
 			{
 				casaFinal = mapaTabuleiro.get(e.getSource());
 				try {
+					
 					RegraGeral.validarPeca(Pecas.BRANCA, tabuleiro.getTabuleiro(),
 							casaInicial, casaFinal);
 	
@@ -153,17 +154,17 @@ public class Jogo extends JFrame implements ActionListener {
 				} finally {
 					casaInicial = null;
 					casaFinal = null;
-					if (jogada == 1)
+					if (jogada == 1 &&  RegraGeral.getSequencia()==false)
 						jogada = 2;
-					else
+					else if(jogada == 2 &&  RegraGeral.getSequencia()==false)
 						jogada = 1;
 				}
 			}
 			else
 			{
-				if(mapaTabuleiro.get(e.getSource()).getPeca().getCor() == jogada)
+				if(mapaTabuleiro.get(e.getSource()).getPeca().getCor() == jogada && RegraGeral.getSequencia()==false)
 					casaInicial = mapaTabuleiro.get(e.getSource());
-				else
+				else if (mapaTabuleiro.get(e.getSource()).getPeca().getCor() != jogada && RegraGeral.getSequencia()==false)
 					casaInicial = null;
 			}
 		}
