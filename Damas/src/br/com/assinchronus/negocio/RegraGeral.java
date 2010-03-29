@@ -13,7 +13,7 @@ import br.com.assinchronus.exception.JogadaInvalida;
 /**
  * 
  * @author vinicius
- *
+ * 
  */
 public class RegraGeral {
 
@@ -23,8 +23,10 @@ public class RegraGeral {
 
 	/**
 	 * 
-	 * @param jogada		Indica de quem eh a vez
-	 * @param tabuleiro		Tabuleiro atual do jogo
+	 * @param jogada
+	 *            Indica de quem eh a vez
+	 * @param tabuleiro
+	 *            Tabuleiro atual do jogo
 	 * @return
 	 */
 	public static List<Casa[]> verificaCapturaObrigatoria(int jogada, Casa[][] tabuleiro) {
@@ -196,11 +198,15 @@ public class RegraGeral {
 
 	/**
 	 * 
-	 * @param jogada		Indica de quem eh a vez
-	 * @param tabuleiro		Tabuleiro atual do jogo
-	 * @param casaInicial	Casa com a peca do jogador
-	 * @param casaFinal		Casa de destino final
-	 * @return				Retorna a lista de jogadas obrigatorias (para a IA)
+	 * @param jogada
+	 *            Indica de quem eh a vez
+	 * @param tabuleiro
+	 *            Tabuleiro atual do jogo
+	 * @param casaInicial
+	 *            Casa com a peca do jogador
+	 * @param casaFinal
+	 *            Casa de destino final
+	 * @return Retorna a lista de jogadas obrigatorias (para a IA)
 	 * @throws JogadaInvalida
 	 */
 	public static List<Casa[]> validarPeca(int jogada, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal) throws JogadaInvalida {
