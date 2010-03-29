@@ -8,13 +8,18 @@ import br.com.assinchronus.componentes.Casa;
 public class RegraDama {
 
 	RegraGeral rg = new RegraGeral();
-/**
- * 
- * @param obrigatoria	lista das jogadas obrigatorias
- * @param tabuleiro		tabuleiro atual do jogo
- * @param casaInicial	casa clicada para jogar
- * @param casaFinal		casa de destino final
- */
+
+	/**
+	 * 
+	 * @param obrigatoria
+	 *            lista das jogadas obrigatorias
+	 * @param tabuleiro
+	 *            tabuleiro atual do jogo
+	 * @param casaInicial
+	 *            casa clicada para jogar
+	 * @param casaFinal
+	 *            casa de destino final
+	 */
 	public void verificaDiagonalDama(List<Casa[]> obrigatoria, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal) {
 		int x; // salva a direcao horizontal do movimento
 		int y; // salva a direcao vertical do movimento
@@ -27,12 +32,12 @@ public class RegraDama {
 				x = 1;
 				y = 1;
 			}
-			if (x > 0 && y < 0) // movimento para baixo esquerda
+			if (x > 0 && y < 0) // movimento para cima direta
 			{
 				x = 1;
 				y = -1;
 			}
-			if (x < 0 && y > 0) // movimento para cima direita
+			if (x < 0 && y > 0) // movimento para baixo esquerda
 			{
 				x = -1;
 				y = 1;
@@ -50,14 +55,20 @@ public class RegraDama {
 
 	/**
 	 * 
-	 * @param obrigatoria	lista das jogadas obrigatorias
-	 * @param tabuleiro		tabuleiro atual do jogo
-	 * @param casaInicial	casa clicada para jogar
-	 * @param casaFinal		casa de destino final
-	 * @param x				direcao horizontal do movimento da dama
-	 * @param y				direcao vertical do movimento da dama
+	 * @param obrigatoria
+	 *            lista das jogadas obrigatorias
+	 * @param tabuleiro
+	 *            tabuleiro atual do jogo
+	 * @param casaInicial
+	 *            casa clicada para jogar
+	 * @param casaFinal
+	 *            casa de destino final
+	 * @param x
+	 *            direcao horizontal do movimento da dama
+	 * @param y
+	 *            direcao vertical do movimento da dama
 	 */
-	
+
 	public void verificaJogadaDama(List<Casa[]> obrigatoria, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal, int x, int y) {
 		int linha = casaInicial.getLinha();
 		int coluna = casaInicial.getColuna();
@@ -90,7 +101,7 @@ public class RegraDama {
 				casaInicial.getPeca().mover(casaInicial, casaFinal);
 			}
 		} else if (adversaria == 1) {
-			casaFinal.getPeca().comer(casaInicial, capturada, casaFinal);
+			casaInicial.getPeca().comer(casaInicial, capturada, casaFinal);
 			if (verificaSequenciaDama(tabuleiro, casaFinal).isEmpty()) {
 				rg.setSequencia(false);
 			} else {
@@ -105,9 +116,11 @@ public class RegraDama {
 
 	/**
 	 * 
-	 * @param tabuleiro		Tabuleiro atual do jogo
-	 * @param casaInicial	Casa em que a peca parou
-	 * @return				Lista de jogadas possiveis para sequencia
+	 * @param tabuleiro
+	 *            Tabuleiro atual do jogo
+	 * @param casaInicial
+	 *            Casa em que a peca parou
+	 * @return Lista de jogadas possiveis para sequencia
 	 */
 	public List<Casa[]> verificaSequenciaDama(Casa[][] tabuleiro, Casa casaInicial) {
 		int z, l, c;
