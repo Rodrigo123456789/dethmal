@@ -10,9 +10,9 @@ public class Peao implements Pecas {
 	@Override
 	public void comer(Casa atual, Casa adversaria, Casa proxima) {
 		if (atual.getPeca().getCor() == 1) {
-			rf.setQtdDamaBranco(rf.getQtdPeaoBranco() - 1);
+			rf.setQtdPeaoBranco(rf.getQtdPeaoBranco() - 1);
 		} else {
-			rf.setQtdDamaPreto(rf.getQtdPeaoPreto() - 1);
+			rf.setQtdPeaoPreto(rf.getQtdPeaoPreto() - 1);
 		}
 		mover(atual, proxima);
 		adversaria.setPeca(null);
