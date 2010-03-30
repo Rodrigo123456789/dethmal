@@ -50,8 +50,27 @@ public class RegraPeao {
 				throw new JogadaInvalida("Jogada invalida");
 			}
 		} else if ((casaFinal.getColuna() - casaInicial.getColuna()) == -2 && (casaFinal.getLinha() - casaInicial.getLinha() == -2)) {
-			// Movimento duplo para a esquerda
 			Casa adversaria = tabuleiro[casaInicial.getLinha() - 1][casaFinal.getColuna() + 1];
+			// Movimento duplo para a esquerda
+			if (adversaria.getPeca() != null && adversaria.getPeca().getCor() == Pecas.PRETA) {
+				casaInicial.getPeca().comer(casaInicial, adversaria, casaFinal);
+				sequencia = verificaSequenciaPeao(tabuleiro, casaFinal);
+			} else {
+				throw new JogadaInvalida("Jogada invalida");
+			}
+		} else if (RegraGeral.getSequencia() && (casaFinal.getColuna() - casaInicial.getColuna()) == 2 && (casaFinal.getLinha() - casaInicial.getLinha() == +2)) {
+			Casa adversaria = tabuleiro[casaInicial.getLinha() + 1][casaFinal.getColuna() - 1];
+			// movimento duplo para a direita (reverso)
+			if (adversaria.getPeca() != null && adversaria.getPeca().getCor() == Pecas.PRETA) {
+				casaInicial.getPeca().comer(casaInicial, adversaria, casaFinal);
+				sequencia = verificaSequenciaPeao(tabuleiro, casaFinal);
+			} else {
+				throw new JogadaInvalida("Jogada invalida");
+			}
+		} else if (RegraGeral.getSequencia() && (casaFinal.getColuna() - casaInicial.getColuna()) == -2
+				&& (casaFinal.getLinha() - casaInicial.getLinha() == +2)) {
+			Casa adversaria = tabuleiro[casaInicial.getLinha() + 1][casaFinal.getColuna() + 1];
+			// movimento duplo para a esquerda (reverso)
 			if (adversaria.getPeca() != null && adversaria.getPeca().getCor() == Pecas.PRETA) {
 				casaInicial.getPeca().comer(casaInicial, adversaria, casaFinal);
 				sequencia = verificaSequenciaPeao(tabuleiro, casaFinal);
@@ -94,17 +113,35 @@ public class RegraPeao {
 				sequencia.clear();
 			}
 		} else if ((casaFinal.getColuna() - casaInicial.getColuna()) == 2 && (casaFinal.getLinha() - casaInicial.getLinha() == 2)) {
-			// Movimento duplo para a direita
 			Casa adversaria = tabuleiro[casaInicial.getLinha() + 1][casaFinal.getColuna() - 1];
+			// Movimento duplo para a direita
 			if (adversaria.getPeca() != null && adversaria.getPeca().getCor() == Pecas.BRANCA) {
 				casaInicial.getPeca().comer(casaInicial, adversaria, casaFinal);
 				sequencia = verificaSequenciaPeao(tabuleiro, casaFinal);
 			} else {
-				throw new JogadaInvalida("Jogada inv‡lida");
+				throw new JogadaInvalida("Jogada invalida");
 			}
 		} else if ((casaFinal.getColuna() - casaInicial.getColuna()) == -2 && (casaFinal.getLinha() - casaInicial.getLinha() == 2)) {
-			// Movimento duplo para a esquerda
 			Casa adversaria = tabuleiro[casaInicial.getLinha() + 1][casaFinal.getColuna() + 1];
+			// Movimento duplo para a esquerda
+			if (adversaria.getPeca() != null && adversaria.getPeca().getCor() == Pecas.BRANCA) {
+				casaInicial.getPeca().comer(casaInicial, adversaria, casaFinal);
+				sequencia = verificaSequenciaPeao(tabuleiro, casaFinal);
+			} else {
+				throw new JogadaInvalida("Jogada invalida");
+			}
+		} else if (RegraGeral.getSequencia() && (casaFinal.getColuna() - casaInicial.getColuna()) == 2 && (casaFinal.getLinha() - casaInicial.getLinha() == -2)) {
+			Casa adversaria = tabuleiro[casaInicial.getLinha() - 1][casaFinal.getColuna() - 1];
+			// Movimento duplo para a direita (reverso)
+			if (adversaria.getPeca() != null && adversaria.getPeca().getCor() == Pecas.BRANCA) {
+				casaInicial.getPeca().comer(casaInicial, adversaria, casaFinal);
+				sequencia = verificaSequenciaPeao(tabuleiro, casaFinal);
+			} else {
+				throw new JogadaInvalida("Jogada invalida");
+			}
+		} else if (RegraGeral.getSequencia() && (casaFinal.getColuna() - casaInicial.getColuna()) == -2 && (casaFinal.getLinha() - casaInicial.getLinha() == -2)) {
+			Casa adversaria = tabuleiro[casaInicial.getLinha() - 1][casaFinal.getColuna() + 1];
+			// Movimento duplo para a esquerda (reverso)
 			if (adversaria.getPeca() != null && adversaria.getPeca().getCor() == Pecas.BRANCA) {
 				casaInicial.getPeca().comer(casaInicial, adversaria, casaFinal);
 				sequencia = verificaSequenciaPeao(tabuleiro, casaFinal);
