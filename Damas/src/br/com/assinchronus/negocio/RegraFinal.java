@@ -13,6 +13,7 @@ public class RegraFinal {
 	int qtdPeaoPreto;
 	int qtdDamaBranco;
 	int qtdDamaPreto;
+	int jogadasempate;
 
 	RegraGeral rg = new RegraGeral();
 
@@ -54,6 +55,7 @@ public class RegraFinal {
 							return true;
 						}
 					} else if (tabuleiro[i][j].getPeca() instanceof Dama) {
+						// se ha uma dama, o jogador nao esta imobilizado
 						return true;
 					}
 				}
@@ -100,12 +102,59 @@ public class RegraFinal {
 							return true;
 						}
 					} else if (tabuleiro[i][j].getPeca() instanceof Dama) {
+						// se ha uma dama, o jogador nao esta imobilizado
 						return true;
 					}
 				}
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * 
+	 * @param qtdPeaoBranco
+	 * @param qtdPeaoPreto
+	 * @param qtdDamaBranco
+	 * @param qtdDamaPreto
+	 * @return	0 para condicao de empate
+	 * 			1 para vitoria branca
+	 * 		   -1 para vitoria preta
+	 * 			5 para condicao de nao-final
+	 */
+	public int analisaFinal(int qtdPeaoBranco, int qtdPeaoPreto, int qtdDamaBranco, int qtdDamaPreto) {
+
+		int totalpecas = qtdPeaoBranco + qtdPeaoPreto + qtdDamaBranco + qtdDamaPreto;
+
+		if (totalpecas < 5) {
+			if (qtdPeaoBranco + qtdDamaBranco == 0) {
+				// Preto vence
+				return -1;
+			} else if (qtdPeaoPreto + qtdDamaPreto == 0) {
+				// Branco vence
+				return 1;
+			} else if (qtdPeaoPreto + qtdPeaoBranco == 0) {
+				// Se nao tem peoes no tabuleiro
+				if (qtdDamaBranco < 3 || qtdDamaPreto < 3) {
+					jogadasempate--;
+					return 0;
+				} else if (qtdPeaoBranco == 1 && qtdDamaBranco == 1 && qtdDamaPreto == 1) {
+					jogadasempate--;
+					return 0;
+				} else if (qtdPeaoPreto == 1 && qtdDamaBranco == 1 && qtdDamaPreto == 1) {
+					jogadasempate--;
+					return 0;
+				} else if (qtdPeaoBranco == 1 && qtdDamaBranco == 1 && qtdDamaPreto == 2) {
+					jogadasempate--;
+					return 0;
+				} else if (qtdPeaoPreto == 1 && qtdDamaBranco == 2 && qtdDamaPreto == 1) {
+					jogadasempate--;
+					return 0;
+				}
+			}
+		}
+		jogadasempate = 10;
+		return 5; // indica que o jogo nao terminou
 	}
 
 	public int getQtdPeaoBranco() {
