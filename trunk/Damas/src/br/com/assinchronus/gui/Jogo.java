@@ -14,6 +14,7 @@ import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import br.com.assinchronus.componentes.Casa;
 import br.com.assinchronus.componentes.Dama;
@@ -21,6 +22,7 @@ import br.com.assinchronus.componentes.Peao;
 import br.com.assinchronus.componentes.Pecas;
 import br.com.assinchronus.componentes.Tabuleiro;
 import br.com.assinchronus.exception.JogadaInvalida;
+import br.com.assinchronus.negocio.RegraFinal;
 import br.com.assinchronus.negocio.RegraGeral;
 
 public class Jogo extends JFrame implements ActionListener {
@@ -38,7 +40,9 @@ public class Jogo extends JFrame implements ActionListener {
 	private JButton[][] buttons = new JButton[8][8];
 	Map<JButton, Casa> mapaTabuleiro = new HashMap<JButton, Casa>();
 	Tabuleiro tabuleiro = new Tabuleiro();
-
+	
+	private RegraFinal rf = new RegraFinal();
+	
 	Casa casaInicial;
 	Casa casaFinal;
 	int jogada = 1;
@@ -68,7 +72,12 @@ public class Jogo extends JFrame implements ActionListener {
 
 		int coluna = 10;
 		int linha = 20;
-
+		
+		rf.setQtdPeaoBranco(12);
+		rf.setQtdPeaoPreto(12);
+		rf.setQtdDamaBranco(0);
+		rf.setQtdDamaPreto(0);
+		
 		for (int i = 0; i < buttons.length; i++) {
 			for (int j = 0; j < buttons.length; j++) {
 				buttons[i][j] = new JButton();
@@ -161,6 +170,48 @@ public class Jogo extends JFrame implements ActionListener {
 				else if (mapaTabuleiro.get(e.getSource()).getPeca().getCor() != jogada && RegraGeral.getSequencia() == false)
 					casaInicial = null;
 			}
+			
+			
+			switch (rf.analisaFinal())
+			{
+				case 0:
+				{
+					if(rf.getJogadasempate()==0)
+					{
+						JOptionPane.showMessageDialog(null, "Empate");
+						jogada =0;
+					}
+					break;
+				}
+				case 1:
+				{
+					JOptionPane.showMessageDialog(null, "Branca ganhou");
+					jogada =0;
+					break;
+				}
+				case -1:
+				{
+					JOptionPane.showMessageDialog(null, "Preta ganhou");
+					jogada =0;
+					break;
+				}
+			}
+			if(jogada==2)
+			{
+				if(!rf.verificaPecasBranca(tabuleiro.getTabuleiro()))
+				{	
+					JOptionPane.showMessageDialog(null, "Preta ganhou");
+					jogada =0;
+				}
+			}
+			else if(jogada==1)
+			{
+				if(!rf.verificaPecasPreta(tabuleiro.getTabuleiro()))
+				{
+					JOptionPane.showMessageDialog(null, "Branca ganhou");
+					jogada =0;
+				}
+			}
 		}
 	}
 
@@ -181,6 +232,8 @@ public class Jogo extends JFrame implements ActionListener {
 									tab[i][j].setPeca(new Dama());
 									tab[i][j].getPeca().setCor(1);
 									buttons[i][j].setIcon(iconKingWhite);
+									rf.setQtdDamaBranco(rf.getQtdDamaBranco()+1);
+									rf.setQtdPeaoBranco(rf.getQtdPeaoBranco()-1);
 								} else
 									buttons[i][j].setIcon(iconWhite);
 							} else {
@@ -192,6 +245,8 @@ public class Jogo extends JFrame implements ActionListener {
 									tab[i][j].setPeca(new Dama());
 									tab[i][j].getPeca().setCor(2);
 									buttons[i][j].setIcon(iconKingBlack);
+									rf.setQtdDamaPreto(rf.getQtdDamaPreto()+1);
+									rf.setQtdPeaoPreto(rf.getQtdPeaoPreto()-1);
 								} else
 									buttons[i][j].setIcon(iconBlack);
 							} else {
