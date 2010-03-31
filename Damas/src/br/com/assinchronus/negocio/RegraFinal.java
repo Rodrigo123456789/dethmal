@@ -9,11 +9,11 @@ import br.com.assinchronus.componentes.*;
  */
 public class RegraFinal {
 
-	int qtdPeaoBranco;
-	int qtdPeaoPreto;
-	int qtdDamaBranco;
-	int qtdDamaPreto;
-	int jogadasempate;
+	private int qtdPeaoBranco;
+	private int qtdPeaoPreto;
+	private int qtdDamaBranco;
+	private int qtdDamaPreto;
+	private int jogadasempate;
 
 	RegraGeral rg = new RegraGeral();
 
@@ -122,7 +122,7 @@ public class RegraFinal {
 	 * 		   -1 para vitoria preta
 	 * 			5 para condicao de nao-final
 	 */
-	public int analisaFinal(int qtdPeaoBranco, int qtdPeaoPreto, int qtdDamaBranco, int qtdDamaPreto) {
+	public int analisaFinal() {
 
 		int totalpecas = qtdPeaoBranco + qtdPeaoPreto + qtdDamaBranco + qtdDamaPreto;
 
@@ -136,24 +136,24 @@ public class RegraFinal {
 			} else if (qtdPeaoPreto + qtdPeaoBranco == 0) {
 				// Se nao tem peoes no tabuleiro
 				if (qtdDamaBranco < 3 || qtdDamaPreto < 3) {
-					jogadasempate--;
+					setJogadasempate(getJogadasempate() - 1);
 					return 0;
 				} else if (qtdPeaoBranco == 1 && qtdDamaBranco == 1 && qtdDamaPreto == 1) {
-					jogadasempate--;
+					setJogadasempate(getJogadasempate() - 1);
 					return 0;
 				} else if (qtdPeaoPreto == 1 && qtdDamaBranco == 1 && qtdDamaPreto == 1) {
-					jogadasempate--;
+					setJogadasempate(getJogadasempate() - 1);
 					return 0;
 				} else if (qtdPeaoBranco == 1 && qtdDamaBranco == 1 && qtdDamaPreto == 2) {
-					jogadasempate--;
+					setJogadasempate(getJogadasempate() - 1);
 					return 0;
 				} else if (qtdPeaoPreto == 1 && qtdDamaBranco == 2 && qtdDamaPreto == 1) {
-					jogadasempate--;
+					setJogadasempate(getJogadasempate() - 1);
 					return 0;
 				}
 			}
 		}
-		jogadasempate = 10;
+		//jogadasempate = 10;
 		return 5; // indica que o jogo nao terminou
 	}
 
@@ -187,6 +187,14 @@ public class RegraFinal {
 
 	public void setQtdDamaPreto(int qtdDamaPreto) {
 		this.qtdDamaPreto = qtdDamaPreto;
+	}
+
+	public void setJogadasempate(int jogadasempate) {
+		this.jogadasempate = jogadasempate;
+	}
+
+	public int getJogadasempate() {
+		return jogadasempate;
 	}
 
 }
