@@ -1,18 +1,11 @@
 package br.com.assinchronus.componentes;
-//erro svn
-import javax.swing.JOptionPane;
 
-import br.com.assinchronus.gui.Jogo;
-
+//CLASSE INUTILIZADA
 public class Main {
-	
-	public static void main(String[] args){
+	// CLASSE INUTILIZADA
+	public static void main(String[] args) {
 		Tabuleiro tab = new Tabuleiro();
-		
 		tab.printTabuleiro();
-		
-		
-		
-		
 	}
 }
+// CLASSE INUTILIZADA
