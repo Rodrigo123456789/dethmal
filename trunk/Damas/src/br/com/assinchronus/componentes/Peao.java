@@ -31,6 +31,7 @@ public class Peao implements Pecas {
 		Pecas peca = atual.getPeca();
 		atual.setPeca(null);
 		proxima.setPeca(peca);
+		
 	}
 
 	public int getCor() {
