@@ -9,7 +9,6 @@ package br.com.assinchronus.componentes;
 public interface Pecas {
 
 	public static final int BRANCA = 1;
-
 	public static final int PRETA = 2;
 
 	void mover(Casa atual, Casa proxima);

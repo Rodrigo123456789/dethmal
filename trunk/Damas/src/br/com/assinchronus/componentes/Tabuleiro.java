@@ -26,7 +26,6 @@ public class Tabuleiro {
 				}
 			}
 		}
-
 		colocarPecas(Peao.BRANCA);
 		colocarPecas(Peao.PRETA);
 	}

@@ -1,6 +1,5 @@
 package br.com.assinchronus.negocio;
 
-//erro svn
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class RegraPeao {
 		List<Casa[]> sequencia = new ArrayList<Casa[]>();
 		sequencia.clear();
 		if (Math.abs(casaFinal.getColuna() - casaInicial.getColuna()) == 1 && (casaFinal.getLinha() - casaInicial.getLinha() == -1)) {
-			if (!obrigatoria.isEmpty()) {
+			if (!obrigatoria.isEmpty() || rg.isForcacaptura()) {
 				throw new JogadaInvalida("Voce deve capturar uma peca");
 			} else {
 				casaInicial.getPeca().mover(casaInicial, casaFinal);
@@ -45,7 +44,9 @@ public class RegraPeao {
 			// Movimento duplo para a direita
 			if (adversaria.getPeca() != null && adversaria.getPeca().getCor() == Pecas.PRETA) {
 				casaInicial.getPeca().comer(casaInicial, adversaria, casaFinal);
-				sequencia = verificaSequenciaPeao(tabuleiro, casaFinal);
+				if (casaFinal.getLinha() != 0) {
+					sequencia = verificaSequenciaPeao(tabuleiro, casaFinal);
+				}
 			} else {
 				throw new JogadaInvalida("Jogada invalida");
 			}
@@ -54,7 +55,9 @@ public class RegraPeao {
 			// Movimento duplo para a esquerda
 			if (adversaria.getPeca() != null && adversaria.getPeca().getCor() == Pecas.PRETA) {
 				casaInicial.getPeca().comer(casaInicial, adversaria, casaFinal);
-				sequencia = verificaSequenciaPeao(tabuleiro, casaFinal);
+				if (casaFinal.getLinha() != 0) {
+					sequencia = verificaSequenciaPeao(tabuleiro, casaFinal);
+				}
 			} else {
 				throw new JogadaInvalida("Jogada invalida");
 			}
@@ -63,7 +66,9 @@ public class RegraPeao {
 			// movimento duplo para a direita (reverso)
 			if (adversaria.getPeca() != null && adversaria.getPeca().getCor() == Pecas.PRETA) {
 				casaInicial.getPeca().comer(casaInicial, adversaria, casaFinal);
-				sequencia = verificaSequenciaPeao(tabuleiro, casaFinal);
+				if (casaFinal.getLinha() != 0) {
+					sequencia = verificaSequenciaPeao(tabuleiro, casaFinal);
+				}
 			} else {
 				throw new JogadaInvalida("Jogada invalida");
 			}
@@ -73,7 +78,9 @@ public class RegraPeao {
 			// movimento duplo para a esquerda (reverso)
 			if (adversaria.getPeca() != null && adversaria.getPeca().getCor() == Pecas.PRETA) {
 				casaInicial.getPeca().comer(casaInicial, adversaria, casaFinal);
-				sequencia = verificaSequenciaPeao(tabuleiro, casaFinal);
+				if (casaFinal.getLinha() != 0) {
+					sequencia = verificaSequenciaPeao(tabuleiro, casaFinal);
+				}
 			} else {
 				throw new JogadaInvalida("Jogada invalida");
 			}
@@ -106,7 +113,7 @@ public class RegraPeao {
 		List<Casa[]> sequencia = new ArrayList<Casa[]>();
 		sequencia.clear();
 		if (Math.abs(casaFinal.getColuna() - casaInicial.getColuna()) == 1 && (casaFinal.getLinha() - casaInicial.getLinha() == 1)) {
-			if (!obrigatoria.isEmpty()) {
+			if (!obrigatoria.isEmpty() || rg.isForcacaptura()) {
 				throw new JogadaInvalida("Voce deve capturar uma peca");
 			} else {
 				casaInicial.getPeca().mover(casaInicial, casaFinal);
@@ -117,7 +124,9 @@ public class RegraPeao {
 			// Movimento duplo para a direita
 			if (adversaria.getPeca() != null && adversaria.getPeca().getCor() == Pecas.BRANCA) {
 				casaInicial.getPeca().comer(casaInicial, adversaria, casaFinal);
-				sequencia = verificaSequenciaPeao(tabuleiro, casaFinal);
+				if (casaFinal.getLinha() != 7) {
+					sequencia = verificaSequenciaPeao(tabuleiro, casaFinal);
+				}
 			} else {
 				throw new JogadaInvalida("Jogada invalida");
 			}
@@ -126,7 +135,9 @@ public class RegraPeao {
 			// Movimento duplo para a esquerda
 			if (adversaria.getPeca() != null && adversaria.getPeca().getCor() == Pecas.BRANCA) {
 				casaInicial.getPeca().comer(casaInicial, adversaria, casaFinal);
-				sequencia = verificaSequenciaPeao(tabuleiro, casaFinal);
+				if (casaFinal.getLinha() != 7) {
+					sequencia = verificaSequenciaPeao(tabuleiro, casaFinal);
+				}
 			} else {
 				throw new JogadaInvalida("Jogada invalida");
 			}
@@ -135,16 +146,21 @@ public class RegraPeao {
 			// Movimento duplo para a direita (reverso)
 			if (adversaria.getPeca() != null && adversaria.getPeca().getCor() == Pecas.BRANCA) {
 				casaInicial.getPeca().comer(casaInicial, adversaria, casaFinal);
-				sequencia = verificaSequenciaPeao(tabuleiro, casaFinal);
+				if (casaFinal.getLinha() != 7) {
+					sequencia = verificaSequenciaPeao(tabuleiro, casaFinal);
+				}
 			} else {
 				throw new JogadaInvalida("Jogada invalida");
 			}
-		} else if (RegraGeral.getSequencia() && (casaFinal.getColuna() - casaInicial.getColuna()) == -2 && (casaFinal.getLinha() - casaInicial.getLinha() == -2)) {
+		} else if (RegraGeral.getSequencia() && (casaFinal.getColuna() - casaInicial.getColuna()) == -2
+				&& (casaFinal.getLinha() - casaInicial.getLinha() == -2)) {
 			Casa adversaria = tabuleiro[casaInicial.getLinha() - 1][casaFinal.getColuna() + 1];
 			// Movimento duplo para a esquerda (reverso)
 			if (adversaria.getPeca() != null && adversaria.getPeca().getCor() == Pecas.BRANCA) {
 				casaInicial.getPeca().comer(casaInicial, adversaria, casaFinal);
-				sequencia = verificaSequenciaPeao(tabuleiro, casaFinal);
+				if (casaFinal.getLinha() != 7) {
+					sequencia = verificaSequenciaPeao(tabuleiro, casaFinal);
+				}
 			} else {
 				throw new JogadaInvalida("Jogada invalida");
 			}

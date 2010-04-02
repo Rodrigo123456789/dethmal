@@ -9,14 +9,22 @@ public class Dama implements Pecas {
 
 	@Override
 	public void comer(Casa atual, Casa adversaria, Casa proxima) {
-		if (atual.getPeca().getCor() == 1) {
-			rf.setQtdDamaBranco(rf.getQtdDamaBranco() - 1);
+		if (adversaria.getPeca().getCor() == 1) {
+			if (adversaria.getPeca() instanceof Peao) {
+				RegraFinal.setQtdPeaoBranco(rf.getQtdPeaoBranco() - 1);
+			} else {
+				RegraFinal.setQtdDamaBranco(rf.getQtdDamaBranco() - 1);
+			}
 		} else {
-			rf.setQtdDamaPreto(rf.getQtdDamaPreto() - 1);
+			if (adversaria.getPeca() instanceof Peao) {
+
+				RegraFinal.setQtdPeaoPreto(rf.getQtdPeaoPreto() - 1);
+			} else {
+				RegraFinal.setQtdDamaPreto(rf.getQtdDamaPreto() - 1);
+			}
 		}
 		mover(atual, proxima);
 		adversaria.setPeca(null);
-
 	}
 
 	@Override
