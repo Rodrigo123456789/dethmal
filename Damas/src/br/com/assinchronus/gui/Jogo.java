@@ -172,9 +172,11 @@ public class Jogo extends JFrame implements ActionListener {
 			}
 
 			// Analise do fim do jogo
-			switch (rf.analisaFinal()) {
+			int fim = rf.analisaFinal();
+			System.out.println("Retorno do analisaFinal: "+fim+" // Jogadas para empate: "+rf.getJogadasempate()+" // Passa vez: "+passavez);
+			switch (fim) {
 			case 0: {
-				if (rf.getJogadasempate() == 0) {
+				if (rf.getJogadasempate() == 0 && passavez) {
 					JOptionPane.showMessageDialog(null, "Empate"); // vai na GUI
 					jogada = 0;
 				}
