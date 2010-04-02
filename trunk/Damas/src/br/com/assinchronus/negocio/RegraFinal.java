@@ -116,29 +116,26 @@ public class RegraFinal {
 			System.out.println("Acabaram as pecas pretas");
 			return 1;
 		} else if (totalpecas < 5) {
-			if (qtdPeaoPreto + qtdPeaoBranco == 0) {
-				System.out.println("Acabaram todos os peoes");
-				if (qtdDamaBranco < 3 || qtdDamaPreto < 3) {
-					System.out.println("Duas damas ou menos de cada lado");
-					setJogadasempate(getJogadasempate() - 1);
-					return 0;
-				} else if (qtdPeaoBranco == 1 && qtdDamaBranco == 1 && qtdDamaPreto == 1) {
-					System.out.println("Um PB, uma DB e uma DP");
-					setJogadasempate(getJogadasempate() - 1);
-					return 0;
-				} else if (qtdPeaoPreto == 1 && qtdDamaBranco == 1 && qtdDamaPreto == 1) {
-					System.out.println("Um PP, uma DP e uma DB");
-					setJogadasempate(getJogadasempate() - 1);
-					return 0;
-				} else if (qtdPeaoBranco == 1 && qtdDamaBranco == 1 && qtdDamaPreto == 2) {
-					System.out.println("Um PB, uma DB e duas DP");
-					setJogadasempate(getJogadasempate() - 1);
-					return 0;
-				} else if (qtdPeaoPreto == 1 && qtdDamaBranco == 2 && qtdDamaPreto == 1) {
-					System.out.println("Um PP, uma DP e duas DB");
-					setJogadasempate(getJogadasempate() - 1);
-					return 0;
-				}
+			if ((qtdDamaBranco < 3 || qtdDamaPreto < 3) && (qtdPeaoPreto + qtdPeaoBranco == 0)) {
+				System.out.println("Duas damas ou menos de cada lado");
+				setJogadasempate(getJogadasempate() - 1);
+				return 0;
+			} else if (qtdPeaoBranco == 1 && qtdDamaBranco == 1 && qtdDamaPreto == 1 && qtdPeaoPreto == 0) {
+				System.out.println("Um PB, uma DB e uma DP");
+				setJogadasempate(getJogadasempate() - 1);
+				return 0;
+			} else if (qtdPeaoPreto == 1 && qtdDamaBranco == 1 && qtdDamaPreto == 1 && qtdPeaoBranco == 0) {
+				System.out.println("Um PP, uma DP e uma DB");
+				setJogadasempate(getJogadasempate() - 1);
+				return 0;
+			} else if (qtdPeaoBranco == 1 && qtdDamaBranco == 1 && qtdDamaPreto == 2 && qtdPeaoPreto == 0) {
+				System.out.println("Um PB, uma DB e duas DP");
+				setJogadasempate(getJogadasempate() - 1);
+				return 0;
+			} else if (qtdPeaoPreto == 1 && qtdDamaBranco == 2 && qtdDamaPreto == 1 && qtdPeaoBranco == 0) {
+				System.out.println("Um PP, uma DP e duas DB");
+				setJogadasempate(getJogadasempate() - 1);
+				return 0;
 			}
 		}
 		return 5;
