@@ -14,7 +14,11 @@ import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.ListModel;
+import javax.swing.event.ListDataListener;
 
 import br.com.assinchronus.componentes.*;
 import br.com.assinchronus.exception.JogadaInvalida;
@@ -47,7 +51,13 @@ public class Jogo extends JFrame implements ActionListener {
 	Casa casaFinal;
 	int jogada = 1;
 	boolean passavez;
-
+	
+	javax.swing.JScrollPane panel= new JScrollPane();
+	javax.swing.JList jogadas = new JList();
+	
+	static javax.swing.DefaultListModel model =new javax.swing.DefaultListModel(); 
+	
+	
 	public static void main(String args[]) {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -74,7 +84,8 @@ public class Jogo extends JFrame implements ActionListener {
 		RegraFinal.setQtdPeaoPreto(12);
 		RegraFinal.setQtdDamaBranco(0);
 		RegraFinal.setQtdDamaPreto(0);
-
+		
+		
 		for (int i = 0; i < buttons.length; i++) {
 			for (int j = 0; j < buttons.length; j++) {
 				buttons[i][j] = new JButton();
@@ -103,7 +114,14 @@ public class Jogo extends JFrame implements ActionListener {
 			linha += 90;
 			coluna = 10;
 		}
-
+		//jogadas.setSize(100, 100);
+		
+		jogadas.setModel(model);
+		
+		panel.setViewportView(jogadas);
+		panel.setBounds(740,10, 275, 300);
+		getContentPane().add(panel);
+		
 		jMenuBar1 = new javax.swing.JMenuBar();
 		jMenu1 = new javax.swing.JMenu();
 		jMenu2 = new javax.swing.JMenu();
@@ -127,17 +145,17 @@ public class Jogo extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
-		System.out.println("Quem joga: " + jogada + ", tem sequencia: " + RegraGeral.getSequencia());
+		Jogo.setMSG("Quem joga: " + jogada + ", tem sequencia: " + RegraGeral.getSequencia());
 		if (casaInicial == null) {
 			if (mapaTabuleiro.get(e.getSource()).getPeca() != null) {
 				if (jogada == mapaTabuleiro.get(e.getSource()).getPeca().getCor()) {
 					casaInicial = mapaTabuleiro.get(e.getSource());
 				} else {
-					System.out.println("Esta não é sua peça"); // vai na GUI
+					model.add(model.getSize(),"Esta não é sua peça"); // vai na GUI
 				}
 
 			} else
-				System.out.println("Casa vazia selecione outra"); // cai na GUI
+				model.add(model.getSize(),"Casa vazia selecione outra"); // cai na GUI
 		} else {
 			if (mapaTabuleiro.get(e.getSource()).getPeca() == null) {
 				casaFinal = mapaTabuleiro.get(e.getSource());
@@ -173,23 +191,23 @@ public class Jogo extends JFrame implements ActionListener {
 
 			// Analise do fim do jogo
 			int fim = rf.analisaFinal();
-			System.out.println("Retorno do analisaFinal: "+fim+" // Jogadas para empate: "+rf.getJogadasempate()+" // Passa vez: "+passavez);
+			model.add(model.getSize(), "Retorno do analisaFinal: "+fim+" // Jogadas para empate: "+rf.getJogadasempate()+" // Passa vez: "+passavez);
 			switch (fim) {
 			case 0: {
 				if (rf.getJogadasempate() == 0 && passavez) {
-					JOptionPane.showMessageDialog(null, "Empate"); // vai na GUI
+					model.add(model.getSize(), "Empate"); // vai na GUI
 					jogada = 0;
 				}
 				break;
 			}
 			case 1: {
-				JOptionPane.showMessageDialog(null, "Branca ganhou"); // vai na
+				model.add(model.getSize(), "Branca ganhou"); // vai na
 				// GUI
 				jogada = 0;
 				break;
 			}
 			case -1: {
-				JOptionPane.showMessageDialog(null, "Preta ganhou"); // vai na
+				model.add(model.getSize(), "Preta ganhou"); // vai na
 				// GUI
 				jogada = 0;
 				break;
@@ -199,20 +217,23 @@ public class Jogo extends JFrame implements ActionListener {
 			// Analise da imobilizacao
 			if (jogada == 1) {
 				if (!rf.verificaPecasBranca(tabuleiro.getTabuleiro())) {
-					JOptionPane.showMessageDialog(null, "Preta ganhou por imobilizacao"); // vai
+					model.add(model.getSize(), "Preta ganhou por imobilizacao"); // vai
 					// na
 					// GUI
 					jogada = 0;
 				}
 			} else if (jogada == 2) {
 				if (!rf.verificaPecasPreta(tabuleiro.getTabuleiro())) {
-					JOptionPane.showMessageDialog(null, "Branca ganhou por imobilizacao"); // vai
+					model.add(model.getSize(), "Branca ganhou por imobilizacao"); // vai
 					// na
 					// GUI
 					jogada = 0;
 				}
 			}
 		}
+		jogadas.setModel(model);
+		jogadas.setSelectedIndex(model.getSize()-1);
+		
 	}
 
 	public void atualizaTabuleiro() {
@@ -257,4 +278,12 @@ public class Jogo extends JFrame implements ActionListener {
 			}
 		}
 	}
+	
+	public static void setMSG(String msg)
+	{
+		model.add(model.getSize(),msg);
+	}
+	
 }
+
+	

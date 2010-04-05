@@ -1,5 +1,6 @@
 package br.com.assinchronus.negocio;
 
+import br.com.assinchronus.gui.*;
 import br.com.assinchronus.componentes.*;
 
 /**
@@ -110,30 +111,30 @@ public class RegraFinal {
 
 		int totalpecas = qtdPeaoBranco + qtdPeaoPreto + qtdDamaBranco + qtdDamaPreto;
 		if (qtdPeaoBranco + qtdDamaBranco == 0) {
-			System.out.println("Acabaram as pecas brancas");
+			Jogo.setMSG("Acabaram as pecas brancas");
 			return -1;
 		} else if (qtdPeaoPreto + qtdDamaPreto == 0) {
-			System.out.println("Acabaram as pecas pretas");
+			Jogo.setMSG("Acabaram as pecas pretas");
 			return 1;
 		} else if (totalpecas < 5) {
 			if ((qtdDamaBranco < 3 || qtdDamaPreto < 3) && (qtdPeaoPreto + qtdPeaoBranco == 0)) {
-				System.out.println("Duas damas ou menos de cada lado");
+				Jogo.setMSG("Duas damas ou menos de cada lado");
 				setJogadasempate(getJogadasempate() - 1);
 				return 0;
 			} else if (qtdPeaoBranco == 1 && qtdDamaBranco == 1 && qtdDamaPreto == 1 && qtdPeaoPreto == 0) {
-				System.out.println("Um PB, uma DB e uma DP");
+				Jogo.setMSG("Um PB, uma DB e uma DP");
 				setJogadasempate(getJogadasempate() - 1);
 				return 0;
 			} else if (qtdPeaoPreto == 1 && qtdDamaBranco == 1 && qtdDamaPreto == 1 && qtdPeaoBranco == 0) {
-				System.out.println("Um PP, uma DP e uma DB");
+				Jogo.setMSG("Um PP, uma DP e uma DB");
 				setJogadasempate(getJogadasempate() - 1);
 				return 0;
 			} else if (qtdPeaoBranco == 1 && qtdDamaBranco == 1 && qtdDamaPreto == 2 && qtdPeaoPreto == 0) {
-				System.out.println("Um PB, uma DB e duas DP");
+				Jogo.setMSG("Um PB, uma DB e duas DP");
 				setJogadasempate(getJogadasempate() - 1);
 				return 0;
 			} else if (qtdPeaoPreto == 1 && qtdDamaBranco == 2 && qtdDamaPreto == 1 && qtdPeaoBranco == 0) {
-				System.out.println("Um PP, uma DP e duas DB");
+				Jogo.setMSG("Um PP, uma DP e duas DB");
 				setJogadasempate(getJogadasempate() - 1);
 				return 0;
 			}
