@@ -8,6 +8,7 @@ import br.com.assinchronus.componentes.Dama;
 import br.com.assinchronus.componentes.Peao;
 import br.com.assinchronus.componentes.Pecas;
 import br.com.assinchronus.exception.JogadaInvalida;
+import br.com.assinchronus.gui.Jogo;
 
 /**
  * 
@@ -253,21 +254,21 @@ public class RegraGeral {
 		// se nao for a primeira, vai direto com obrigatoria true.
 		if (!getSequencia()) {
 			obrigatoria = verificaCapturaObrigatoria(jogada, tabuleiro);
-			System.out.println("Captura obrigatoria: " + obrigatoria);
+			Jogo.setMSG("Captura obrigatoria: " + obrigatoria);
 		}
 
 		if ((casaInicial.getPeca() instanceof Peao) && (casaInicial.getPeca().getCor() == Pecas.BRANCA)) {
-			System.out.println("Analisando movimento do peao branco");
+			Jogo.setMSG("Analisando movimento do peao branco");
 			obrigatoria = rp.verificaJogadaPBranco(obrigatoria, tabuleiro, casaInicial, casaFinal);
 			forcacaptura = !obrigatoria.isEmpty();
 			return;
 		} else if ((casaInicial.getPeca() instanceof Peao) && (casaInicial.getPeca().getCor() == Pecas.PRETA)) {
-			System.out.println("Analisando movimento do peao preto");
+			Jogo.setMSG("Analisando movimento do peao preto");
 			obrigatoria = rp.verificaJogadaPPreto(obrigatoria, tabuleiro, casaInicial, casaFinal);
 			forcacaptura = !obrigatoria.isEmpty();
 			return;
 		} else if (casaInicial.getPeca() instanceof Dama) {
-			System.out.println("Analisando Diagonal da Dama");
+			Jogo.setMSG("Analisando Diagonal da Dama");
 			obrigatoria = rd.verificaDiagonalDama(obrigatoria, tabuleiro, casaInicial, casaFinal);
 			forcacaptura = !obrigatoria.isEmpty();
 			return;

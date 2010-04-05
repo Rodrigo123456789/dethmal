@@ -1,5 +1,7 @@
 package br.com.assinchronus.componentes;
 
+import br.com.assinchronus.gui.Jogo;
+
 /**
  * 
  * @author Pilon
@@ -77,19 +79,19 @@ public class Tabuleiro {
 					if (i % 2 == 1) {
 
 						if (tabuleiro[i][j].getPeca() != null)
-							System.out.print("\t" + tabuleiro[i][j] + "-" + tabuleiro[i][j].getPeca().getCor() + "\t");
+							Jogo.setMSG("\t" + tabuleiro[i][j] + "-" + tabuleiro[i][j].getPeca().getCor() + "\t");
 						else
-							System.out.print("\t" + tabuleiro[i][j] + "\t");
+							Jogo.setMSG("\t" + tabuleiro[i][j] + "\t");
 					} else {
 						if (tabuleiro[i][j].getPeca() != null)
-							System.out.print(tabuleiro[i][j] + "-" + tabuleiro[i][j].getPeca().getCor() + "\t" + "\t");
+							Jogo.setMSG(tabuleiro[i][j] + "-" + tabuleiro[i][j].getPeca().getCor() + "\t" + "\t");
 						else
-							System.out.print(tabuleiro[i][j] + "\t" + "\t");
+							Jogo.setMSG(tabuleiro[i][j] + "\t" + "\t");
 					}
 				}
 			}
 
-			System.out.println();
+			
 		}
 	}
 
