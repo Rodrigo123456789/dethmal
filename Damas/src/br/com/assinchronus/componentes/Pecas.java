@@ -18,4 +18,8 @@ public interface Pecas {
 	void setCor(int cor);
 
 	int getCor();
+	
+	public boolean isCapturada();
+
+	public void setCapturada(boolean capturada);
 }

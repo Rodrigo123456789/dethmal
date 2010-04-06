@@ -6,6 +6,7 @@ public class Dama implements Pecas {
 
 	RegraFinal rf = new RegraFinal();
 	private int cor = 0;
+	boolean capturada = false;
 
 	@Override
 	public void comer(Casa atual, Casa adversaria, Casa proxima) {
@@ -24,7 +25,7 @@ public class Dama implements Pecas {
 			}
 		}
 		mover(atual, proxima);
-		adversaria.setPeca(null);
+		adversaria.getPeca().setCapturada(true);
 	}
 
 	@Override
@@ -40,5 +41,13 @@ public class Dama implements Pecas {
 
 	public void setCor(int cor) {
 		this.cor = cor;
+	}
+	
+	public boolean isCapturada() {
+		return capturada;
+	}
+
+	public void setCapturada(boolean capturada) {
+		this.capturada = capturada;
 	}
 }
