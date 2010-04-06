@@ -268,7 +268,7 @@ public class Jogo extends JFrame {
 		for (int i = 0; i < tab.length; i++) {
 			for (int j = 0; j < tab.length; j++) {
 				if ((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) {
-					if (tab[i][j].getPeca() != null) {
+					if (tab[i][j].getPeca() != null && !tab[i][j].getPeca().isCapturada()) {
 						if (tab[i][j].getPeca().getCor() == 1) {
 							if (tab[i][j].getPeca() instanceof Peao) {
 								if (i == 0) {
@@ -298,6 +298,7 @@ public class Jogo extends JFrame {
 						}
 					} else {
 						buttons[i][j].setIcon(null);
+						tab[i][j].setPeca(null);
 					}
 				}
 			}

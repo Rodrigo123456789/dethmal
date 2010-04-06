@@ -131,7 +131,7 @@ public class RegraDama {
 			if (casaInicial.getLinha() + l * (z + 1) > -1 && casaInicial.getColuna() + c * (z + 1) > -1) {
 				if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca() != null) {
 					if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() == casaInicial.getPeca().getCor()
-							|| tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() != null) {
+							|| tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().isCapturada() || tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() != null) {
 						break;
 					}
 					if ((tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() != casaInicial.getPeca().getCor())
@@ -148,7 +148,7 @@ public class RegraDama {
 			if (casaInicial.getLinha() + l * (z + 1) > -1 && casaInicial.getColuna() + c * (z + 1) < 8) {
 				if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca() != null) {
 					if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() == casaInicial.getPeca().getCor()
-							|| tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() != null) {
+							|| tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().isCapturada() || tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() != null) {
 						break;
 					}
 					if ((tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() != casaInicial.getPeca().getCor())
@@ -165,7 +165,7 @@ public class RegraDama {
 			if (casaInicial.getLinha() + l * (z + 1) < 8 && casaInicial.getColuna() + c * (z + 1) > -1) {
 				if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca() != null) {
 					if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() == casaInicial.getPeca().getCor()
-							|| tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() != null) {
+							|| tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().isCapturada() || tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() != null) {
 						break;
 					}
 					if ((tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() != casaInicial.getPeca().getCor())
@@ -182,7 +182,7 @@ public class RegraDama {
 			if (casaInicial.getLinha() + l * (z + 1) < 8 && casaInicial.getColuna() + c * (z + 1) < 8) {
 				if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca() != null) {
 					if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() == casaInicial.getPeca().getCor()
-							|| tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() != null) {
+							|| tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().isCapturada() || tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() != null) {
 						break;
 					}
 					if ((tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() != casaInicial.getPeca().getCor())

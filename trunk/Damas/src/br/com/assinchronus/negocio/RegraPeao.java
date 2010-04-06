@@ -182,7 +182,7 @@ public class RegraPeao {
 
 		if (casaInicial.getLinha() + 2 < 8 && casaInicial.getColuna() + 2 < 8) {
 			// se pode comer diagonal inferior direita
-			if (tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() + 1].getPeca() != null
+			if (tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() + 1].getPeca() != null && !tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() + 1].getPeca().isCapturada()
 					&& tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() + 1].getPeca().getCor() != casaInicial.getPeca().getCor()
 					&& tabuleiro[casaInicial.getLinha() + 2][casaInicial.getColuna() + 2].getPeca() == null) {
 				acao[0] = casaInicial;
@@ -192,7 +192,7 @@ public class RegraPeao {
 		}
 		if (casaInicial.getLinha() + 2 < 8 && casaInicial.getColuna() - 2 > -1) {
 			// se pode comer diagonal inferior esquerda
-			if (tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() - 1].getPeca() != null
+			if (tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() - 1].getPeca() != null && !tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() - 1].getPeca().isCapturada()
 					&& tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() - 1].getPeca().getCor() != casaInicial.getPeca().getCor()
 					&& tabuleiro[casaInicial.getLinha() + 2][casaInicial.getColuna() - 2].getPeca() == null) {
 				acao[0] = casaInicial;
@@ -202,7 +202,7 @@ public class RegraPeao {
 		}
 		if (casaInicial.getLinha() - 2 > -1 && casaInicial.getColuna() + 2 < 8) {
 			// se pode comer diagonal superior direita
-			if (tabuleiro[casaInicial.getLinha() - 1][casaInicial.getColuna() + 1].getPeca() != null
+			if (tabuleiro[casaInicial.getLinha() - 1][casaInicial.getColuna() + 1].getPeca() != null && !tabuleiro[casaInicial.getLinha() - 1][casaInicial.getColuna() + 1].getPeca().isCapturada()
 					&& tabuleiro[casaInicial.getLinha() - 1][casaInicial.getColuna() + 1].getPeca().getCor() != casaInicial.getPeca().getCor()
 					&& tabuleiro[casaInicial.getLinha() - 2][casaInicial.getColuna() + 2].getPeca() == null) {
 				acao[0] = casaInicial;
@@ -212,7 +212,7 @@ public class RegraPeao {
 		}
 		if (casaInicial.getLinha() - 2 > -1 && casaInicial.getColuna() - 2 > -1) {
 			// se pode comer diagonal superior esquerda
-			if (tabuleiro[casaInicial.getLinha() - 1][casaInicial.getColuna() - 1].getPeca() != null
+			if (tabuleiro[casaInicial.getLinha() - 1][casaInicial.getColuna() - 1].getPeca() != null && !tabuleiro[casaInicial.getLinha() - 1][casaInicial.getColuna() +- 1].getPeca().isCapturada()
 					&& tabuleiro[casaInicial.getLinha() - 1][casaInicial.getColuna() - 1].getPeca().getCor() != casaInicial.getPeca().getCor()
 					&& tabuleiro[casaInicial.getLinha() - 2][casaInicial.getColuna() - 2].getPeca() == null) {
 				acao[0] = casaInicial;
