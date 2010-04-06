@@ -6,8 +6,7 @@
 package br.com.assinchronus.gui;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,17 +14,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import javax.swing.ListModel;
-import javax.swing.event.ListDataListener;
 
-import br.com.assinchronus.componentes.*;
+import br.com.assinchronus.componentes.Casa;
+import br.com.assinchronus.componentes.Dama;
+import br.com.assinchronus.componentes.Peao;
+import br.com.assinchronus.componentes.Tabuleiro;
 import br.com.assinchronus.exception.JogadaInvalida;
 import br.com.assinchronus.negocio.RegraFinal;
 import br.com.assinchronus.negocio.RegraGeral;
 
-public class Jogo extends JFrame implements ActionListener {
+public class Jogo extends JFrame {
 
 	/**
 	 * SerialVersion
@@ -33,7 +32,6 @@ public class Jogo extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	private javax.swing.JMenu jMenu1;
-	private javax.swing.JMenu jMenu2;
 	private javax.swing.JMenuBar jMenuBar1;
 
 	ImageIcon iconWhite = new ImageIcon(getClass().getResource("/images/peca.png"));
@@ -51,13 +49,12 @@ public class Jogo extends JFrame implements ActionListener {
 	Casa casaFinal;
 	int jogada = 1;
 	boolean passavez;
-	
-	javax.swing.JScrollPane panel= new JScrollPane();
+
+	javax.swing.JScrollPane panel = new JScrollPane();
 	javax.swing.JList jogadas = new JList();
-	
-	static javax.swing.DefaultListModel model =new javax.swing.DefaultListModel(); 
-	
-	
+
+	static javax.swing.DefaultListModel model = new javax.swing.DefaultListModel();
+
 	public static void main(String args[]) {
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -84,8 +81,7 @@ public class Jogo extends JFrame implements ActionListener {
 		RegraFinal.setQtdPeaoPreto(12);
 		RegraFinal.setQtdDamaBranco(0);
 		RegraFinal.setQtdDamaPreto(0);
-		
-		
+
 		for (int i = 0; i < buttons.length; i++) {
 			for (int j = 0; j < buttons.length; j++) {
 				buttons[i][j] = new JButton();
@@ -104,7 +100,11 @@ public class Jogo extends JFrame implements ActionListener {
 
 				getContentPane().add(buttons[i][j]);
 				buttons[i][j].setBounds(coluna, linha, 89, 89);
-				buttons[i][j].addActionListener(this);
+				buttons[i][j].addMouseListener(new java.awt.event.MouseAdapter() {
+					public void mouseClicked(MouseEvent evt) {
+						actionPerformed(evt);
+					}
+				});
 
 				mapaTabuleiro.put(buttons[i][j], tabuleiro.getTabuleiro()[i][j]);
 
@@ -114,36 +114,55 @@ public class Jogo extends JFrame implements ActionListener {
 			linha += 90;
 			coluna = 10;
 		}
-		//jogadas.setSize(100, 100);
-		
+		// jogadas.setSize(100, 100);
+
 		jogadas.setModel(model);
-		
+
 		panel.setViewportView(jogadas);
-		panel.setBounds(740,10, 275, 300);
+		panel.setBounds(740, 10, 275, 300);
 		getContentPane().add(panel);
-		
+
 		jMenuBar1 = new javax.swing.JMenuBar();
 		jMenu1 = new javax.swing.JMenu();
-		jMenu2 = new javax.swing.JMenu();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setMinimumSize(new java.awt.Dimension(1024, 850));
 		setResizable(false);
 		getContentPane().setLayout(null);
 
-		jMenu1.setText("File");
+		jMenu1.setText("Novo Jogo");
 		jMenuBar1.add(jMenu1);
 
-		jMenu2.setText("Edit");
-		jMenuBar1.add(jMenu2);
-
+		jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+				menuActionPerformed(evt);
+			}
+		});
 		setJMenuBar(jMenuBar1);
 
 		pack();
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void menuActionPerformed(MouseEvent e) {
+		tabuleiro = new Tabuleiro();
+		casaFinal = null;
+		casaInicial = null;
+		jogada = 1;
+		model.clear();
+		jogadas.setModel(model);
+		for (int i = 0; i < buttons.length; i++) {
+			for (int j = 0; j < buttons.length; j++) {
+				mapaTabuleiro.put(buttons[i][j], tabuleiro.getTabuleiro()[i][j]);
+			}
+		}
+		RegraFinal.setQtdPeaoBranco(12);
+		RegraFinal.setQtdPeaoPreto(12);
+		RegraFinal.setQtdDamaBranco(0);
+		RegraFinal.setQtdDamaPreto(0);
+		atualizaTabuleiro();
+	}
+
+	public void actionPerformed(MouseEvent e) {
 
 		Jogo.setMSG("Quem joga: " + jogada + ", tem sequencia: " + RegraGeral.getSequencia());
 		if (casaInicial == null) {
@@ -151,11 +170,14 @@ public class Jogo extends JFrame implements ActionListener {
 				if (jogada == mapaTabuleiro.get(e.getSource()).getPeca().getCor()) {
 					casaInicial = mapaTabuleiro.get(e.getSource());
 				} else {
-					model.add(model.getSize(),"Esta não é sua peça"); // vai na GUI
+					model.add(model.getSize(), "Esta não é sua peça"); // vai na
+					// GUI
 				}
 
 			} else
-				model.add(model.getSize(),"Casa vazia selecione outra"); // cai na GUI
+				model.add(model.getSize(), "Casa vazia selecione outra"); // cai
+			// na
+			// GUI
 		} else {
 			if (mapaTabuleiro.get(e.getSource()).getPeca() == null) {
 				casaFinal = mapaTabuleiro.get(e.getSource());
@@ -172,7 +194,7 @@ public class Jogo extends JFrame implements ActionListener {
 					}
 				} catch (JogadaInvalida e1) {
 					passavez = false;
-					e1.printStackTrace();
+					setMSG(e1.getMessage());
 				} finally {
 					casaInicial = null;
 					casaFinal = null;
@@ -191,7 +213,7 @@ public class Jogo extends JFrame implements ActionListener {
 
 			// Analise do fim do jogo
 			int fim = rf.analisaFinal();
-			model.add(model.getSize(), "Retorno do analisaFinal: "+fim+" // Jogadas para empate: "+rf.getJogadasempate()+" // Passa vez: "+passavez);
+			model.add(model.getSize(), "Retorno do analisaFinal: " + fim + " // Jogadas para empate: " + rf.getJogadasempate() + " // Passa vez: " + passavez);
 			switch (fim) {
 			case 0: {
 				if (rf.getJogadasempate() == 0 && passavez) {
@@ -232,10 +254,13 @@ public class Jogo extends JFrame implements ActionListener {
 			}
 		}
 		jogadas.setModel(model);
-		jogadas.setSelectedIndex(model.getSize()-1);
-		
+		jogadas.setSelectedIndex(model.getSize() - 1);
+
 	}
 
+	/**
+	 * imprimi tabuleiro na tela
+	 */
 	public void atualizaTabuleiro() {
 
 		Casa[][] tab = tabuleiro.getTabuleiro();
@@ -278,12 +303,9 @@ public class Jogo extends JFrame implements ActionListener {
 			}
 		}
 	}
-	
-	public static void setMSG(String msg)
-	{
-		model.add(model.getSize(),msg);
-	}
-	
-}
 
-	
+	public static void setMSG(String msg) {
+		model.add(model.getSize(), msg);
+	}
+
+}
