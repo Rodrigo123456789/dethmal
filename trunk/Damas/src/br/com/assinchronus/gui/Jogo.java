@@ -6,6 +6,8 @@
 package br.com.assinchronus.gui;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +26,7 @@ import br.com.assinchronus.exception.JogadaInvalida;
 import br.com.assinchronus.negocio.RegraFinal;
 import br.com.assinchronus.negocio.RegraGeral;
 
-public class Jogo extends JFrame {
+public class Jogo extends JFrame implements ActionListener {
 
 	/**
 	 * SerialVersion
@@ -100,12 +102,9 @@ public class Jogo extends JFrame {
 
 				getContentPane().add(buttons[i][j]);
 				buttons[i][j].setBounds(coluna, linha, 89, 89);
-				buttons[i][j].addMouseListener(new java.awt.event.MouseAdapter() {
-					public void mouseClicked(MouseEvent evt) {
-						actionPerformed(evt);
-					}
-				});
-
+				//buttons[i][j].addActionListener(this);
+			//	buttons[i][j].addActionListener(this);
+				buttons[i][j].addActionListener( this);
 				mapaTabuleiro.put(buttons[i][j], tabuleiro.getTabuleiro()[i][j]);
 
 				coluna += 90;
@@ -133,7 +132,7 @@ public class Jogo extends JFrame {
 		jMenu1.setText("Novo Jogo");
 		jMenuBar1.add(jMenu1);
 
-		jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+    	jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
 				menuActionPerformed(evt);
 			}
@@ -144,7 +143,7 @@ public class Jogo extends JFrame {
 	}
 
 	public void menuActionPerformed(MouseEvent e) {
-		tabuleiro = new Tabuleiro();
+	/*	tabuleiro = new Tabuleiro();
 		casaFinal = null;
 		casaInicial = null;
 		jogada = 1;
@@ -159,10 +158,11 @@ public class Jogo extends JFrame {
 		RegraFinal.setQtdPeaoPreto(12);
 		RegraFinal.setQtdDamaBranco(0);
 		RegraFinal.setQtdDamaPreto(0);
-		atualizaTabuleiro();
+		RegraGeral.setSequencia(false);
+		atualizaTabuleiro();*/
 	}
 
-	public void actionPerformed(MouseEvent e) {
+	public void actionPerformed(ActionEvent e) {
 
 		Jogo.setMSG("Quem joga: " + jogada + ", tem sequencia: " + RegraGeral.getSequencia());
 		if (casaInicial == null) {
