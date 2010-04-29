@@ -317,43 +317,55 @@ public class Jogo extends JFrame implements ActionListener {
 	
 	int calcularValor()
 	{
-		int valor=0;
-		int vf=0;
-		
+		int pecaB=0;
+		int pecaP=0;
+		int vB=0;
+		int vP=0;
 		Casa[][] tab = tabuleiro.getTabuleiro();
 		
 		for (int i= 0; i<tab.length ; i++)
 		{
 			for(int j=0 ; j<tab.length; j++)
 			{
-				if ((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) {
-					if (tab[i][j].getPeca() instanceof Peao)
+				if ((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1))
+				{
+					if (tab[i][j].getPeca() != null)
 					{
 						if(tab[i][j].getPeca().getCor()==1)
 						{
-							if(i==6)
-								valor = 7;
+							if (tab[i][j].getPeca() instanceof Peao)
+							{
+								if(i==6)
+									pecaB = 7;
+								else
+									pecaB = 5;
+							}
 							else
-								valor = 5;
+								pecaB=10;
+							
+							vB += pecaB*tabelaPeso[i][j];
 						}
 						else if(tab[i][j].getPeca().getCor()==2)
 						{
-							if (i==1)
-								valor =7;
+							if (tab[i][j].getPeca() instanceof Peao)
+							{
+								if (i==1)
+									pecaP =7;
+								else
+									pecaP =5;
+							}
 							else
-								valor =5;
+								pecaP=10;
+							
+							vP += pecaP*tabelaPeso[i][j];
 						}
-					}
-					else
-					{
-						valor =10; 
+						
 					}
 				}
-				vf += valor*tabelaPeso[i][j];
 			}
 		}
 
-		return vf;
+		return vB - vP;
 	}
 	
 }
