@@ -46,7 +46,9 @@ public class Jogo extends JFrame implements ActionListener {
 	Tabuleiro tabuleiro = new Tabuleiro();
 
 	private RegraFinal rf = new RegraFinal();
-
+	
+	private int tabelaPeso[][] = {{4,0,4,0,4,0,4,0},{0,3,0,3,0,3,0,4},{4,0,2,0,2,0,3,0},{0,3,0,1,0,2,0,4},{4,0,2,0,1,0,3,0},{0,3,0,2,0,2,0,4},{4,0,3,0,3,0,3,0},{0,4,0,4,0,4,0,4}};
+	
 	Casa casaInicial;
 	Casa casaFinal;
 	int jogada = 1;
@@ -247,6 +249,7 @@ public class Jogo extends JFrame implements ActionListener {
 			} else if (jogada == 2) {
 				if (!rf.verificaPecasPreta(tabuleiro.getTabuleiro())) {
 					model.add(model.getSize(), "Branca ganhou por imobilizacao"); // vai
+					
 					// na
 					// GUI
 					jogada = 0;
@@ -299,14 +302,58 @@ public class Jogo extends JFrame implements ActionListener {
 					} else {
 						buttons[i][j].setIcon(null);
 						tab[i][j].setPeca(null);
+						
 					}
 				}
 			}
 		}
+		setMSG("valor tabuleiro= " + String.valueOf( calcularValor()));
 	}
+	
 
 	public static void setMSG(String msg) {
 		model.add(model.getSize(), msg);
 	}
+	
+	int calcularValor()
+	{
+		int valor=0;
+		int vf=0;
+		
+		Casa[][] tab = tabuleiro.getTabuleiro();
+		
+		for (int i= 0; i<tab.length ; i++)
+		{
+			for(int j=0 ; j<tab.length; j++)
+			{
+				if ((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) {
+					if (tab[i][j].getPeca() instanceof Peao)
+					{
+						if(tab[i][j].getPeca().getCor()==1)
+						{
+							if(i==6)
+								valor = 7;
+							else
+								valor = 5;
+						}
+						else if(tab[i][j].getPeca().getCor()==2)
+						{
+							if (i==1)
+								valor =7;
+							else
+								valor =5;
+						}
+					}
+					else
+					{
+						valor =10; 
+					}
+				}
+				vf += valor*tabelaPeso[i][j];
+			}
+		}
 
+		return vf;
+	}
+	
 }
