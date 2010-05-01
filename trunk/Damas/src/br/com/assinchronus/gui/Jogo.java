@@ -51,7 +51,7 @@ public class Jogo extends JFrame implements ActionListener {
 	
 	Casa casaInicial;
 	Casa casaFinal;
-	int jogada = 1;
+	static int jogada = 1;
 	boolean passavez;
 
 	javax.swing.JScrollPane panel = new JScrollPane();
@@ -246,6 +246,7 @@ public class Jogo extends JFrame implements ActionListener {
 			} else if (jogada == 2) {
 				if (!rf.verificaPecasPreta(tabuleiro.getTabuleiro())) {
 					model.add(model.getSize(), "Branca ganhou por imobilizacao"); // vai
+					
 					// na
 					// GUI
 					jogada = 0;
@@ -318,7 +319,7 @@ public class Jogo extends JFrame implements ActionListener {
 		int vB=0;
 		int vP=0;
 		Casa[][] tab = tabuleiro.getTabuleiro();
-		
+		//percorre o tabuleiro
 		for (int i= 0; i<tab.length ; i++)
 		{
 			for(int j=0 ; j<tab.length; j++)
@@ -327,30 +328,30 @@ public class Jogo extends JFrame implements ActionListener {
 				{
 					if (tab[i][j].getPeca() != null)
 					{
-						if(tab[i][j].getPeca().getCor()==1)
+						if(tab[i][j].getPeca().getCor()==1)//brancas
 						{
-							if (tab[i][j].getPeca() instanceof Peao)
+							if (tab[i][j].getPeca() instanceof Peao)//verifica se e peao
 							{
-								if(i==6)
+								if(i==6) //verifica se esta para virar dama
 									pecaB = 7;
 								else
 									pecaB = 5;
 							}
-							else
+							else//dama
 								pecaB=10;
 							
 							vB += pecaB*tabelaPeso[i][j];
 						}
-						else if(tab[i][j].getPeca().getCor()==2)
+						else if(tab[i][j].getPeca().getCor()==2)//pretas
 						{
-							if (tab[i][j].getPeca() instanceof Peao)
+							if (tab[i][j].getPeca() instanceof Peao)//verifica se e peao
 							{
-								if (i==1)
+								if (i==1)//verifica se esta para virar dama
 									pecaP =7;
 								else
 									pecaP =5;
 							}
-							else
+							else//dama
 								pecaP=10;
 							
 							vP += pecaP*tabelaPeso[i][j];
@@ -360,8 +361,9 @@ public class Jogo extends JFrame implements ActionListener {
 				}
 			}
 		}
-
-		return vB - vP;
+		
+			return vB - vP;
+	
 	}
 	
 }
