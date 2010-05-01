@@ -22,6 +22,17 @@ public class Tabuleiro {
 					Casa casa = new Casa();
 					casa.setLinha(i);
 					casa.setColuna(j);
+
+					// setando valores das casas para heuristica posicional
+					if (i == 0 || i == 7 || j == 0 || j == 7) {
+						casa.setValor(4);
+					} else if (i == 1 || i == 6 || j == 1 || j == 6) {
+						casa.setValor(3);
+					} else if (i == 2 || i == 5 || j == 2 || j == 5) {
+						casa.setValor(2);
+					} else if (i == 3 || i == 4 || j == 3 || j == 4) {
+						casa.setValor(1);
+					}
 					tabuleiro[i][j] = casa;
 				}
 			}
@@ -65,7 +76,7 @@ public class Tabuleiro {
 			}
 		}
 	}
-	
+
 	public Casa[][] getTabuleiro() {
 		return tabuleiro;
 	}

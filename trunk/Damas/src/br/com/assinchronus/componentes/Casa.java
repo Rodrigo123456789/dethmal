@@ -11,6 +11,7 @@ public class Casa {
 	private int linha = 0;
 	private int coluna = 0;
 	private Pecas peca = null;
+	int valor;
 
 	public Casa() {
 		// TODO Auto-generated constructor stub
@@ -38,6 +39,14 @@ public class Casa {
 
 	public void setPeca(Pecas peca) {
 		this.peca = peca;
+	}
+
+	public int getValor() {
+		return valor;
+	}
+
+	public void setValor(int valor) {
+		this.valor = valor;
 	}
 
 	@Override
