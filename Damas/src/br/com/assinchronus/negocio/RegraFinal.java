@@ -1,7 +1,10 @@
 package br.com.assinchronus.negocio;
 
-import br.com.assinchronus.gui.*;
-import br.com.assinchronus.componentes.*;
+import br.com.assinchronus.componentes.Casa;
+import br.com.assinchronus.componentes.Dama;
+import br.com.assinchronus.componentes.Peao;
+import br.com.assinchronus.componentes.Pecas;
+import br.com.assinchronus.gui.Jogo;
 
 /**
  * 
@@ -41,11 +44,12 @@ public class RegraFinal {
 								&& tabuleiro[i - 2][j - 2].getPeca() == null) {
 							return true;
 						}
-						if (RegraGeral.getSequencia() == true && i + 2 < 8 && j + 2 < 8 && tabuleiro[i + 1][j + 1].getPeca() != null
+						boolean sequencia = RegraGeral.getSequencia();
+						if (sequencia == true && i + 2 < 8 && j + 2 < 8 && tabuleiro[i + 1][j + 1].getPeca() != null
 								&& tabuleiro[i + 1][j + 1].getPeca().getCor() == Pecas.PRETA && tabuleiro[i + 2][j + 2].getPeca() == null) {
 							return true;
 						}
-						if (RegraGeral.getSequencia() == true && i + 2 < 8 && j - 2 > -1 && tabuleiro[i + 1][j - 1].getPeca() != null
+						if (sequencia == true && i + 2 < 8 && j - 2 > -1 && tabuleiro[i + 1][j - 1].getPeca() != null
 								&& tabuleiro[i + 1][j - 1].getPeca().getCor() == Pecas.PRETA && tabuleiro[i + 2][j - 2].getPeca() == null) {
 							return true;
 						}
@@ -73,11 +77,12 @@ public class RegraFinal {
 						if ((i < 7 && j < 7 && tabuleiro[i + 1][j + 1].getPeca() == null) || (i < 7 && j > 0 && tabuleiro[i + 1][j - 1].getPeca() == null)) {
 							return true;
 						}
-						if (RegraGeral.getSequencia() == true && i - 2 > -1 && j + 2 < 8 && tabuleiro[i - 1][j + 1].getPeca() != null
+						boolean sequencia = RegraGeral.getSequencia();
+						if (sequencia == true && i - 2 > -1 && j + 2 < 8 && tabuleiro[i - 1][j + 1].getPeca() != null
 								&& tabuleiro[i - 1][j + 1].getPeca().getCor() == Pecas.PRETA && tabuleiro[i - 2][j + 2].getPeca() == null) {
 							return true;
 						}
-						if (RegraGeral.getSequencia() == true && i - 2 > -1 && j - 2 > -1 && tabuleiro[i - 1][j - 1].getPeca() != null
+						if (sequencia == true && i - 2 > -1 && j - 2 > -1 && tabuleiro[i - 1][j - 1].getPeca() != null
 								&& tabuleiro[i - 1][j - 1].getPeca().getCor() == Pecas.PRETA && tabuleiro[i - 2][j - 2].getPeca() == null) {
 							return true;
 						}

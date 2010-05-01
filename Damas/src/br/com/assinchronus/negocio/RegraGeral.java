@@ -25,7 +25,7 @@ public class RegraGeral {
 	/**
 	 * 
 	 * @param jogada
-	 *            Indica de quem eh a vez
+	 *            Indica de quem é a vez
 	 * @param tabuleiro
 	 *            Tabuleiro atual do jogo
 	 * @return
@@ -284,7 +284,7 @@ public class RegraGeral {
 		return sequencia;
 	}
 
-	public boolean isForcacaptura() {
+	public boolean isForcaCaptura() {
 		return forcacaptura;
 	}
 

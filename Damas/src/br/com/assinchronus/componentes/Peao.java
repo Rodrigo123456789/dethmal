@@ -6,7 +6,7 @@ public class Peao implements Pecas {
 
 	RegraFinal rf = new RegraFinal();
 	private int cor = 0;
-	boolean capturada = false;
+	private boolean capturada = false;
 
 	@Override
 	public void comer(Casa atual, Casa adversaria, Casa proxima) {

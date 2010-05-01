@@ -1,7 +1,5 @@
 package br.com.assinchronus.componentes;
 
-import br.com.assinchronus.gui.Jogo;
-
 /**
  * 
  * @author Pilon
@@ -67,34 +65,7 @@ public class Tabuleiro {
 			}
 		}
 	}
-
-	/**
-	 * Nome: printTabuleiro Descrio: Imprimi o tabuleiro
-	 */
-	public void printTabuleiro() {
-		for (int i = 0; i < tabuleiro.length; i++) {
-			for (int j = 0; j < tabuleiro[i].length; j++) {
-
-				if (tabuleiro[i][j] != null) {
-					if (i % 2 == 1) {
-
-						if (tabuleiro[i][j].getPeca() != null)
-							Jogo.setMSG("\t" + tabuleiro[i][j] + "-" + tabuleiro[i][j].getPeca().getCor() + "\t");
-						else
-							Jogo.setMSG("\t" + tabuleiro[i][j] + "\t");
-					} else {
-						if (tabuleiro[i][j].getPeca() != null)
-							Jogo.setMSG(tabuleiro[i][j] + "-" + tabuleiro[i][j].getPeca().getCor() + "\t" + "\t");
-						else
-							Jogo.setMSG(tabuleiro[i][j] + "\t" + "\t");
-					}
-				}
-			}
-
-			
-		}
-	}
-
+	
 	public Casa[][] getTabuleiro() {
 		return tabuleiro;
 	}
