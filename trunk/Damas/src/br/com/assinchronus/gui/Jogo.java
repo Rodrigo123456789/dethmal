@@ -172,14 +172,11 @@ public class Jogo extends JFrame implements ActionListener {
 				if (jogada == mapaTabuleiro.get(e.getSource()).getPeca().getCor()) {
 					casaInicial = mapaTabuleiro.get(e.getSource());
 				} else {
-					model.add(model.getSize(), "Esta n„o È sua peÁa"); // vai na
-					// GUI
+					model.add(model.getSize(), "Esta n√£o √© sua pe√ßa");
 				}
 
 			} else
-				model.add(model.getSize(), "Casa vazia selecione outra"); // cai
-			// na
-			// GUI
+				model.add(model.getSize(), "Casa vazia selecione outra");
 		} else {
 			if (mapaTabuleiro.get(e.getSource()).getPeca() == null) {
 				casaFinal = mapaTabuleiro.get(e.getSource());
@@ -249,7 +246,6 @@ public class Jogo extends JFrame implements ActionListener {
 			} else if (jogada == 2) {
 				if (!rf.verificaPecasPreta(tabuleiro.getTabuleiro())) {
 					model.add(model.getSize(), "Branca ganhou por imobilizacao"); // vai
-					
 					// na
 					// GUI
 					jogada = 0;
