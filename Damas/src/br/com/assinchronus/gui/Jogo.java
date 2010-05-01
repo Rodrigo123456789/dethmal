@@ -47,8 +47,6 @@ public class Jogo extends JFrame implements ActionListener {
 
 	private RegraFinal rf = new RegraFinal();
 	
-	private int tabelaPeso[][] = {{4,0,4,0,4,0,4,0},{0,3,0,3,0,3,0,4},{4,0,2,0,2,0,3,0},{0,3,0,1,0,2,0,4},{4,0,2,0,1,0,3,0},{0,3,0,2,0,2,0,4},{4,0,3,0,3,0,3,0},{0,4,0,4,0,4,0,4}};
-	
 	Casa casaInicial;
 	Casa casaFinal;
 	static int jogada = 1;
@@ -222,14 +220,12 @@ public class Jogo extends JFrame implements ActionListener {
 				break;
 			}
 			case 1: {
-				model.add(model.getSize(), "Branca ganhou"); // vai na
-				// GUI
+				model.add(model.getSize(), "Branca ganhou");
 				jogada = 0;
 				break;
 			}
 			case -1: {
-				model.add(model.getSize(), "Preta ganhou"); // vai na
-				// GUI
+				model.add(model.getSize(), "Preta ganhou"); 
 				jogada = 0;
 				break;
 			}
@@ -238,17 +234,12 @@ public class Jogo extends JFrame implements ActionListener {
 			// Analise da imobilizacao
 			if (jogada == 1) {
 				if (!rf.verificaPecasBranca(tabuleiro.getTabuleiro())) {
-					model.add(model.getSize(), "Preta ganhou por imobilizacao"); // vai
-					// na
-					// GUI
+					model.add(model.getSize(), "Preta ganhou por imobilizacao");
 					jogada = 0;
 				}
 			} else if (jogada == 2) {
 				if (!rf.verificaPecasPreta(tabuleiro.getTabuleiro())) {
-					model.add(model.getSize(), "Branca ganhou por imobilizacao"); // vai
-					
-					// na
-					// GUI
+					model.add(model.getSize(), "Branca ganhou por imobilizacao");
 					jogada = 0;
 				}
 			}
@@ -304,66 +295,10 @@ public class Jogo extends JFrame implements ActionListener {
 				}
 			}
 		}
-		setMSG("valor tabuleiro= " + String.valueOf( calcularValor()));
 	}
 	
 
 	public static void setMSG(String msg) {
 		model.add(model.getSize(), msg);
-	}
-	
-	int calcularValor()
-	{
-		int pecaB=0;
-		int pecaP=0;
-		int vB=0;
-		int vP=0;
-		Casa[][] tab = tabuleiro.getTabuleiro();
-		//percorre o tabuleiro
-		for (int i= 0; i<tab.length ; i++)
-		{
-			for(int j=0 ; j<tab.length; j++)
-			{
-				if ((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1))
-				{
-					if (tab[i][j].getPeca() != null)
-					{
-						if(tab[i][j].getPeca().getCor()==1)//brancas
-						{
-							if (tab[i][j].getPeca() instanceof Peao)//verifica se e peao
-							{
-								if(i==6) //verifica se esta para virar dama
-									pecaB = 7;
-								else
-									pecaB = 5;
-							}
-							else//dama
-								pecaB=10;
-							
-							vB += pecaB*tabelaPeso[i][j];
-						}
-						else if(tab[i][j].getPeca().getCor()==2)//pretas
-						{
-							if (tab[i][j].getPeca() instanceof Peao)//verifica se e peao
-							{
-								if (i==1)//verifica se esta para virar dama
-									pecaP =7;
-								else
-									pecaP =5;
-							}
-							else//dama
-								pecaP=10;
-							
-							vP += pecaP*tabelaPeso[i][j];
-						}
-						
-					}
-				}
-			}
-		}
-		
-			return vB - vP;
-	
-	}
-	
+	}	
 }

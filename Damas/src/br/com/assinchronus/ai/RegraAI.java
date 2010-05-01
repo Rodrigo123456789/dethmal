@@ -3,16 +3,13 @@ package br.com.assinchronus.ai;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.assinchronus.componentes.Casa;
-import br.com.assinchronus.componentes.Peao;
-import br.com.assinchronus.componentes.Pecas;
-import br.com.assinchronus.componentes.Tabuleiro;
-import br.com.assinchronus.gui.Jogo;
+import br.com.assinchronus.componentes.*;
 import br.com.assinchronus.negocio.RegraGeral;
 
 public class RegraAI {
 
 	int jogada = 2;
+	
 
 	private Casa[][] tabuleiro;
 
@@ -28,7 +25,11 @@ public class RegraAI {
 		List<Casa[]> jogadaObrigatoria = RegraGeral.verificaCapturaObrigatoria(jogada, tabuleiro);
 		List<Casa> casasFinais = new ArrayList<Casa>();
 		if (!jogadaObrigatoria.isEmpty()) {
-			// Regra de obrigatoria
+			if(jogadaObrigatoria.size() == 1){
+				// Regra de obrigatoria
+			}else{
+				// Regra de obrigatoria
+			}
 		} else {
 			for (int i = 0; i < tabuleiro.length; i++) {
 				for (int j = 0; j < tabuleiro.length; j++) {
@@ -45,20 +46,23 @@ public class RegraAI {
 			}
 		}
 	}
+	
 
 	private void criaJogada(Casa casaInicial, List<Casa> casasFinais) {
 		Arvore no;
-		Casa[][] taux = tabuleiro;
+		
 		for (Casa casaFinal : casasFinais) {
-			taux = tabuleiro;
 			no = new Arvore();
-			no.setTabuleiro(taux);
-			no.getTabuleiro()[casaInicial.getLinha()][casaInicial.getColuna()].getPeca().mover(casaInicial, casaFinal);
-
-	//		no.addNode(no);
+			no.setValor(calculaValorPosicional());
+			//no.setValor(calculaValorTriangulo());
+			no.setTabuleiro(tabuleiro);
+			Casa casaFinalNova = no.getTabuleiro()[casaFinal.getLinha()][casaFinal.getColuna()];
+			no.getTabuleiro()[casaInicial.getLinha()][casaInicial.getColuna()].getPeca().mover(casaInicial, casaFinalNova);
 		}
 		
 	}
+	
+	
 
 	private List<Casa> verificaJogada(Casa casaInicial) {
 		List<Casa> casasFinais = new ArrayList<Casa>();
@@ -108,6 +112,100 @@ public class RegraAI {
 		return casasFinais;
 	}
 	
+	
+	
+	
+	public int calculaValorPosicional(){
+		Casa[][] tab = tabuleiro;
+		int valortotal;
+		int valorb = 0;
+		int valorp = 0;
+		for (int i = 0; i < tab.length; i++) {
+			for (int j = 0; j < tab.length; j++) {
+				if ((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) {
+					//calcular valor branco
+					if (tab[i][j].getPeca() != null && tab[i][j].getPeca().getCor()==1){
+						if(tab[i][j].getPeca() instanceof Dama){
+							valorb = valorb + tab[i][j].getValor()*10;
+						}else if(i == 1){
+							valorb = valorb + tab[i][j].getValor()*7;
+						}else{
+							valorb = valorb + tab[i][j].getValor()*5;
+						}
+					}
+					//calcular valor preto
+					if (tab[i][j].getPeca() != null && tab[i][j].getPeca().getCor()==2){
+						if(tab[i][j].getPeca() instanceof Dama){
+							valorp = valorp + tab[i][j].getValor()*10;
+						}else if(i == 6){
+							valorp = valorp + tab[i][j].getValor()*7;
+						}else{
+							valorp = valorp + tab[i][j].getValor()*5;
+						}
+					}
+				}
+			}
+		}
+		
+		//calculo do valor absoluto (computador = preto)
+		valortotal = valorp - valorb;
+		
+		return valortotal;
+	}	
+	
+	public float calculaValorTrinagulo(){
+		Casa[][] tab = tabuleiro;
+		float valortotal;
+		float valorb = 0;
+		float valorp = 0;
+		for (int i = 0; i < tab.length; i++) {
+			for (int j = 0; j < tab.length; j++) {
+				if ((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) {
+					//calcular valor branco
+					if (tab[i][j].getPeca() != null && tab[i][j].getPeca().getCor()==1){
+						//calculo de caracteres defensivos
+						if(i==7){
+							valorb = valorb + 1;
+						}else if(i==6 && (j==2 || j==4)){
+							valorb = valorb + 1;
+						}else if(i==5 && j==3){
+							valorb = valorb + 1;
+						}
+							//calculo de caracteres materiais
+						if(tab[i][j].getPeca() instanceof Dama){
+							valorb = valorb + 3;
+						}else{
+							valorb = valorb + 1;
+						}
+					}
+					//calcular valor preto
+					if (tab[i][j].getPeca() != null && tab[i][j].getPeca().getCor()==2){
+						//calculo de caracteres defensivos
+						if(i==0){
+							valorp = valorp + 1;
+						}else if(i==1 && (j==3 || j==5)){
+							valorp = valorp + 1;
+						}else if(i==2 && j==4){
+							valorp = valorp + 1;
+						}
+						//calculo de caracteres materiais
+						if(tab[i][j].getPeca() instanceof Dama){
+							valorp = valorp + 3;
+						}else{
+							valorp = valorp + 1;
+						}
+					}
+				}
+			}
+		}
+		//calculo do valor absoluto (computador = preto)
+		valortotal = (valorp - valorb)/(valorp + valorb);
+		
+		return valortotal;
+	}
+	
+	
+	
 	public static void main(String[] args) {
 		Tabuleiro t= new Tabuleiro();
 		RegraAI regraAI = new RegraAI(t.getTabuleiro());
@@ -115,5 +213,7 @@ public class RegraAI {
 		regraAI.verificaCasas();
 		System.out.println(" rodo");
 		
+		
 	}
+	
 }
