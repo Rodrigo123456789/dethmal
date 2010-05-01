@@ -10,8 +10,8 @@ public class Casa {
 
 	private int linha = 0;
 	private int coluna = 0;
-	private Pecas peca = null;
 	int valor;
+	private Pecas peca = null;
 
 	public Casa() {
 		// TODO Auto-generated constructor stub

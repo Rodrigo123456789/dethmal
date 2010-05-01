@@ -164,13 +164,13 @@ public class Jogo extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 
-		Jogo.setMSG("Quem joga: " + jogada + ", tem sequencia: " + RegraGeral.getSequencia());
+		//Jogo.setMSG("Quem joga: " + jogada + ", tem sequencia: " + RegraGeral.getSequencia());
 		if (casaInicial == null) {
 			if (mapaTabuleiro.get(e.getSource()).getPeca() != null) {
 				if (jogada == mapaTabuleiro.get(e.getSource()).getPeca().getCor()) {
 					casaInicial = mapaTabuleiro.get(e.getSource());
 				} else {
-					model.add(model.getSize(), "Esta não é sua peça");
+										model.add(model.getSize(), "Esta não é sua peça");
 				}
 
 			} else
@@ -178,6 +178,7 @@ public class Jogo extends JFrame implements ActionListener {
 		} else {
 			if (mapaTabuleiro.get(e.getSource()).getPeca() == null) {
 				casaFinal = mapaTabuleiro.get(e.getSource());
+				model.clear();
 				try {
 					passavez = true;
 					RegraGeral.validarPeca(jogada, tabuleiro.getTabuleiro(), casaInicial, casaFinal);
@@ -197,9 +198,9 @@ public class Jogo extends JFrame implements ActionListener {
 					casaFinal = null;
 					if (jogada == 1 && RegraGeral.getSequencia() == false && passavez) {
 						jogada = 2;
-					} else if (jogada == 2 && RegraGeral.getSequencia() == false && passavez) {
+						} else if (jogada == 2 && RegraGeral.getSequencia() == false && passavez) {
 						jogada = 1;
-					}
+						}
 				}
 			} else {
 				if (mapaTabuleiro.get(e.getSource()).getPeca().getCor() == jogada && RegraGeral.getSequencia() == false)
@@ -214,7 +215,7 @@ public class Jogo extends JFrame implements ActionListener {
 			switch (fim) {
 			case 0: {
 				if (rf.getJogadasempate() == 0 && passavez) {
-					model.add(model.getSize(), "Empate"); // vai na GUI
+					model.add(model.getSize(), "Empate"); 
 					jogada = 0;
 				}
 				break;
@@ -225,6 +226,7 @@ public class Jogo extends JFrame implements ActionListener {
 				break;
 			}
 			case -1: {
+				model.add(model.getSize(), "Preta ganhou");
 				model.add(model.getSize(), "Preta ganhou"); 
 				jogada = 0;
 				break;
@@ -300,5 +302,97 @@ public class Jogo extends JFrame implements ActionListener {
 
 	public static void setMSG(String msg) {
 		model.add(model.getSize(), msg);
+	}
+	
+	public int calculaValorPosicional(){
+		Casa[][] tab = tabuleiro.getTabuleiro();
+		int valortotal;
+		int valorb = 0;
+		int valorp = 0;
+		for (int i = 0; i < tab.length; i++) {
+			for (int j = 0; j < tab.length; j++) {
+				if ((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) {
+					//calcular valor branco
+					if (tab[i][j].getPeca() != null && tab[i][j].getPeca().getCor()==1){
+						if(tab[i][j].getPeca() instanceof Dama){
+							valorb = valorb + tab[i][j].getValor()*10;
+						}else if(i == 1){
+							valorb = valorb + tab[i][j].getValor()*7;
+						}else{
+							valorb = valorb + tab[i][j].getValor()*5;
+						}
+					}
+					//calcular valor preto
+					if (tab[i][j].getPeca() != null && tab[i][j].getPeca().getCor()==2){
+						if(tab[i][j].getPeca() instanceof Dama){
+							valorp = valorp + tab[i][j].getValor()*10;
+						}else if(i == 6){
+							valorp = valorp + tab[i][j].getValor()*7;
+						}else{
+							valorp = valorp + tab[i][j].getValor()*5;
+						}
+					}
+				}
+			}
+		}
+		model.add(model.getSize(), "POSICIONAL -> For�a do preto: "+valorp);
+		model.add(model.getSize(), "POSICIONAL -> For�a do branco: "+valorb);
+		//calculo do valor absoluto (computador = preto)
+		valortotal = valorp - valorb;
+		
+		return valortotal;
 	}	
-}
+	
+	public float calculaValorTrinagulo(){
+		Casa[][] tab = tabuleiro.getTabuleiro();
+		float valortotal;
+		float valorb = 0;
+		float valorp = 0;
+		for (int i = 0; i < tab.length; i++) {
+			for (int j = 0; j < tab.length; j++) {
+				if ((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) {
+					//calcular valor branco
+					if (tab[i][j].getPeca() != null && tab[i][j].getPeca().getCor()==1){
+						//calculo de caracteres defensivos
+						if(i==7){
+							valorb = valorb + 1;
+						}else if(i==6 && (j==2 || j==4)){
+							valorb = valorb + 1;
+						}else if(i==5 && j==3){
+							valorb = valorb + 1;
+						}
+							//calculo de caracteres materiais
+						if(tab[i][j].getPeca() instanceof Dama){
+							valorb = valorb + 3;
+						}else{
+							valorb = valorb + 1;
+						}
+					}
+					//calcular valor preto
+					if (tab[i][j].getPeca() != null && tab[i][j].getPeca().getCor()==2){
+						//calculo de caracteres defensivos
+						if(i==0){
+							valorp = valorp + 1;
+						}else if(i==1 && (j==3 || j==5)){
+							valorp = valorp + 1;
+						}else if(i==2 && j==4){
+							valorp = valorp + 1;
+						}
+						//calculo de caracteres materiais
+						if(tab[i][j].getPeca() instanceof Dama){
+							valorp = valorp + 3;
+						}else{
+							valorp = valorp + 1;
+						}
+					}
+				}
+			}
+		}
+		model.add(model.getSize(), "TRIANGULO -> For�a do preto: "+valorp);
+		model.add(model.getSize(), "TRIANGULO -> For�a do branco: "+valorb);
+		//calculo do valor absoluto (computador = preto)
+		valortotal = (valorp - valorb)/(valorp + valorb);
+		
+		return valortotal;
+	}
+}	
