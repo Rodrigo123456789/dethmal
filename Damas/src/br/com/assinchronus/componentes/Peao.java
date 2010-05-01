@@ -27,7 +27,7 @@ public class Peao implements Pecas {
 		adversaria.getPeca().setCapturada(true);
 	}
 
-	@Override
+	@Override 
 	public void mover(Casa atual, Casa proxima) {
 		Pecas peca = atual.getPeca();
 		atual.setPeca(null);

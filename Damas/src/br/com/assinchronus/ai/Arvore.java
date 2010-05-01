@@ -2,13 +2,13 @@ package br.com.assinchronus.ai;
 
 import java.util.List;
 
-import br.com.assinchronus.componentes.Tabuleiro;
+import br.com.assinchronus.componentes.Casa;
 
 public class Arvore {
 	
 	private List<Arvore> arvores;
 	
-	private Tabuleiro tabuleiro;
+	private Casa[][] tabuleiro;
 	
 	private int valor;
 	
@@ -24,11 +24,11 @@ public class Arvore {
 		this.arvores = arvores;
 	}
 	
-	public Tabuleiro getTabuleiro() {
+	public Casa[][] getTabuleiro() {
 		return tabuleiro;
 	}
 
-	public void setTabuleiro(Tabuleiro tabuleiro) {
+	public void setTabuleiro(Casa[][] tabuleiro) {
 		this.tabuleiro = tabuleiro;
 	}
 
@@ -38,5 +38,13 @@ public class Arvore {
 
 	public void setValor(int valor) {
 		this.valor = valor;
+	}
+	
+	/***
+	 * adiciona um filho na arvore
+	 * @param filho nó filho do objeto atual
+	 */
+	public void addNode(Arvore filho) {
+		this.arvores.add(filho);
 	}
 }
