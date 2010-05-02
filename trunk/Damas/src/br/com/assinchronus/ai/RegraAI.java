@@ -3,25 +3,25 @@ package br.com.assinchronus.ai;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.assinchronus.componentes.*;
+import br.com.assinchronus.componentes.Casa;
+import br.com.assinchronus.componentes.Dama;
+import br.com.assinchronus.componentes.Peao;
+import br.com.assinchronus.componentes.Pecas;
+import br.com.assinchronus.componentes.Tabuleiro;
 import br.com.assinchronus.negocio.RegraGeral;
+import br.com.assinchronus.util.Utility;
 
 public class RegraAI {
 
 	int jogada = 2;
-	
 
 	private Casa[][] tabuleiro;
-
-	public void setJogada(int jogada) {
-		this.jogada = jogada;
-	}
 
 	public RegraAI(Casa[][] tabuleiro) {
 		this.tabuleiro = tabuleiro;
 	}
 
-	public void verificaCasas() {
+	public void verificaCasas(Arvore node) {
 		List<Casa[]> jogadaObrigatoria = RegraGeral.verificaCapturaObrigatoria(jogada, tabuleiro);
 		List<Casa> casasFinais = new ArrayList<Casa>();
 		if (!jogadaObrigatoria.isEmpty()) {
@@ -38,7 +38,7 @@ public class RegraAI {
 						if (peca != null && peca.getCor() == jogada) {
 							casasFinais = verificaJogada(tabuleiro[i][j]);
 							if(!casasFinais.isEmpty()){
-								criaJogada(tabuleiro[i][j], casasFinais);
+								criaJogada(node, tabuleiro[i][j], casasFinais);
 							}
 						}
 					}
@@ -46,23 +46,22 @@ public class RegraAI {
 			}
 		}
 	}
-	
 
-	private void criaJogada(Casa casaInicial, List<Casa> casasFinais) {
-		Arvore no;
-		
+	private void criaJogada(Arvore root, Casa casaInicial, List<Casa> casasFinais) {
+		Arvore node;
 		for (Casa casaFinal : casasFinais) {
-			no = new Arvore();
-			no.setValor(calculaValorPosicional());
-			//no.setValor(calculaValorTriangulo());
-			no.setTabuleiro(tabuleiro);
-			Casa casaFinalNova = no.getTabuleiro()[casaFinal.getLinha()][casaFinal.getColuna()];
-			no.getTabuleiro()[casaInicial.getLinha()][casaInicial.getColuna()].getPeca().mover(casaInicial, casaFinalNova);
+			node = new Arvore();
+			node.setValor(calculaValorPosicional());
+			Casa[][] clone = Utility.copy(tabuleiro);
+			node.setTabuleiro(clone);
+			Casa casaInicialNova = node.getTabuleiro()[casaInicial.getLinha()][casaInicial.getColuna()];
+			Casa casaFinalNova = node.getTabuleiro()[casaFinal.getLinha()][casaFinal.getColuna()];
+			node.getTabuleiro()[casaInicial.getLinha()][casaInicial.getColuna()].getPeca().mover(casaInicialNova, casaFinalNova);
+
+			root.addNode(node);
 		}
 		
 	}
-	
-	
 
 	private List<Casa> verificaJogada(Casa casaInicial) {
 		List<Casa> casasFinais = new ArrayList<Casa>();
@@ -111,9 +110,6 @@ public class RegraAI {
 		}
 		return casasFinais;
 	}
-	
-	
-	
 	
 	public int calculaValorPosicional(){
 		Casa[][] tab = tabuleiro;
@@ -204,16 +200,14 @@ public class RegraAI {
 		return valortotal;
 	}
 	
-	
-	
 	public static void main(String[] args) {
-		Tabuleiro t= new Tabuleiro();
-		RegraAI regraAI = new RegraAI(t.getTabuleiro());
+		Tabuleiro tabuleiro2 = new Tabuleiro();
 		
-		regraAI.verificaCasas();
-		System.out.println(" rodo");
+		RegraAI regraAI = new RegraAI(tabuleiro2.getTabuleiro());
 		
+		Arvore node = new Arvore();
+		node.setTabuleiro(tabuleiro2.getTabuleiro());
+		regraAI.verificaCasas(node);
 		
 	}
-	
 }
