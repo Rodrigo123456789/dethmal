@@ -27,7 +27,7 @@ public class RegraFinal {
 	 *            Tabuleiro atual do jogo
 	 * @return Retorna a false se o jogador estiver IMOBILIZADO = fim de jogo
 	 */
-	public boolean verificaPecasBranca(Casa[][] tabuleiro) {
+	public static boolean verificaPecasBranca(Casa[][] tabuleiro) {
 		for (int i = 0; i < tabuleiro.length; i++) {
 			for (int j = 0; j < tabuleiro[i].length; j++) {
 				if (((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) && tabuleiro[i][j].getPeca() != null
@@ -68,7 +68,7 @@ public class RegraFinal {
 	 *            Tabuleiro atual do jogo
 	 * @return Retorna a false se o jogador estiver IMOBILIZADO = fim de jogo
 	 */
-	public boolean verificaPecasPreta(Casa[][] tabuleiro) {
+	public static boolean verificaPecasPreta(Casa[][] tabuleiro) {
 		for (int i = 0; i < tabuleiro.length; i++) {
 			for (int j = 0; j < tabuleiro[i].length; j++) {
 				if (((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) && tabuleiro[i][j].getPeca() != null
@@ -147,7 +147,7 @@ public class RegraFinal {
 		return 5;
 	}
 
-	public int getQtdPeaoBranco() {
+	public static int getQtdPeaoBranco() {
 		return qtdPeaoBranco;
 	}
 
@@ -155,7 +155,7 @@ public class RegraFinal {
 		RegraFinal.qtdPeaoBranco = qtdPeaoBranco;
 	}
 
-	public int getQtdPeaoPreto() {
+	public static int getQtdPeaoPreto() {
 		return qtdPeaoPreto;
 	}
 
@@ -163,7 +163,7 @@ public class RegraFinal {
 		RegraFinal.qtdPeaoPreto = qtdPeaoPreto;
 	}
 
-	public int getQtdDamaBranco() {
+	public static int getQtdDamaBranco() {
 		return qtdDamaBranco;
 	}
 
@@ -171,7 +171,7 @@ public class RegraFinal {
 		RegraFinal.qtdDamaBranco = qtdDamaBranco;
 	}
 
-	public int getQtdDamaPreto() {
+	public static int getQtdDamaPreto() {
 		return qtdDamaPreto;
 	}
 

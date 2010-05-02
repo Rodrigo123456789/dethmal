@@ -1,12 +1,14 @@
 package br.com.assinchronus.componentes;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author Pilon
  * @version 1.0.0
  */
 
-public class Casa {
+public class Casa implements Serializable{
 
 	private int linha = 0;
 	private int coluna = 0;
@@ -40,7 +42,7 @@ public class Casa {
 	public void setPeca(Pecas peca) {
 		this.peca = peca;
 	}
-
+	
 	public int getValor() {
 		return valor;
 	}
@@ -53,5 +55,4 @@ public class Casa {
 	public String toString() {
 		return String.valueOf(getLinha()).concat(",").concat(String.valueOf(getColuna()));
 	}
-
 }

@@ -1,12 +1,13 @@
 package br.com.assinchronus.ai;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.assinchronus.componentes.Casa;
 
 public class Arvore {
 	
-	private List<Arvore> arvores;
+	private List<Arvore> arvores = new ArrayList<Arvore>();
 	
 	private Casa[][] tabuleiro;
 	

@@ -86,7 +86,7 @@ public class Tabuleiro {
 			}
 		}
 	}
-
+	
 	public Casa[][] getTabuleiro() {
 		return tabuleiro;
 	}
