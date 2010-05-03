@@ -10,6 +10,8 @@ import java.io.Serializable;
 
 public class Casa implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	private int linha = 0;
 	private int coluna = 0;
 	int valor;

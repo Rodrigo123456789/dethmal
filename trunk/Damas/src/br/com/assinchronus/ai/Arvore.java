@@ -13,8 +13,8 @@ public class Arvore {
 	
 	private int valor;
 	
-	public Arvore() {
-		// TODO Auto-generated constructor stub
+	public Arvore(Casa[][] tabuleiro) {
+		this.tabuleiro = tabuleiro;
 	}
 
 	public List<Arvore> getArvores() {
@@ -27,10 +27,6 @@ public class Arvore {
 	
 	public Casa[][] getTabuleiro() {
 		return tabuleiro;
-	}
-
-	public void setTabuleiro(Casa[][] tabuleiro) {
-		this.tabuleiro = tabuleiro;
 	}
 
 	public int getValor() {
@@ -47,5 +43,10 @@ public class Arvore {
 	 */
 	public void addNode(Arvore filho) {
 		this.arvores.add(filho);
+	}
+	
+	@Override
+	public String toString() {
+		return String.valueOf(valor);
 	}
 }
