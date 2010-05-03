@@ -4,6 +4,8 @@ import static br.com.assinchronus.negocio.RegraFinal.*;
 
 public class Peao implements Pecas {
 
+	private static final long serialVersionUID = 1L;
+
 	private int cor = 0;
 	private boolean capturada = false;
 
