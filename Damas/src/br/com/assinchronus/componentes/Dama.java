@@ -1,10 +1,14 @@
 package br.com.assinchronus.componentes;
 
-import br.com.assinchronus.negocio.RegraFinal;
+import br.com.assinchronus.gui.Jogo;
 
 public class Dama implements Pecas {
-
-	RegraFinal rf = new RegraFinal();
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private int cor = 0;
 	boolean capturada = false;
 
@@ -12,16 +16,15 @@ public class Dama implements Pecas {
 	public void comer(Casa atual, Casa adversaria, Casa proxima) {
 		if (adversaria.getPeca().getCor() == 1) {
 			if (adversaria.getPeca() instanceof Peao) {
-				RegraFinal.setQtdPeaoBranco(rf.getQtdPeaoBranco() - 1);
+				Jogo.peoesBrancos--;
 			} else {
-				RegraFinal.setQtdDamaBranco(rf.getQtdDamaBranco() - 1);
+				Jogo.damasBrancas--;
 			}
 		} else {
 			if (adversaria.getPeca() instanceof Peao) {
-
-				RegraFinal.setQtdPeaoPreto(rf.getQtdPeaoPreto() - 1);
+				Jogo.peoesPretos--;
 			} else {
-				RegraFinal.setQtdDamaPreto(rf.getQtdDamaPreto() - 1);
+				Jogo.damasPretas--;
 			}
 		}
 		mover(atual, proxima);

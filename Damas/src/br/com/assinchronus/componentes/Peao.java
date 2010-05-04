@@ -1,6 +1,6 @@
 package br.com.assinchronus.componentes;
 
-import static br.com.assinchronus.negocio.RegraFinal.*;
+import br.com.assinchronus.gui.Jogo;
 
 public class Peao implements Pecas {
 
@@ -13,15 +13,15 @@ public class Peao implements Pecas {
 	public void comer(Casa atual, Casa adversaria, Casa proxima) {
 		if (adversaria.getPeca().getCor() == 1) {
 			if (adversaria.getPeca() instanceof Peao) {
-				setQtdPeaoBranco(getQtdPeaoBranco() - 1);
+				Jogo.peoesBrancos--;
 			} else {
-				setQtdDamaBranco(getQtdDamaBranco() - 1);
+				Jogo.damasBrancas--;
 			}
 		} else {
 			if (adversaria.getPeca() instanceof Peao) {
-				setQtdPeaoPreto(getQtdPeaoPreto() - 1);
+				Jogo.peoesPretos--;
 			} else {
-				setQtdDamaPreto(getQtdDamaPreto() - 1);
+				Jogo.damasPretas--;
 			}
 		}
 		mover(atual, proxima);
