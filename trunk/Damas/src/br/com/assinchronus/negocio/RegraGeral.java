@@ -30,14 +30,14 @@ public class RegraGeral {
 	 *            Tabuleiro atual do jogo
 	 * @return
 	 */
-	public static List<Casa[]> verificaCapturaObrigatoria(int jogada, Casa[][] tabuleiro) {
+	public static List<Casa[]> verificaCapturaObrigatoria(Casa[][] tabuleiro) {
 		int z, l, c;
 		Casa[] casa = new Casa[2];
 		List<Casa[]> obrigatoria = new ArrayList<Casa[]>();
 		for (int i = 0; i < tabuleiro.length; i++) {
 			for (int j = 0; j < tabuleiro[i].length; j++) {
 				if (((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) && tabuleiro[i][j].getPeca() != null) {
-					if (jogada == Pecas.BRANCA) {
+					if (Jogo.jogada == Pecas.BRANCA) {
 						if (tabuleiro[i][j].getPeca().getCor() == Pecas.BRANCA && (tabuleiro[i][j].getPeca() instanceof Peao)) {
 							// Se for um peao branco
 							if (i - 2 > -1 && j + 2 < 8) {
@@ -253,7 +253,7 @@ public class RegraGeral {
 		// se primeira jogada, testa pra ver se tem captura obrigatoria
 		// se nao for a primeira, vai direto com obrigatoria true.
 		if (!getSequencia()) {
-			obrigatoria = verificaCapturaObrigatoria(jogada, tabuleiro);
+			obrigatoria = verificaCapturaObrigatoria(tabuleiro);
 			Jogo.setMSG("Captura obrigatoria: " + obrigatoria);
 		}
 

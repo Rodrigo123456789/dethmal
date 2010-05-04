@@ -8,12 +8,11 @@ import br.com.assinchronus.componentes.Dama;
 import br.com.assinchronus.componentes.Peao;
 import br.com.assinchronus.componentes.Pecas;
 import br.com.assinchronus.componentes.Tabuleiro;
+import br.com.assinchronus.gui.Jogo;
 import br.com.assinchronus.negocio.RegraGeral;
 import br.com.assinchronus.util.Utility;
 
 public class RegraAI {
-
-	int jogada = 2;
 
 	private Casa[][] tabuleiro;
 
@@ -22,7 +21,7 @@ public class RegraAI {
 	}
 
 	public void verificaCasas(Arvore node) {
-		List<Casa[]> jogadaObrigatoria = RegraGeral.verificaCapturaObrigatoria(jogada, tabuleiro);
+		List<Casa[]> jogadaObrigatoria = RegraGeral.verificaCapturaObrigatoria(tabuleiro);
 		List<Casa> casasFinais = new ArrayList<Casa>();
 		if (!jogadaObrigatoria.isEmpty()) {
 			if (jogadaObrigatoria.size() == 1) {
@@ -35,7 +34,7 @@ public class RegraAI {
 				for (int j = 0; j < tabuleiro.length; j++) {
 					if ((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) {
 						Pecas peca = tabuleiro[i][j].getPeca();
-						if (peca != null && peca.getCor() == jogada) {
+						if (peca != null && peca.getCor() == Jogo.jogada) {
 							casasFinais = verificaJogada(tabuleiro[i][j]);
 							if (!casasFinais.isEmpty()) {
 								criaJogada(node, tabuleiro[i][j], casasFinais);
@@ -48,16 +47,16 @@ public class RegraAI {
 	}
 
 	private List<Casa> verificaJogada(Casa casaInicial) {
-		List<Casa> casasFinais = new ArrayList<Casa>();
-
-		Pecas peca = casaInicial.getPeca();
-
 		// movimento branco
 		int colunaInicial = casaInicial.getColuna();
 		int linhaInicial = casaInicial.getLinha();
 
+		List<Casa> casasFinais = new ArrayList<Casa>();
+
+		Pecas peca = casaInicial.getPeca();
+		
 		if (peca instanceof Peao) {
-			if (jogada == 1) {
+			if (Jogo.jogada == 1) {
 				if (colunaInicial == 0 && (tabuleiro[linhaInicial - 1][colunaInicial + 1].getPeca() == null)) {
 					casasFinais.add(tabuleiro[linhaInicial - 1][colunaInicial + 1]);
 				} else if (colunaInicial == 7 && (tabuleiro[linhaInicial - 1][colunaInicial - 1].getPeca() == null)) {
@@ -107,31 +106,32 @@ public class RegraAI {
 		}
 	}
 	
-	public int calculaValorPosicional(Casa[][] tab) {
+	private int calculaValorPosicional(Casa[][] tab) {
 		int valorb = 0;
 		int valorp = 0;
 		
 		for (int i = 0; i < tab.length; i++) {
 			for (int j = 0; j < tab.length; j++) {
 				if ((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) {
+					Casa casaAtual = tab[i][j];
 					// calcular valor branco
-					if (tab[i][j].getPeca() != null && tab[i][j].getPeca().getCor() == Pecas.BRANCA) {
-						if (tab[i][j].getPeca() instanceof Dama) {
-							valorb =+ tab[i][j].getValor() * 10;
+					if (casaAtual.getPeca() != null && casaAtual.getPeca().getCor() == Pecas.BRANCA) {
+						if (casaAtual.getPeca() instanceof Dama) {
+							valorb =+ casaAtual.getValor() * 10;
 						} else if (i == 1) {
-							valorb =+ tab[i][j].getValor() * 7;
+							valorb =+ casaAtual.getValor() * 7;
 						} else {
-							valorb =+ tab[i][j].getValor() * 5;
+							valorb =+ casaAtual.getValor() * 5;
 						}
 					}
 					// calcular valor preto
-					if (tab[i][j].getPeca() != null && tab[i][j].getPeca().getCor() == Pecas.PRETA) {
-						if (tab[i][j].getPeca() instanceof Dama) {
-							valorp =+ tab[i][j].getValor() * 10;
+					if (casaAtual.getPeca() != null && casaAtual.getPeca().getCor() == Pecas.PRETA) {
+						if (casaAtual.getPeca() instanceof Dama) {
+							valorp =+ casaAtual.getValor() * 10;
 						} else if (i == 6) {
-							valorp =+ tab[i][j].getValor() * 7;
+							valorp =+ casaAtual.getValor() * 7;
 						} else {
-							valorp =+ tab[i][j].getValor() * 5;
+							valorp =+ casaAtual.getValor() * 5;
 						}
 					}
 				}

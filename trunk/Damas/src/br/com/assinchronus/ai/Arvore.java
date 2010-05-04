@@ -37,7 +37,7 @@ public class Arvore {
 		this.valor = valor;
 	}
 	
-	/***
+	/**
 	 * adiciona um filho na arvore
 	 * @param filho nó filho do objeto atual
 	 */

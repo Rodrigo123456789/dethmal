@@ -8,19 +8,22 @@ package br.com.assinchronus.gui;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JScrollPane;
 
 import br.com.assinchronus.componentes.Casa;
 import br.com.assinchronus.componentes.Dama;
 import br.com.assinchronus.componentes.Peao;
+import br.com.assinchronus.componentes.Pecas;
 import br.com.assinchronus.componentes.Tabuleiro;
 import br.com.assinchronus.exception.JogadaInvalida;
 import br.com.assinchronus.negocio.RegraFinal;
@@ -33,56 +36,45 @@ public class Jogo extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private javax.swing.JMenu jMenu1;
-	private javax.swing.JMenuBar jMenuBar1;
-
-	ImageIcon iconWhite = new ImageIcon(getClass().getResource("/images/peca.png"));
-	ImageIcon iconBlack = new ImageIcon(getClass().getResource("/images/pecapreta.png"));
-	ImageIcon iconKingWhite = new ImageIcon(getClass().getResource("/images/dama.png"));
-	ImageIcon iconKingBlack = new ImageIcon(getClass().getResource("/images/damapreta.png"));
-
+	private JMenu menu;
+	private JMenuBar menuBar;
 	private JButton[][] buttons = new JButton[8][8];
-	Map<JButton, Casa> mapaTabuleiro = new HashMap<JButton, Casa>();
-	Tabuleiro tabuleiro = new Tabuleiro();
+	private JScrollPane panel = new JScrollPane();
+	private JList jogadas = new JList();
+	private static DefaultListModel model = new DefaultListModel();
 
-	private RegraFinal rf = new RegraFinal();
+	private ImageIcon iconWhite = new ImageIcon(getClass().getResource("/images/peca.png"));
+	private ImageIcon iconBlack = new ImageIcon(getClass().getResource("/images/pecapreta.png"));
+	private ImageIcon iconKingWhite = new ImageIcon(getClass().getResource("/images/dama.png"));
+	private ImageIcon iconKingBlack = new ImageIcon(getClass().getResource("/images/damapreta.png"));
+
+	private Map<JButton, Casa> mapaTabuleiro = new HashMap<JButton, Casa>();
+	private Tabuleiro tabuleiro = new Tabuleiro();
+	private Casa casaInicial = null;
 	
-	Casa casaInicial;
-	Casa casaFinal;
-	static int jogada = 1;
-	boolean passavez;
-
-	javax.swing.JScrollPane panel = new JScrollPane();
-	javax.swing.JList jogadas = new JList();
-
-	static javax.swing.DefaultListModel model = new javax.swing.DefaultListModel();
-
-	public static void main(String args[]) {
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new Jogo().setVisible(true);
-			}
-		});
-	}
-
+	public static int jogada = Pecas.BRANCA;
+	
+	public static final int EMPATE = 0;
+	public static final int VITORIA_BRANCA = 1;
+	public static final int VITORIA_PRETA = -1;
+	public static final int CONTINUA = 5;
+	
+	public static int peoesBrancos = 12;
+	public static int peoesPretos = 12;
+	public static int damasBrancas = 0;
+	public static int damasPretas = 0;
+	
 	/** Creates new form Tabuleiro */
 	public Jogo() {
 		initComponents();
-
 	}
 
 	private void initComponents() {
-
 		Color white = new Color(255, 255, 255);
 		Color black = new Color(102, 102, 102);
 
 		int coluna = 10;
 		int linha = 20;
-
-		RegraFinal.setQtdPeaoBranco(12);
-		RegraFinal.setQtdPeaoPreto(12);
-		RegraFinal.setQtdDamaBranco(0);
-		RegraFinal.setQtdDamaPreto(0);
 
 		for (int i = 0; i < buttons.length; i++) {
 			for (int j = 0; j < buttons.length; j++) {
@@ -102,9 +94,7 @@ public class Jogo extends JFrame implements ActionListener {
 
 				getContentPane().add(buttons[i][j]);
 				buttons[i][j].setBounds(coluna, linha, 89, 89);
-				//buttons[i][j].addActionListener(this);
-			//	buttons[i][j].addActionListener(this);
-				buttons[i][j].addActionListener( this);
+				buttons[i][j].addActionListener(this);
 				mapaTabuleiro.put(buttons[i][j], tabuleiro.getTabuleiro()[i][j]);
 
 				coluna += 90;
@@ -113,7 +103,6 @@ public class Jogo extends JFrame implements ActionListener {
 			linha += 90;
 			coluna = 10;
 		}
-		// jogadas.setSize(100, 100);
 
 		jogadas.setModel(model);
 
@@ -121,56 +110,32 @@ public class Jogo extends JFrame implements ActionListener {
 		panel.setBounds(740, 10, 275, 300);
 		getContentPane().add(panel);
 
-		jMenuBar1 = new javax.swing.JMenuBar();
-		jMenu1 = new javax.swing.JMenu();
+		menuBar = new javax.swing.JMenuBar();
+		menu = new javax.swing.JMenu();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setMinimumSize(new java.awt.Dimension(1024, 850));
 		setResizable(false);
 		getContentPane().setLayout(null);
 
-		jMenu1.setText("Novo Jogo");
-		jMenuBar1.add(jMenu1);
+		menu.setText("Novo Jogo");
+		menuBar.add(menu);
 
-    	jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(MouseEvent evt) {
-				menuActionPerformed(evt);
-			}
-		});
-		setJMenuBar(jMenuBar1);
+		setJMenuBar(menuBar);
 
 		pack();
 	}
 
-	public void menuActionPerformed(MouseEvent e) {
-	/*	tabuleiro = new Tabuleiro();
-		casaFinal = null;
-		casaInicial = null;
-		jogada = 1;
-		model.clear();
-		jogadas.setModel(model);
-		for (int i = 0; i < buttons.length; i++) {
-			for (int j = 0; j < buttons.length; j++) {
-				mapaTabuleiro.put(buttons[i][j], tabuleiro.getTabuleiro()[i][j]);
-			}
-		}
-		RegraFinal.setQtdPeaoBranco(12);
-		RegraFinal.setQtdPeaoPreto(12);
-		RegraFinal.setQtdDamaBranco(0);
-		RegraFinal.setQtdDamaPreto(0);
-		RegraGeral.setSequencia(false);
-		atualizaTabuleiro();*/
-	}
-
 	public void actionPerformed(ActionEvent e) {
+		boolean passavez = false;
+		Casa casaFinal;
 
-		//Jogo.setMSG("Quem joga: " + jogada + ", tem sequencia: " + RegraGeral.getSequencia());
 		if (casaInicial == null) {
 			if (mapaTabuleiro.get(e.getSource()).getPeca() != null) {
 				if (jogada == mapaTabuleiro.get(e.getSource()).getPeca().getCor()) {
 					casaInicial = mapaTabuleiro.get(e.getSource());
 				} else {
-										model.add(model.getSize(), "Esta não é sua peça");
+					model.add(model.getSize(), "Esta não é sua peça");
 				}
 
 			} else
@@ -196,51 +161,48 @@ public class Jogo extends JFrame implements ActionListener {
 				} finally {
 					casaInicial = null;
 					casaFinal = null;
-					if (jogada == 1 && RegraGeral.getSequencia() == false && passavez) {
-						jogada = 2;
-						} else if (jogada == 2 && RegraGeral.getSequencia() == false && passavez) {
-						jogada = 1;
-						}
+					if (jogada == Pecas.BRANCA && RegraGeral.getSequencia() == false && passavez) {
+						jogada = Pecas.PRETA;
+					} else if (jogada == Pecas.PRETA && RegraGeral.getSequencia() == false && passavez) {
+						jogada = Pecas.BRANCA;
+					}
 				}
 			} else {
 				if (mapaTabuleiro.get(e.getSource()).getPeca().getCor() == jogada && RegraGeral.getSequencia() == false)
 					casaInicial = mapaTabuleiro.get(e.getSource());
-				else if (mapaTabuleiro.get(e.getSource()).getPeca().getCor() != jogada && RegraGeral.getSequencia() == false)
+				else if (mapaTabuleiro.get(e.getSource()).getPeca().getCor() != jogada
+						&& RegraGeral.getSequencia() == false)
 					casaInicial = null;
 			}
 
 			// Analise do fim do jogo
-			int fim = rf.analisaFinal();
-			model.add(model.getSize(), "Retorno do analisaFinal: " + fim + " // Jogadas para empate: " + rf.getJogadasempate() + " // Passa vez: " + passavez);
+			int fim = RegraFinal.analisaFinal();
 			switch (fim) {
 			case 0: {
-				if (rf.getJogadasempate() == 0 && passavez) {
-					model.add(model.getSize(), "Empate"); 
-					jogada = 0;
-				}
+				model.add(model.getSize(), "Empate");
+				jogada = 0;
 				break;
 			}
-			case 1: {
+			case VITORIA_BRANCA: {
 				model.add(model.getSize(), "Branca ganhou");
 				jogada = 0;
 				break;
 			}
-			case -1: {
+			case VITORIA_PRETA: {
 				model.add(model.getSize(), "Preta ganhou");
-				model.add(model.getSize(), "Preta ganhou"); 
 				jogada = 0;
 				break;
 			}
 			}
 
 			// Analise da imobilizacao
-			if (jogada == 1) {
-				if (!rf.verificaPecasBranca(tabuleiro.getTabuleiro())) {
+			if (jogada == Pecas.BRANCA) {
+				if (RegraFinal.verificaPecasBranca(tabuleiro.getTabuleiro())) {
 					model.add(model.getSize(), "Preta ganhou por imobilizacao");
 					jogada = 0;
 				}
-			} else if (jogada == 2) {
-				if (!rf.verificaPecasPreta(tabuleiro.getTabuleiro())) {
+			} else if (jogada == Pecas.PRETA) {
+				if (RegraFinal.verificaPecasPreta(tabuleiro.getTabuleiro())) {
 					model.add(model.getSize(), "Branca ganhou por imobilizacao");
 					jogada = 0;
 				}
@@ -268,8 +230,8 @@ public class Jogo extends JFrame implements ActionListener {
 									tab[i][j].setPeca(new Dama());
 									tab[i][j].getPeca().setCor(1);
 									buttons[i][j].setIcon(iconKingWhite);
-									RegraFinal.setQtdDamaBranco(rf.getQtdDamaBranco() + 1);
-									RegraFinal.setQtdPeaoBranco(rf.getQtdPeaoBranco() - 1);
+									damasBrancas++;
+									peoesBrancos--;
 								} else
 									buttons[i][j].setIcon(iconWhite);
 							} else {
@@ -281,8 +243,8 @@ public class Jogo extends JFrame implements ActionListener {
 									tab[i][j].setPeca(new Dama());
 									tab[i][j].getPeca().setCor(2);
 									buttons[i][j].setIcon(iconKingBlack);
-									RegraFinal.setQtdDamaPreto(rf.getQtdDamaPreto() + 1);
-									RegraFinal.setQtdPeaoPreto(rf.getQtdPeaoPreto() - 1);
+									damasPretas++;
+									peoesPretos--;
 								} else
 									buttons[i][j].setIcon(iconBlack);
 							} else {
@@ -292,107 +254,22 @@ public class Jogo extends JFrame implements ActionListener {
 					} else {
 						buttons[i][j].setIcon(null);
 						tab[i][j].setPeca(null);
-						
+
 					}
 				}
 			}
 		}
 	}
-	
 
 	public static void setMSG(String msg) {
 		model.add(model.getSize(), msg);
 	}
-	
-	public int calculaValorPosicional(){
-		Casa[][] tab = tabuleiro.getTabuleiro();
-		int valortotal;
-		int valorb = 0;
-		int valorp = 0;
-		for (int i = 0; i < tab.length; i++) {
-			for (int j = 0; j < tab.length; j++) {
-				if ((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) {
-					//calcular valor branco
-					if (tab[i][j].getPeca() != null && tab[i][j].getPeca().getCor()==1){
-						if(tab[i][j].getPeca() instanceof Dama){
-							valorb = valorb + tab[i][j].getValor()*10;
-						}else if(i == 1){
-							valorb = valorb + tab[i][j].getValor()*7;
-						}else{
-							valorb = valorb + tab[i][j].getValor()*5;
-						}
-					}
-					//calcular valor preto
-					if (tab[i][j].getPeca() != null && tab[i][j].getPeca().getCor()==2){
-						if(tab[i][j].getPeca() instanceof Dama){
-							valorp = valorp + tab[i][j].getValor()*10;
-						}else if(i == 6){
-							valorp = valorp + tab[i][j].getValor()*7;
-						}else{
-							valorp = valorp + tab[i][j].getValor()*5;
-						}
-					}
-				}
+
+	public static void main(String args[]) {
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new Jogo().setVisible(true);
 			}
-		}
-		model.add(model.getSize(), "POSICIONAL -> For�a do preto: "+valorp);
-		model.add(model.getSize(), "POSICIONAL -> For�a do branco: "+valorb);
-		//calculo do valor absoluto (computador = preto)
-		valortotal = valorp - valorb;
-		
-		return valortotal;
-	}	
-	
-	public float calculaValorTrinagulo(){
-		Casa[][] tab = tabuleiro.getTabuleiro();
-		float valortotal;
-		float valorb = 0;
-		float valorp = 0;
-		for (int i = 0; i < tab.length; i++) {
-			for (int j = 0; j < tab.length; j++) {
-				if ((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) {
-					//calcular valor branco
-					if (tab[i][j].getPeca() != null && tab[i][j].getPeca().getCor()==1){
-						//calculo de caracteres defensivos
-						if(i==7){
-							valorb = valorb + 1;
-						}else if(i==6 && (j==2 || j==4)){
-							valorb = valorb + 1;
-						}else if(i==5 && j==3){
-							valorb = valorb + 1;
-						}
-							//calculo de caracteres materiais
-						if(tab[i][j].getPeca() instanceof Dama){
-							valorb = valorb + 3;
-						}else{
-							valorb = valorb + 1;
-						}
-					}
-					//calcular valor preto
-					if (tab[i][j].getPeca() != null && tab[i][j].getPeca().getCor()==2){
-						//calculo de caracteres defensivos
-						if(i==0){
-							valorp = valorp + 1;
-						}else if(i==1 && (j==3 || j==5)){
-							valorp = valorp + 1;
-						}else if(i==2 && j==4){
-							valorp = valorp + 1;
-						}
-						//calculo de caracteres materiais
-						if(tab[i][j].getPeca() instanceof Dama){
-							valorp = valorp + 3;
-						}else{
-							valorp = valorp + 1;
-						}
-					}
-				}
-			}
-		}
-		model.add(model.getSize(), "TRIANGULO -> For�a do preto: "+valorp);
-		model.add(model.getSize(), "TRIANGULO -> For�a do branco: "+valorb);
-		//calculo do valor absoluto (computador = preto)
-		valortotal = (valorp - valorb)/(valorp + valorb);
-		
-		return valortotal;
+		});
 	}
-}	
+}
