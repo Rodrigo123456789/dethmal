@@ -52,7 +52,7 @@ public class Jogo extends JFrame implements ActionListener {
 	private Tabuleiro tabuleiro = new Tabuleiro();
 	private Casa casaInicial = null;
 	
-	public static int jogada = Pecas.BRANCA;
+	public static int jogada = Pecas.PRETA;
 	
 	public static final int EMPATE = 0;
 	public static final int VITORIA_BRANCA = 1;
@@ -197,12 +197,12 @@ public class Jogo extends JFrame implements ActionListener {
 
 			// Analise da imobilizacao
 			if (jogada == Pecas.BRANCA) {
-				if (RegraFinal.verificaPecasBranca(tabuleiro.getTabuleiro())) {
+				if (!RegraFinal.verificaPecasBranca(tabuleiro.getTabuleiro())) {
 					model.add(model.getSize(), "Preta ganhou por imobilizacao");
 					jogada = 0;
 				}
 			} else if (jogada == Pecas.PRETA) {
-				if (RegraFinal.verificaPecasPreta(tabuleiro.getTabuleiro())) {
+				if (!RegraFinal.verificaPecasPreta(tabuleiro.getTabuleiro())) {
 					model.add(model.getSize(), "Branca ganhou por imobilizacao");
 					jogada = 0;
 				}
