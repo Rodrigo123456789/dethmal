@@ -14,7 +14,7 @@ public class Arvore {
 	private int valor;
 	
 	public Arvore(Casa[][] tabuleiro) {
-		this.tabuleiro = tabuleiro;
+		this.setTabuleiro(tabuleiro);
 	}
 
 	public List<Arvore> getArvores() {
@@ -37,7 +37,7 @@ public class Arvore {
 		this.valor = valor;
 	}
 	
-	/**
+	/***
 	 * adiciona um filho na arvore
 	 * @param filho nó filho do objeto atual
 	 */
@@ -48,5 +48,9 @@ public class Arvore {
 	@Override
 	public String toString() {
 		return String.valueOf(valor);
+	}
+
+	public void setTabuleiro(Casa[][] tabuleiro) {
+		this.tabuleiro = tabuleiro;
 	}
 }
