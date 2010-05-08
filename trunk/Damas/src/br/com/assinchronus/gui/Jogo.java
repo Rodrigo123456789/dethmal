@@ -20,6 +20,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JScrollPane;
 
+import br.com.assinchronus.ai.Arvore;
+import br.com.assinchronus.ai.Inteligencia;
 import br.com.assinchronus.componentes.Casa;
 import br.com.assinchronus.componentes.Dama;
 import br.com.assinchronus.componentes.Peao;
@@ -52,7 +54,7 @@ public class Jogo extends JFrame implements ActionListener {
 	private Tabuleiro tabuleiro = new Tabuleiro();
 	private Casa casaInicial = null;
 	
-	public static int jogada = Pecas.PRETA;
+	public static int jogada = Pecas.BRANCA;
 	
 	public static final int EMPATE = 0;
 	public static final int VITORIA_BRANCA = 1;
@@ -163,6 +165,11 @@ public class Jogo extends JFrame implements ActionListener {
 					casaFinal = null;
 					if (jogada == Pecas.BRANCA && RegraGeral.getSequencia() == false && passavez) {
 						jogada = Pecas.PRETA;
+						Arvore arvore = new Arvore(tabuleiro.getTabuleiro());
+						Inteligencia i = new Inteligencia(arvore);
+						tabuleiro = i.jogar();
+						atualizaTabuleiro();
+						jogada = Pecas.BRANCA;
 					} else if (jogada == Pecas.PRETA && RegraGeral.getSequencia() == false && passavez) {
 						jogada = Pecas.BRANCA;
 					}
