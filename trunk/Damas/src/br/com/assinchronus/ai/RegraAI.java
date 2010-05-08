@@ -7,31 +7,33 @@ import br.com.assinchronus.componentes.Casa;
 import br.com.assinchronus.componentes.Dama;
 import br.com.assinchronus.componentes.Peao;
 import br.com.assinchronus.componentes.Pecas;
-import br.com.assinchronus.componentes.Tabuleiro;
+import br.com.assinchronus.gui.Jogo;
 import br.com.assinchronus.negocio.RegraGeral;
 import br.com.assinchronus.util.Utility;
 
 public class RegraAI {
 
-	static int jogada;
-
-	private int nivel = 3;
-
+	private int jogada;
+	
+	private int nivelArvore; 
+	
 	private Casa[][] tabuleiro;
-
-	private static int verificaNivel;
-
-	public RegraAI(Casa[][] tabuleiro) {
+	
+	/**
+	 * 
+	 * @param nivelArvore Nivel da Arvore que sera gerada
+	 */
+	public RegraAI(int nivelArvore) {
+		jogada = Jogo.jogada;
+		this.nivelArvore = nivelArvore;
 	}
 
 	public void verificaCasas(Arvore node, int nivel) {
-		if (nivel % 2 == verificaNivel)
-			jogada = 2;
-		else
-			jogada = 1;
+		jogada = nivel % 2 == nivelArvore % 2 ?  Pecas.PRETA : Pecas.BRANCA;
+		
 		if (nivel != 0) {
 			tabuleiro = node.getTabuleiro();
-			List<Casa[]> jogadaObrigatoria = RegraGeral.verificaCapturaObrigatoria( tabuleiro);
+			List<Casa[]> jogadaObrigatoria = RegraGeral.verificaCapturaObrigatoria(tabuleiro);
 			List<Casa> casasFinais = new ArrayList<Casa>();
 			if (!jogadaObrigatoria.isEmpty()) {
 				if (jogadaObrigatoria.size() == 1) {
@@ -42,7 +44,6 @@ public class RegraAI {
 					System.out.println("obrigatoria composto");
 				}
 			} else {
-
 				for (int i = 0; i < tabuleiro.length; i++) {
 					for (int j = 0; j < tabuleiro.length; j++) {
 						if ((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) {
@@ -129,7 +130,7 @@ public class RegraAI {
 		}
 	}
 
-	public int calculaValorPosicional(Casa[][] tab) {
+	private int calculaValorPosicional(Casa[][] tab) {
 		int valorb = 0;
 		int valorp = 0;
 
@@ -164,7 +165,7 @@ public class RegraAI {
 		return valorp - valorb;
 	}
 
-	public float calculaValorTrinagulo() {
+	private float calculaValorTrinagulo() {
 		Casa[][] tab = tabuleiro;
 		float valortotal;
 		float valorb = 0;
@@ -214,17 +215,4 @@ public class RegraAI {
 
 		return valortotal;
 	}
-
-	public static void main(String[] args) {
-		Tabuleiro tabuleiro2 = new Tabuleiro();
-		jogada = 2;
-		RegraAI regraAI = new RegraAI(tabuleiro2.getTabuleiro());
-		int n = 6;
-		Arvore node = new Arvore(tabuleiro2.getTabuleiro());
-		RegraAI.verificaNivel = n % 2;
-		regraAI.verificaCasas(node, n);
-
-		System.out.println("teste");
-	}
-
 }

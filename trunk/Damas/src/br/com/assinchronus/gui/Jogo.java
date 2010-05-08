@@ -260,7 +260,7 @@ public class Jogo extends JFrame implements ActionListener {
 			}
 		}
 	}
-
+	
 	public static void setMSG(String msg) {
 		model.add(model.getSize(), msg);
 	}
