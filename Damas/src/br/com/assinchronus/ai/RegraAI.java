@@ -123,8 +123,8 @@ public class RegraAI {
 			node.getTabuleiro()[casaInicialNova.getLinha()][casaInicialNova.getColuna()].getPeca().mover(casaInicialNova, casaFinalNova);
 			node.setValor(calculaValorPosicional(node.getTabuleiro()));
 
-			System.out.println("Pecas : " + casaInicialNova + " Para: " + casaFinalNova + " nivel : " + nivel + " jogada: " + jogada + " valor: "
-					+ String.valueOf(calculaValorPosicional(node.getTabuleiro())) + " " + calculaValorPosicional(tabuleiro));
+			System.out.println("Peca : " + casaInicialNova + " Para: " + casaFinalNova + " nivel : " + nivel + " valor: "
+					+ String.valueOf(calculaValorPosicional(node.getTabuleiro())));
 
 			root.addNode(node);
 		}
