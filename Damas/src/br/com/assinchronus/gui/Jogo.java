@@ -149,7 +149,7 @@ public class Jogo extends JFrame implements ActionListener {
 				try {
 					passavez = true;
 					RegraGeral.validarPeca(jogada, tabuleiro.getTabuleiro(), casaInicial, casaFinal);
-					atualizaTabuleiro();
+					atualizaTabuleiro(tabuleiro.getTabuleiro());
 
 					if (RegraGeral.getSequencia()) {
 						casaInicial = casaFinal;
@@ -167,8 +167,9 @@ public class Jogo extends JFrame implements ActionListener {
 						jogada = Pecas.PRETA;
 						Arvore arvore = new Arvore(tabuleiro.getTabuleiro());
 						Inteligencia i = new Inteligencia(arvore);
-						tabuleiro = i.jogar();
-						atualizaTabuleiro();
+						Casa[][] novoTabuleiro = i.jogar().getTabuleiro();
+						merge(tabuleiro.getTabuleiro(), novoTabuleiro);
+						atualizaTabuleiro(tabuleiro.getTabuleiro());
 						jogada = Pecas.BRANCA;
 					} else if (jogada == Pecas.PRETA && RegraGeral.getSequencia() == false && passavez) {
 						jogada = Pecas.BRANCA;
@@ -223,9 +224,7 @@ public class Jogo extends JFrame implements ActionListener {
 	/**
 	 * imprimi tabuleiro na tela
 	 */
-	public void atualizaTabuleiro() {
-
-		Casa[][] tab = tabuleiro.getTabuleiro();
+	public void atualizaTabuleiro(Casa[][] tab) {
 
 		for (int i = 0; i < tab.length; i++) {
 			for (int j = 0; j < tab.length; j++) {
@@ -262,6 +261,20 @@ public class Jogo extends JFrame implements ActionListener {
 						buttons[i][j].setIcon(null);
 						tab[i][j].setPeca(null);
 
+					}
+				}
+			}
+		}
+	}
+	
+	private void merge(Casa[][] tabAtual, Casa[][] tabNovo) {
+		for (int i = 0; i < tabAtual.length; i++) {
+			for (int j = 0; j < tabAtual.length; j++) {
+				if ((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) {
+					if(tabAtual[i][j].getPeca() != null && tabNovo[i][j].getPeca() == null) {
+						tabAtual[i][j].setPeca(null);
+					} else if (tabAtual[i][j].getPeca() == null && tabNovo[i][j].getPeca() != null){
+						tabAtual[i][j].setPeca(tabNovo[i][j].getPeca());
 					}
 				}
 			}
