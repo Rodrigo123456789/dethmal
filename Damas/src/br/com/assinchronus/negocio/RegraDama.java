@@ -1,7 +1,9 @@
 package br.com.assinchronus.negocio;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import br.com.assinchronus.componentes.Casa;
 import br.com.assinchronus.exception.JogadaInvalida;
@@ -22,7 +24,7 @@ public class RegraDama {
 	 *            casa de destino final
 	 * @throws JogadaInvalida
 	 */
-	public List<Casa[]> verificaDiagonalDama(List<Casa[]> obrigatoria, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal) throws JogadaInvalida {
+	public Map<Casa, List<Casa>> verificaDiagonalDama(Map<Casa, List<Casa>> obrigatoria, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal) throws JogadaInvalida {
 		int x; // salva a direcao horizontal do movimento
 		int y; // salva a direcao vertical do movimento
 		if (Math.abs(casaFinal.getLinha() - casaInicial.getLinha()) == Math.abs(casaFinal.getColuna() - casaInicial.getColuna())) {
@@ -69,7 +71,7 @@ public class RegraDama {
 	 * @throws JogadaInvalida
 	 */
 
-	public List<Casa[]> verificaJogadaDama(List<Casa[]> obrigatoria, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal, int x, int y) throws JogadaInvalida {
+	public Map<Casa, List<Casa>> verificaJogadaDama(Map<Casa, List<Casa>> obrigatoria, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal, int x, int y) throws JogadaInvalida {
 		int linha = casaInicial.getLinha();
 		int coluna = casaInicial.getColuna();
 		int z = 1; // incrementa para varrer toda a diagonal escolhida
@@ -121,11 +123,12 @@ public class RegraDama {
 	 *            Casa em que a peca parou
 	 * @return Lista de jogadas possiveis para sequencia
 	 */
-	public List<Casa[]> verificaSequenciaDama(Casa[][] tabuleiro, Casa casaInicial) {
+	public Map<Casa, List<Casa>> verificaSequenciaDama(Casa[][] tabuleiro, Casa casaInicial) {
 		int z, l, c;
-		Casa[] acao = new Casa[2];
-		List<Casa[]> jogadaspossiveis = new ArrayList<Casa[]>();
-
+		List<Casa> casasfinais = new ArrayList<Casa>();
+		Map<Casa, List<Casa>> jogadaspossiveis = new HashMap<Casa, List<Casa>>();
+		
+		DamaBrancaSuperiorEsquerda:
 		for (l = -1, c = -1, z = 1; z <= 6; z++) {
 			// analisando diagonal superior esquerda
 			if (casaInicial.getLinha() + l * (z + 1) > -1 && casaInicial.getColuna() + c * (z + 1) > -1) {
@@ -136,30 +139,39 @@ public class RegraDama {
 					}
 					if ((tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() != casaInicial.getPeca().getCor())
 							&& (tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() == null)) {
-						acao[0] = tabuleiro[casaInicial.getLinha()][casaInicial.getColuna()];
-						acao[1] = tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)];
-						jogadaspossiveis.add(acao);
+						while ((casaInicial.getLinha() + l * (z + 1) > -1 && casaInicial.getColuna() + c * (z + 1) > -1)	&& tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() == null) {
+							casasfinais.add(tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)]);
+							z++;
+						}
+						break DamaBrancaSuperiorEsquerda;
 					}
 				}
 			}
 		}
+		
+		DamaBrancaSuperiorDireita:
 		for (l = -1, c = +1, z = 1; z <= 6; z++) {
 			// analisando diagonal superior direita
 			if (casaInicial.getLinha() + l * (z + 1) > -1 && casaInicial.getColuna() + c * (z + 1) < 8) {
 				if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca() != null) {
 					if (tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() == casaInicial.getPeca().getCor()
-							|| tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().isCapturada() || tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() != null) {
+							|| tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().isCapturada() 
+							|| tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() != null) {
 						break;
 					}
 					if ((tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() != casaInicial.getPeca().getCor())
 							&& (tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() == null)) {
-						acao[0] = tabuleiro[casaInicial.getLinha()][casaInicial.getColuna()];
-						acao[1] = tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)];
-						jogadaspossiveis.add(acao);
+						while ((casaInicial.getLinha() + l * (z + 1) > -1 && casaInicial.getColuna() + c * (z + 1) < 8)	&& tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() == null) {
+							casasfinais.add(tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)]);
+							z++;
+						}
+						break DamaBrancaSuperiorDireita;
 					}
 				}
 			}
 		}
+		
+		DamaBrancaInferiorEsquerda:
 		for (l = +1, c = -1, z = 1; z <= 6; z++) {
 			// analisando diagonal inferior esquerda
 			if (casaInicial.getLinha() + l * (z + 1) < 8 && casaInicial.getColuna() + c * (z + 1) > -1) {
@@ -170,13 +182,17 @@ public class RegraDama {
 					}
 					if ((tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() != casaInicial.getPeca().getCor())
 							&& (tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() == null)) {
-						acao[0] = tabuleiro[casaInicial.getLinha()][casaInicial.getColuna()];
-						acao[1] = tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)];
-						jogadaspossiveis.add(acao);
+						while ((casaInicial.getLinha() + l * (z + 1) < 8 && casaInicial.getColuna() + c * (z + 1) > -1)	&& tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() == null) {
+							casasfinais.add(tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)]);
+							z++;
+						}
+						break DamaBrancaInferiorEsquerda;
 					}
 				}
 			}
 		}
+		
+		DamaBrancaInferiorDireita:
 		for (l = +1, c = +1, z = 1; z <= 6; z++) {
 			// analisando diagonal inferior direita
 			if (casaInicial.getLinha() + l * (z + 1) < 8 && casaInicial.getColuna() + c * (z + 1) < 8) {
@@ -187,12 +203,20 @@ public class RegraDama {
 					}
 					if ((tabuleiro[casaInicial.getLinha() + l * z][casaInicial.getColuna() + c * z].getPeca().getCor() != casaInicial.getPeca().getCor())
 							&& (tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() == null)) {
-						acao[0] = tabuleiro[casaInicial.getLinha()][casaInicial.getColuna()];
-						acao[1] = tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)];
-						jogadaspossiveis.add(acao);
+						while ((casaInicial.getLinha() + l * (z + 1) < 8 && casaInicial.getColuna() + c * (z + 1) < 8)	&& tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)].getPeca() == null) {
+							casasfinais.add(tabuleiro[casaInicial.getLinha() + l * (z + 1)][casaInicial.getColuna() + c * (z + 1)]);
+							z++;
+						}
+						break DamaBrancaInferiorDireita;
 					}
 				}
 			}
+		}
+		
+		if(casasfinais.isEmpty()){
+			jogadaspossiveis.clear();
+		}else{
+			jogadaspossiveis.put(tabuleiro[casaInicial.getLinha()][casaInicial.getColuna()], casasfinais);
 		}
 		return jogadaspossiveis;
 	}

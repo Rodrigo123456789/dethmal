@@ -53,19 +53,19 @@ public class Jogo extends JFrame implements ActionListener {
 	private Map<JButton, Casa> mapaTabuleiro = new HashMap<JButton, Casa>();
 	private Tabuleiro tabuleiro = new Tabuleiro();
 	private Casa casaInicial = null;
-	
+
 	public static int jogada = Pecas.BRANCA;
-	
+
 	public static final int EMPATE = 0;
 	public static final int VITORIA_BRANCA = 1;
 	public static final int VITORIA_PRETA = -1;
 	public static final int CONTINUA = 5;
-	
+
 	public static int peoesBrancos = 12;
 	public static int peoesPretos = 12;
 	public static int damasBrancas = 0;
 	public static int damasPretas = 0;
-	
+
 	/** Creates new form Tabuleiro */
 	public Jogo() {
 		initComponents();
@@ -137,7 +137,7 @@ public class Jogo extends JFrame implements ActionListener {
 				if (jogada == mapaTabuleiro.get(e.getSource()).getPeca().getCor()) {
 					casaInicial = mapaTabuleiro.get(e.getSource());
 				} else {
-					model.add(model.getSize(), "Esta não é sua peça");
+					model.add(model.getSize(), "Quem joga agora é o: " + jogada);
 				}
 
 			} else
@@ -165,12 +165,15 @@ public class Jogo extends JFrame implements ActionListener {
 					casaFinal = null;
 					if (jogada == Pecas.BRANCA && RegraGeral.getSequencia() == false && passavez) {
 						jogada = Pecas.PRETA;
+
 						Arvore arvore = new Arvore(tabuleiro.getTabuleiro());
 						Inteligencia i = new Inteligencia(arvore);
 						Casa[][] novoTabuleiro = i.jogar().getTabuleiro();
 						merge(tabuleiro.getTabuleiro(), novoTabuleiro);
 						atualizaTabuleiro(tabuleiro.getTabuleiro());
-						jogada = Pecas.BRANCA;
+						jogada =
+								Pecas.BRANCA;
+
 					} else if (jogada == Pecas.PRETA && RegraGeral.getSequencia() == false && passavez) {
 						jogada = Pecas.BRANCA;
 					}
@@ -184,35 +187,38 @@ public class Jogo extends JFrame implements ActionListener {
 			}
 
 			// Analise do fim do jogo
-			int fim = RegraFinal.analisaFinal();
-			switch (fim) {
-			case 0: {
-				model.add(model.getSize(), "Empate");
-				jogada = 0;
-				break;
-			}
-			case VITORIA_BRANCA: {
-				model.add(model.getSize(), "Branca ganhou");
-				jogada = 0;
-				break;
-			}
-			case VITORIA_PRETA: {
-				model.add(model.getSize(), "Preta ganhou");
-				jogada = 0;
-				break;
-			}
-			}
-
-			// Analise da imobilizacao
-			if (jogada == Pecas.BRANCA) {
-				if (!RegraFinal.verificaPecasBranca(tabuleiro.getTabuleiro())) {
-					model.add(model.getSize(), "Preta ganhou por imobilizacao");
+			if (passavez) {
+				System.out.println("No Jogo         PB:" + peoesBrancos + "  DB: " + damasBrancas + "    =/=/=  PP: " + peoesPretos + "  DP: " + damasPretas);
+				int fim = RegraFinal.analisaFinal();
+				switch (fim) {
+				case 0: {
+					model.add(model.getSize(), "Empate");
 					jogada = 0;
+					break;
 				}
-			} else if (jogada == Pecas.PRETA) {
-				if (!RegraFinal.verificaPecasPreta(tabuleiro.getTabuleiro())) {
-					model.add(model.getSize(), "Branca ganhou por imobilizacao");
+				case VITORIA_BRANCA: {
+					model.add(model.getSize(), "Branca ganhou");
 					jogada = 0;
+					break;
+				}
+				case VITORIA_PRETA: {
+					model.add(model.getSize(), "Preta ganhou");
+					jogada = 0;
+					break;
+				}
+				}
+
+				// Analise da imobilizacao
+				if (jogada == Pecas.BRANCA) {
+					if (!RegraFinal.verificaPecasBranca(tabuleiro.getTabuleiro())) {
+						model.add(model.getSize(), "Preta ganhou por imobilizacao");
+						jogada = 0;
+					}
+				} else if (jogada == Pecas.PRETA) {
+					if (!RegraFinal.verificaPecasPreta(tabuleiro.getTabuleiro())) {
+						model.add(model.getSize(), "Branca ganhou por imobilizacao");
+						jogada = 0;
+					}
 				}
 			}
 		}
@@ -266,21 +272,21 @@ public class Jogo extends JFrame implements ActionListener {
 			}
 		}
 	}
-	
+
 	private void merge(Casa[][] tabAtual, Casa[][] tabNovo) {
 		for (int i = 0; i < tabAtual.length; i++) {
 			for (int j = 0; j < tabAtual.length; j++) {
 				if ((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) {
-					if(tabAtual[i][j].getPeca() != null && tabNovo[i][j].getPeca() == null) {
+					if (tabAtual[i][j].getPeca() != null && tabNovo[i][j].getPeca() == null) {
 						tabAtual[i][j].setPeca(null);
-					} else if (tabAtual[i][j].getPeca() == null && tabNovo[i][j].getPeca() != null){
+					} else if (tabAtual[i][j].getPeca() == null && tabNovo[i][j].getPeca() != null) {
 						tabAtual[i][j].setPeca(tabNovo[i][j].getPeca());
 					}
 				}
 			}
 		}
 	}
-	
+
 	public static void setMSG(String msg) {
 		model.add(model.getSize(), msg);
 	}

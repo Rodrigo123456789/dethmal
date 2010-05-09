@@ -13,7 +13,7 @@ import br.com.assinchronus.gui.Jogo;
  */
 public class RegraFinal {
 
-	public static final int JOGAGAS_EMPATE = 5;
+	public static int jogadasempate = 5;
 
 	RegraGeral rg = new RegraGeral();
 
@@ -111,7 +111,7 @@ public class RegraFinal {
 	public static int analisaFinal() {
 
 		int totalpecas = Jogo.peoesBrancos + Jogo.peoesPretos + Jogo.damasBrancas + Jogo.damasPretas;
-		
+		System.out.println("Na regraFinal   PB:" + Jogo.peoesBrancos + "  DB: " + Jogo.damasBrancas + "    =/=/=  PP: " + Jogo.peoesPretos + "  DP: "+ Jogo.damasPretas + "  // JOGADAS PARA EMPATE: " + jogadasempate);
 		if (Jogo.peoesBrancos + Jogo.damasBrancas == 0) {
 			Jogo.setMSG("Acabaram as pecas brancas");
 			return Jogo.VITORIA_PRETA;
@@ -121,16 +121,26 @@ public class RegraFinal {
 		} else if (totalpecas < 5) {
 			if ((Jogo.damasBrancas < 3 || Jogo.damasPretas < 3) && (Jogo.peoesPretos + Jogo.peoesBrancos == 0)) {
 				Jogo.setMSG("Duas damas ou menos de cada lado");
+				jogadasempate--;
 			} else if (Jogo.peoesBrancos == 1 && Jogo.damasBrancas == 1 && Jogo.damasPretas == 1 && Jogo.peoesPretos == 0) {
 				Jogo.setMSG("Um PB, uma DB e uma DP");
+				jogadasempate--;
 			} else if (Jogo.peoesPretos == 1 && Jogo.damasBrancas == 1 && Jogo.damasPretas == 1 && Jogo.peoesBrancos == 0) {
 				Jogo.setMSG("Um PP, uma DP e uma DB");
+				jogadasempate--;
 			} else if (Jogo.peoesBrancos == 1 && Jogo.damasBrancas == 1 && Jogo.damasPretas == 2 && Jogo.peoesPretos == 0) {
 				Jogo.setMSG("Um PB, uma DB e duas DP");
+				jogadasempate--;
 			} else if (Jogo.peoesPretos == 1 && Jogo.damasBrancas == 2 && Jogo.damasPretas == 1 && Jogo.peoesBrancos == 0) {
 				Jogo.setMSG("Um PP, uma DP e duas DB");
+				jogadasempate--;
 			}
-			return Jogo.EMPATE;
+			if(jogadasempate==0){
+				return Jogo.EMPATE;
+			}else{
+				return Jogo.CONTINUA;
+			}
+			
 		}
 		return Jogo.CONTINUA;
 	}

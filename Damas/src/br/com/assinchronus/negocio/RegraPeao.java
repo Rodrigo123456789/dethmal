@@ -1,7 +1,9 @@
 package br.com.assinchronus.negocio;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import br.com.assinchronus.componentes.Casa;
 import br.com.assinchronus.componentes.Pecas;
@@ -15,6 +17,27 @@ import br.com.assinchronus.exception.JogadaInvalida;
 public class RegraPeao {
 
 	RegraGeral rg = new RegraGeral();
+	
+	
+	
+	
+
+	public void verificaJogadaPeao(Map<Casa, List<Casa>> obrigatoria, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal) {
+
+		try {
+			if (casaInicial.getPeca().getCor() == Pecas.PRETA) {
+				verificaJogadaPPreto(obrigatoria, tabuleiro, casaInicial, casaFinal);
+			} else {
+				verificaJogadaPBranco(obrigatoria, tabuleiro, casaInicial, casaFinal);
+			}
+		} catch (JogadaInvalida e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	
 
 	/**
 	 * 
@@ -29,15 +52,15 @@ public class RegraPeao {
 	 * @throws JogadaInvalida
 	 *             Caso uma jogada invalida ocorra
 	 */
-	public List<Casa[]> verificaJogadaPBranco(List<Casa[]> obrigatoria, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal) throws JogadaInvalida {
-		List<Casa[]> sequencia = new ArrayList<Casa[]>();
+	public Map<Casa, List<Casa>> verificaJogadaPBranco(Map<Casa, List<Casa>> obrigatoria, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal) throws JogadaInvalida {
+		Map<Casa, List<Casa>> sequencia = new HashMap<Casa, List<Casa>>();
 		sequencia.clear();
-		
+
 		int colunaCasaFinal = casaFinal.getColuna();
 		int colunaCasaInicial = casaInicial.getColuna();
 		int linhaCasaFinal = casaFinal.getLinha();
 		int linhaCasaInicial = casaInicial.getLinha();
-		
+
 		if (Math.abs(colunaCasaFinal - colunaCasaInicial) == 1 && (linhaCasaFinal - linhaCasaInicial == -1)) {
 			if (!obrigatoria.isEmpty() || rg.isForcaCaptura()) {
 				throw new JogadaInvalida("Voce deve capturar uma peça");
@@ -116,9 +139,10 @@ public class RegraPeao {
 	 * @throws JogadaInvalida
 	 *             Caso uma jogada invalida ocorra
 	 */
-	public List<Casa[]> verificaJogadaPPreto(List<Casa[]> obrigatoria, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal) throws JogadaInvalida {
-		List<Casa[]> sequencia = new ArrayList<Casa[]>();
+	public Map<Casa, List<Casa>> verificaJogadaPPreto(Map<Casa, List<Casa>> obrigatoria, Casa[][] tabuleiro, Casa casaInicial, Casa casaFinal) throws JogadaInvalida {
+		Map<Casa, List<Casa>> sequencia = new HashMap<Casa, List<Casa>>();
 		sequencia.clear();
+		
 		if (Math.abs(casaFinal.getColuna() - casaInicial.getColuna()) == 1 && (casaFinal.getLinha() - casaInicial.getLinha() == 1)) {
 			if (!obrigatoria.isEmpty() || rg.isForcaCaptura()) {
 				throw new JogadaInvalida("Voce deve capturar uma peca");
@@ -182,51 +206,59 @@ public class RegraPeao {
 		return sequencia;
 	}
 
-	public List<Casa[]> verificaSequenciaPeao(Casa[][] tabuleiro, Casa casaInicial) {
+	public Map<Casa, List<Casa>> verificaSequenciaPeao(Casa[][] tabuleiro, Casa casaInicial) {
 
-		Casa[] acao = new Casa[2];
-		List<Casa[]> jogadaspossiveis = new ArrayList<Casa[]>();
+		Map<Casa, List<Casa>> jogadaspossiveis = new HashMap<Casa, List<Casa>>();
+		List<Casa> casasFinais = new ArrayList<Casa>();
 
 		if (casaInicial.getLinha() + 2 < 8 && casaInicial.getColuna() + 2 < 8) {
 			// se pode comer diagonal inferior direita
-			if (tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() + 1].getPeca() != null && !tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() + 1].getPeca().isCapturada()
+			if (tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() + 1].getPeca() != null
+					&& !tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() + 1].getPeca().isCapturada()
 					&& tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() + 1].getPeca().getCor() != casaInicial.getPeca().getCor()
 					&& tabuleiro[casaInicial.getLinha() + 2][casaInicial.getColuna() + 2].getPeca() == null) {
-				acao[0] = casaInicial;
-				acao[1] = tabuleiro[casaInicial.getLinha() + 2][casaInicial.getColuna() + 2];
-				jogadaspossiveis.add(acao);
+				
+				casasFinais.add(tabuleiro[casaInicial.getLinha() + 2][casaInicial.getColuna() + 2]);
 			}
 		}
 		if (casaInicial.getLinha() + 2 < 8 && casaInicial.getColuna() - 2 > -1) {
 			// se pode comer diagonal inferior esquerda
-			if (tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() - 1].getPeca() != null && !tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() - 1].getPeca().isCapturada()
+			if (tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() - 1].getPeca() != null
+					&& !tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() - 1].getPeca().isCapturada()
 					&& tabuleiro[casaInicial.getLinha() + 1][casaInicial.getColuna() - 1].getPeca().getCor() != casaInicial.getPeca().getCor()
 					&& tabuleiro[casaInicial.getLinha() + 2][casaInicial.getColuna() - 2].getPeca() == null) {
-				acao[0] = casaInicial;
-				acao[1] = tabuleiro[casaInicial.getLinha() + 2][casaInicial.getColuna() - 2];
-				jogadaspossiveis.add(acao);
+				
+				casasFinais.add(tabuleiro[casaInicial.getLinha() + 2][casaInicial.getColuna() - 2]);
 			}
 		}
 		if (casaInicial.getLinha() - 2 > -1 && casaInicial.getColuna() + 2 < 8) {
 			// se pode comer diagonal superior direita
-			if (tabuleiro[casaInicial.getLinha() - 1][casaInicial.getColuna() + 1].getPeca() != null && !tabuleiro[casaInicial.getLinha() - 1][casaInicial.getColuna() + 1].getPeca().isCapturada()
+			if (tabuleiro[casaInicial.getLinha() - 1][casaInicial.getColuna() + 1].getPeca() != null
+					&& !tabuleiro[casaInicial.getLinha() - 1][casaInicial.getColuna() + 1].getPeca().isCapturada()
 					&& tabuleiro[casaInicial.getLinha() - 1][casaInicial.getColuna() + 1].getPeca().getCor() != casaInicial.getPeca().getCor()
 					&& tabuleiro[casaInicial.getLinha() - 2][casaInicial.getColuna() + 2].getPeca() == null) {
-				acao[0] = casaInicial;
-				acao[1] = tabuleiro[casaInicial.getLinha() - 2][casaInicial.getColuna() + 2];
-				jogadaspossiveis.add(acao);
+				
+				casasFinais.add(tabuleiro[casaInicial.getLinha() - 2][casaInicial.getColuna() + 2]);
 			}
 		}
 		if (casaInicial.getLinha() - 2 > -1 && casaInicial.getColuna() - 2 > -1) {
 			// se pode comer diagonal superior esquerda
-			if (tabuleiro[casaInicial.getLinha() - 1][casaInicial.getColuna() - 1].getPeca() != null && !tabuleiro[casaInicial.getLinha() - 1][casaInicial.getColuna() +- 1].getPeca().isCapturada()
+			if (tabuleiro[casaInicial.getLinha() - 1][casaInicial.getColuna() - 1].getPeca() != null
+					&& !tabuleiro[casaInicial.getLinha() - 1][casaInicial.getColuna() + -1].getPeca().isCapturada()
 					&& tabuleiro[casaInicial.getLinha() - 1][casaInicial.getColuna() - 1].getPeca().getCor() != casaInicial.getPeca().getCor()
 					&& tabuleiro[casaInicial.getLinha() - 2][casaInicial.getColuna() - 2].getPeca() == null) {
-				acao[0] = casaInicial;
-				acao[1] = tabuleiro[casaInicial.getLinha() - 2][casaInicial.getColuna() - 2];
-				jogadaspossiveis.add(acao);
+				
+				casasFinais.add(tabuleiro[casaInicial.getLinha() - 2][casaInicial.getColuna() - 2]);
+				
 			}
 		}
+		
+		if(!casasFinais.isEmpty()){
+			jogadaspossiveis.put(casaInicial, casasFinais);
+		}else{
+			jogadaspossiveis.clear();
+		}
+		
 		return jogadaspossiveis;
 	}
 
