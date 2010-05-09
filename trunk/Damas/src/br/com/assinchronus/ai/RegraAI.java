@@ -2,6 +2,8 @@ package br.com.assinchronus.ai;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import br.com.assinchronus.componentes.Casa;
 import br.com.assinchronus.componentes.Dama;
@@ -14,14 +16,14 @@ import br.com.assinchronus.util.Utility;
 public class RegraAI {
 
 	private int jogada;
-	
-	private int nivelArvore; 
-	
+	private int nivelArvore;
 	private Casa[][] tabuleiro;
-	
+	Map<Casa, List<Casa>> jogadaObrigatoria;
+
 	/**
 	 * 
-	 * @param nivelArvore Nivel da Arvore que sera gerada
+	 * @param nivelArvore
+	 *            Nivel da Arvore que sera gerada
 	 */
 	public RegraAI(int nivelArvore) {
 		jogada = Jogo.jogada;
@@ -29,20 +31,22 @@ public class RegraAI {
 	}
 
 	public void verificaCasas(Arvore node, int nivel) {
-		jogada = nivel % 2 == nivelArvore % 2 ?  Pecas.PRETA : Pecas.BRANCA;
-		
+		jogada = nivel % 2 == nivelArvore % 2 ? Pecas.PRETA : Pecas.BRANCA;
+
 		if (nivel != 0) {
 			tabuleiro = node.getTabuleiro();
-			List<Casa[]> jogadaObrigatoria = RegraGeral.verificaCapturaObrigatoria(tabuleiro);
+			jogadaObrigatoria = RegraGeral.verificaCapturaObrigatoria(tabuleiro, jogada);
 			List<Casa> casasFinais = new ArrayList<Casa>();
+			// Jogadas Obrigatorias
 			if (!jogadaObrigatoria.isEmpty()) {
-				if (jogadaObrigatoria.size() == 1) {
-					// Regra de obrigatoria
-					System.out.println("obrigatoria simples");
-				} else {
-					// Regra de obrigatoria
-					System.out.println("obrigatoria composto");
+				System.out.println("obrigatoria");
+				Set<Casa> listaCasasIniciais = jogadaObrigatoria.keySet();
+				for (Casa casaInicial : listaCasasIniciais) {
+					System.out.println("Chamando criaJogada para:" +casaInicial.getLinha()+","+casaInicial.getColuna() );
+					casasFinais = jogadaObrigatoria.get(casaInicial);
+					criaJogada(node, casaInicial, casasFinais, nivel, true);
 				}
+				// Jogadas comuns
 			} else {
 				for (int i = 0; i < tabuleiro.length; i++) {
 					for (int j = 0; j < tabuleiro.length; j++) {
@@ -51,7 +55,7 @@ public class RegraAI {
 							if (peca != null && peca.getCor() == jogada) {
 								casasFinais = verificaJogada(node.getTabuleiro()[i][j]);
 								if (!casasFinais.isEmpty()) {
-									criaJogada(node, node.getTabuleiro()[i][j], casasFinais, nivel);
+									criaJogada(node, node.getTabuleiro()[i][j], casasFinais, nivel, false);
 									node.setTabuleiro(tabuleiro);
 								}
 							}
@@ -110,7 +114,7 @@ public class RegraAI {
 		return casasFinais;
 	}
 
-	private void criaJogada(Arvore root, Casa casaInicial, List<Casa> casasFinais, int nivel) {
+	private void criaJogada(Arvore root, Casa casaInicial, List<Casa> casasFinais, int nivel, boolean obrigatoria) {
 		Arvore node = null;
 
 		for (Casa casaFinal : casasFinais) {
@@ -120,14 +124,67 @@ public class RegraAI {
 			Casa casaInicialNova = node.getTabuleiro()[casaInicial.getLinha()][casaInicial.getColuna()];
 			Casa casaFinalNova = node.getTabuleiro()[casaFinal.getLinha()][casaFinal.getColuna()];
 
-			node.getTabuleiro()[casaInicialNova.getLinha()][casaInicialNova.getColuna()].getPeca().mover(casaInicialNova, casaFinalNova);
+			if (obrigatoria) {
+				// chamar metodo que procura o adversario de acordo com casa
+				// inicial e final e retorna uma casa adversaria
+				Casa adversaria = acharAdversario(root.getTabuleiro(), casaInicialNova, casaFinalNova);
+				System.out.println("Adversario em: " +adversaria.getLinha() +","+adversaria.getColuna());
+				// chamar o metodo comer
+				System.out.println("Chamando comer para:" +casaInicialNova.getLinha()+","+casaInicialNova.getColuna()+" até "+casaFinalNova.getLinha()+","+casaFinalNova.getColuna() );
+				node.getTabuleiro()[casaInicialNova.getLinha()][casaInicialNova.getColuna()].getPeca().comer(casaInicialNova, adversaria, casaFinalNova);
+			} else {
+				node.getTabuleiro()[casaInicialNova.getLinha()][casaInicialNova.getColuna()].getPeca().mover(casaInicialNova, casaFinalNova);
+			}
 			node.setValor(calculaValorPosicional(node.getTabuleiro()));
-
 			System.out.println("Peca : " + casaInicialNova + " Para: " + casaFinalNova + " nivel : " + nivel + " valor: "
 					+ String.valueOf(calculaValorPosicional(node.getTabuleiro())));
 
 			root.addNode(node);
 		}
+	}
+
+	private Casa acharAdversario(Casa[][] tab, Casa casaInicial, Casa casaFinal) {
+		// encontrar a direcao do movimento
+		Casa adversaria = new Casa();
+		int linha = casaInicial.getLinha();
+		int coluna = casaInicial.getColuna();
+		int z = 1; // incrementa para varrer toda a diagonal escolhida
+		int x; // salva a direcao horizontal do movimento
+		int y; // salva a direcao vertical do movimento
+
+		x = casaFinal.getColuna() - coluna;
+		y = casaFinal.getLinha() - linha;
+
+		if (x > 0 && y > 0) {
+			x = 1;
+			y = 1;
+		}
+		if (x > 0 && y < 0) {
+			x = 1;
+			y = -1;
+		}
+		if (x < 0 && y > 0) {
+			x = -1;
+			y = 1;
+		}
+		if (x < 0 && y < 0) {
+			x = -1;
+			y = -1;
+		}
+
+		// incrementar a partir da origem até o destino
+
+		while ((linha + y * z) != casaFinal.getLinha()) {
+			if (tabuleiro[linha + y * z][coluna + x * z].getPeca() != null
+					&& tabuleiro[linha + y * z][coluna + x * z].getPeca().getCor() != casaInicial.getPeca().getCor()) {
+				adversaria = tabuleiro[linha + y * z][coluna + x * z];
+			}
+			z++;
+		}
+
+		// quando encontrar a adversaria, retornar
+
+		return adversaria;
 	}
 
 	private int calculaValorPosicional(Casa[][] tab) {
@@ -164,7 +221,7 @@ public class RegraAI {
 		// calculo do valor absoluto (computador = preto)
 		return valorp - valorb;
 	}
-
+/*
 	private float calculaValorTrinagulo() {
 		Casa[][] tab = tabuleiro;
 		float valortotal;
@@ -172,7 +229,8 @@ public class RegraAI {
 		float valorp = 0;
 		for (int i = 0; i < tab.length; i++) {
 			for (int j = 0; j < tab.length; j++) {
-				if ((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) {
+				if ((i % 2 == 0
+						&& j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) {
 					// calcular valor branco
 					if (tab[i][j].getPeca() != null && tab[i][j].getPeca().getCor() == 1) {
 						// calculo de caracteres defensivos
@@ -182,15 +240,13 @@ public class RegraAI {
 							valorb = valorb + 1;
 						} else if (i == 5 && j == 3) {
 							valorb = valorb + 1;
-						}
-						// calculo de caracteres materiais
+						} // calculo de caracteres materiais
 						if (tab[i][j].getPeca() instanceof Dama) {
 							valorb = valorb + 3;
 						} else {
 							valorb = valorb + 1;
 						}
-					}
-					// calcular valor preto
+					} // calcular valor preto
 					if (tab[i][j].getPeca() != null && tab[i][j].getPeca().getCor() == 2) {
 						// calculo de caracteres defensivos
 						if (i == 0) {
@@ -215,4 +271,5 @@ public class RegraAI {
 
 		return valortotal;
 	}
+	*/
 }
