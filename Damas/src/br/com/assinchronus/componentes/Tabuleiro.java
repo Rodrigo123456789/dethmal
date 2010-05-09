@@ -1,12 +1,14 @@
 package br.com.assinchronus.componentes;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author Pilon
  * @version 1.0.1
  */
 
-public class Tabuleiro {
+public class Tabuleiro implements Serializable{
 
 	// Array com todas as casas validas do jogo
 	private Casa[][] tabuleiro = new Casa[8][8];
