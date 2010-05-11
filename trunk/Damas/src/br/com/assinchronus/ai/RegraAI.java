@@ -136,8 +136,8 @@ public class RegraAI {
 				node.getTabuleiro()[casaInicialNova.getLinha()][casaInicialNova.getColuna()].getPeca().mover(casaInicialNova, casaFinalNova);
 			}
 			node.setValor(calculaValorPosicional(node.getTabuleiro()));
-			System.out.println("Peca : " + casaInicialNova + " Para: " + casaFinalNova + " nivel : " + nivel + " valor: "
-					+ String.valueOf(calculaValorPosicional(node.getTabuleiro())));
+//			System.out.println("Peca : " + casaInicialNova + " Para: " + casaFinalNova + " nivel : " + nivel + " valor: "
+//					+ String.valueOf(calculaValorPosicional(node.getTabuleiro())));
 
 			root.addNode(node);
 		}
@@ -221,9 +221,9 @@ public class RegraAI {
 		// calculo do valor absoluto (computador = preto)
 		return valorp - valorb;
 	}
-/*
-	private float calculaValorTrinagulo() {
-		Casa[][] tab = tabuleiro;
+
+	@SuppressWarnings("unused")
+	private float calculaValorTrinagulo(Casa[][] tab) {
 		float valortotal;
 		float valorb = 0;
 		float valorp = 0;
@@ -271,5 +271,5 @@ public class RegraAI {
 
 		return valortotal;
 	}
-	*/
+	
 }
