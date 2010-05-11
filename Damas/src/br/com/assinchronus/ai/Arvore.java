@@ -29,6 +29,10 @@ public class Arvore {
 		return tabuleiro;
 	}
 
+	public void setTabuleiro(Casa[][] tabuleiro) {
+		this.tabuleiro = tabuleiro;
+	}
+
 	public int getValor() {
 		return valor;
 	}
@@ -48,9 +52,5 @@ public class Arvore {
 	@Override
 	public String toString() {
 		return String.valueOf(valor);
-	}
-
-	public void setTabuleiro(Casa[][] tabuleiro) {
-		this.tabuleiro = tabuleiro;
 	}
 }

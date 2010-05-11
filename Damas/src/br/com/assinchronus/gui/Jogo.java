@@ -20,6 +20,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JScrollPane;
 
+import org.apache.log4j.Logger;
+
 import br.com.assinchronus.ai.Arvore;
 import br.com.assinchronus.ai.Inteligencia;
 import br.com.assinchronus.componentes.Casa;
@@ -32,7 +34,9 @@ import br.com.assinchronus.negocio.RegraFinal;
 import br.com.assinchronus.negocio.RegraGeral;
 
 public class Jogo extends JFrame implements ActionListener {
-
+	
+	public static final Logger logger = Logger.getLogger(Jogo.class);
+	
 	/**
 	 * SerialVersion
 	 */
@@ -68,6 +72,7 @@ public class Jogo extends JFrame implements ActionListener {
 
 	/** Creates new form Tabuleiro */
 	public Jogo() {
+		logger.info("Iniciando Jogo.");
 		initComponents();
 	}
 
@@ -188,7 +193,7 @@ public class Jogo extends JFrame implements ActionListener {
 
 			// Analise do fim do jogo
 			if (passavez) {
-				System.out.println("No Jogo         PB:" + peoesBrancos + "  DB: " + damasBrancas + "    =/=/=  PP: " + peoesPretos + "  DP: " + damasPretas);
+				logger.info("No Jogo         PB:" + peoesBrancos + "  DB: " + damasBrancas + "    =/=/=  PP: " + peoesPretos + "  DP: " + damasPretas);
 				int fim = RegraFinal.analisaFinal();
 				switch (fim) {
 				case 0: {

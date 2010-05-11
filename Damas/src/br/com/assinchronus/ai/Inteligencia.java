@@ -4,7 +4,7 @@ import br.com.assinchronus.componentes.Tabuleiro;
 
 public class Inteligencia {
 
-	private static final int NIVEL = 2;
+	private static final int NIVEL = 8;
 
 	Arvore arvore;
 
@@ -51,19 +51,6 @@ public class Inteligencia {
 			}
 
 		}
-		System.out.println(min.getValor() == 350 ? max : min);
 		return min.getValor() == 350 ? max : min;
-	}
-
-	public static void main(String[] args) {
-		long time = System.currentTimeMillis();
-
-		Arvore arvore = new Arvore(new Tabuleiro().getTabuleiro());
-		Inteligencia inteligencia = new Inteligencia(arvore);
-		inteligencia.jogar();
-
-		time = System.currentTimeMillis() - time;
-
-		System.out.println(time);
 	}
 }
