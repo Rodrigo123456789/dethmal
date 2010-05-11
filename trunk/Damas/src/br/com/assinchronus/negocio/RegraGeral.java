@@ -34,14 +34,13 @@ public class RegraGeral {
 	 */
 	public static Map<Casa, List<Casa>> verificaCapturaObrigatoria(Casa[][] tabuleiro, int jogada) {
 		int z, l, c;
-		List<Casa> casasfinais = new ArrayList<Casa>();
+		List<Casa> casasfinais;
 		Map<Casa, List<Casa>> obrigatoria = new HashMap<Casa, List<Casa>>();
-		
-		casasfinais.clear();
-		
+				
 		// List<Casa[]> obrigatoria = new ArrayList<Casa[]>();
 		for (int i = 0; i < tabuleiro.length; i++) {
 			for (int j = 0; j < tabuleiro[i].length; j++) {
+				casasfinais = new ArrayList<Casa>();
 				if (((i % 2 == 0 && j % 2 == 0) || (i % 2 == 1 && j % 2 == 1)) && tabuleiro[i][j].getPeca() != null) {
 					if (jogada == Pecas.BRANCA) {
 						if (tabuleiro[i][j].getPeca().getCor() == Pecas.BRANCA && (tabuleiro[i][j].getPeca() instanceof Peao)) {
