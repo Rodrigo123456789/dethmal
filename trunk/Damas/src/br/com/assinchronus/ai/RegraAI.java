@@ -11,6 +11,8 @@ import br.com.assinchronus.componentes.Peao;
 import br.com.assinchronus.componentes.Pecas;
 import br.com.assinchronus.gui.Jogo;
 import br.com.assinchronus.negocio.RegraGeral;
+import br.com.assinchronus.negocio.RegraPeao;
+import br.com.assinchronus.negocio.RegraDama;
 import br.com.assinchronus.util.Utility;
 
 public class RegraAI {
@@ -42,7 +44,7 @@ public class RegraAI {
 				System.out.println("obrigatoria");
 				Set<Casa> listaCasasIniciais = jogadaObrigatoria.keySet();
 				for (Casa casaInicial : listaCasasIniciais) {
-					System.out.println("Chamando criaJogada para:" +casaInicial.getLinha()+","+casaInicial.getColuna() );
+					System.out.println("Chamando criaJogada para:" + casaInicial.getLinha() + "," + casaInicial.getColuna());
 					casasFinais = jogadaObrigatoria.get(casaInicial);
 					criaJogada(node, casaInicial, casasFinais, nivel, true);
 				}
@@ -125,21 +127,116 @@ public class RegraAI {
 			Casa casaFinalNova = node.getTabuleiro()[casaFinal.getLinha()][casaFinal.getColuna()];
 
 			if (obrigatoria) {
-				// chamar metodo que procura o adversario de acordo com casa
-				// inicial e final e retorna uma casa adversaria
 				Casa adversaria = acharAdversario(root.getTabuleiro(), casaInicialNova, casaFinalNova);
-				System.out.println("Adversario em: " +adversaria.getLinha() +","+adversaria.getColuna());
-				// chamar o metodo comer
-				System.out.println("Chamando comer para:" +casaInicialNova.getLinha()+","+casaInicialNova.getColuna()+" até "+casaFinalNova.getLinha()+","+casaFinalNova.getColuna() );
+				System.out.println("Chamou comer para:" + casaInicialNova.getLinha() + "," + casaInicialNova.getColuna() + " até " + casaFinalNova.getLinha()
+						+ "," + casaFinalNova.getColuna());
 				node.getTabuleiro()[casaInicialNova.getLinha()][casaInicialNova.getColuna()].getPeca().comer(casaInicialNova, adversaria, casaFinalNova);
+
+				if (casaFinalNova.getPeca() instanceof Peao) {
+
+					// se for o peao comeu
+					Map<Casa, List<Casa>> sequencia = RegraPeao.verificaSequenciaPeao(clone, casaFinalNova);
+
+					if (sequencia.size() == 0) {
+						// se nao houver sequencia
+						System.out.println("Não tinha sequencia.");
+						node.setValor((int) calculaValorPosicional(node.getTabuleiro()));
+						System.out.println("COMEU - Peca: " + casaInicialNova + " Para: " + casaFinalNova + " nivel: " + nivel + " valor: "
+								+ String.valueOf(node.getValor()));
+						root.addNode(node);
+					} else {
+						// se tem sequencia
+						Set<Casa> listaCasasIniciaisSeq = sequencia.keySet();
+						for (Casa casaInicialSeq : listaCasasIniciaisSeq) {
+							List<Casa> casasFinaisSeq = sequencia.get(casaInicialSeq);
+							criaJogadaPeaoSequencia(node, casaInicial, casasFinaisSeq);
+						}
+
+					}
+				} else {
+					// se a dama comeu
+					Map<Casa, List<Casa>> sequencia = RegraDama.verificaSequenciaDama(clone, casaFinalNova);
+
+					if (sequencia.size() == 0) {
+						// se nao houver sequencia
+						System.out.println("Não tinha sequencia.");
+						node.setValor((int) calculaValorPosicional(node.getTabuleiro()));
+						System.out.println("COMEU - Peca: " + casaInicialNova + " Para: " + casaFinalNova + " nivel: " + nivel + " valor: "
+								+ String.valueOf(node.getValor()));
+						root.addNode(node);
+					} else {
+						// se tem sequencia
+
+					}
+				}
+
 			} else {
 				node.getTabuleiro()[casaInicialNova.getLinha()][casaInicialNova.getColuna()].getPeca().mover(casaInicialNova, casaFinalNova);
-			}
-			node.setValor(calculaValorPosicional(node.getTabuleiro()));
-//			System.out.println("Peca : " + casaInicialNova + " Para: " + casaFinalNova + " nivel : " + nivel + " valor: "
-//					+ String.valueOf(calculaValorPosicional(node.getTabuleiro())));
+				node.setValor((int) calculaValorPosicional(node.getTabuleiro()));
+				System.out.println("MOVEU - Peca: " + casaInicialNova + " Para: " + casaFinalNova + " nivel: " + nivel + " valor: "
+						+ String.valueOf(node.getValor()));
 
-			root.addNode(node);
+				root.addNode(node);
+			}
+		}
+
+		/*
+		 * for (Casa casaFinal : casasFinais) { Casa[][] clone =
+		 * Utility.copy(root.getTabuleiro()); node = new Arvore(clone);
+		 * 
+		 * Casa casaInicialNova =
+		 * node.getTabuleiro()[casaInicial.getLinha()][casaInicial.getColuna()];
+		 * Casa casaFinalNova =
+		 * node.getTabuleiro()[casaFinal.getLinha()][casaFinal.getColuna()];
+		 * 
+		 * if (obrigatoria) { // chamar metodo que procura o adversario de
+		 * acordo com casa // inicial e final e retorna uma casa adversaria Casa
+		 * adversaria = acharAdversario(root.getTabuleiro(), casaInicialNova,
+		 * casaFinalNova); System.out.println("Adversario em: "
+		 * +adversaria.getLinha() +","+adversaria.getColuna()); // chamar o
+		 * metodo comer System.out.println("Chamando comer para:"
+		 * +casaInicialNova
+		 * .getLinha()+","+casaInicialNova.getColuna()+" até "+casaFinalNova
+		 * .getLinha()+","+casaFinalNova.getColuna() );
+		 * node.getTabuleiro()[casaInicialNova
+		 * .getLinha()][casaInicialNova.getColuna
+		 * ()].getPeca().comer(casaInicialNova, adversaria, casaFinalNova); }
+		 * else {
+		 * node.getTabuleiro()[casaInicialNova.getLinha()][casaInicialNova
+		 * .getColuna()].getPeca().mover(casaInicialNova, casaFinalNova); }
+		 * node.setValor(calculaValorPosicional(node.getTabuleiro())); //
+		 * System.out.println("Peca : " + casaInicialNova + " Para: " +
+		 * casaFinalNova + " nivel : " + nivel + " valor: " // +
+		 * String.valueOf(calculaValorPosicional(node.getTabuleiro())));
+		 * 
+		 * root.addNode(node); }
+		 */
+	}
+
+	private void criaJogadaPeaoSequencia(Arvore root, Casa casaInicial, List<Casa> casasFinais) {
+		Casa[][] tabclone = Utility.copy(root.getTabuleiro());
+		Casa casaInicialNova = tabclone[casaInicial.getLinha()][casaInicial.getColuna()];
+		Arvore node = new Arvore(tabclone);
+
+		for (Casa casaFinalNova : casasFinais) {
+			Casa adversaria = acharAdversario(tabclone, casaInicialNova, casaFinalNova);
+			tabclone[casaInicialNova.getLinha()][casaInicialNova.getColuna()].getPeca().comer(casaInicialNova, adversaria, casaFinalNova);
+			Map<Casa, List<Casa>> sequencia = RegraPeao.verificaSequenciaPeao(tabclone, casaFinalNova);
+
+			if (sequencia.size() == 0) {
+				// se nao houver sequencia
+				System.out.println("Não tinha sequencia.");
+				node.setValor((int) calculaValorPosicional(node.getTabuleiro()));
+				System.out.println("COMEU - Peca: " + casaInicialNova + " Para: " + casaFinalNova + " nivel: " + String.valueOf(node.getValor()));
+				root.addNode(node);
+			} else {
+				// se tem sequencia
+				Set<Casa> listaCasasIniciaisSeq = sequencia.keySet();
+				for (Casa casaInicialSeq : listaCasasIniciaisSeq) {
+					List<Casa> casasFinaisSeq = sequencia.get(casaInicialSeq);
+					criaJogadaPeaoSequencia(node, casaInicial, casasFinaisSeq);
+				}
+			}
 		}
 	}
 
@@ -271,5 +368,5 @@ public class RegraAI {
 
 		return valortotal;
 	}
-	
+
 }

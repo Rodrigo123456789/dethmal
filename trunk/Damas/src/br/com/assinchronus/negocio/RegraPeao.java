@@ -206,7 +206,7 @@ public class RegraPeao {
 		return sequencia;
 	}
 
-	public Map<Casa, List<Casa>> verificaSequenciaPeao(Casa[][] tabuleiro, Casa casaInicial) {
+	public static Map<Casa, List<Casa>> verificaSequenciaPeao(Casa[][] tabuleiro, Casa casaInicial) {
 
 		Map<Casa, List<Casa>> jogadaspossiveis = new HashMap<Casa, List<Casa>>();
 		List<Casa> casasFinais = new ArrayList<Casa>();

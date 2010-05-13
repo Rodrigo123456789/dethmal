@@ -4,7 +4,7 @@ import br.com.assinchronus.componentes.Tabuleiro;
 
 public class Inteligencia {
 
-	private static final int NIVEL = 8;
+	private static final int NIVEL = 4;
 
 	Arvore arvore;
 

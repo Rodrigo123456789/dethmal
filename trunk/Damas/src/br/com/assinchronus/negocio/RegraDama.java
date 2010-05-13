@@ -123,7 +123,7 @@ public class RegraDama {
 	 *            Casa em que a peca parou
 	 * @return Lista de jogadas possiveis para sequencia
 	 */
-	public Map<Casa, List<Casa>> verificaSequenciaDama(Casa[][] tabuleiro, Casa casaInicial) {
+	public static Map<Casa, List<Casa>> verificaSequenciaDama(Casa[][] tabuleiro, Casa casaInicial) {
 		int z, l, c;
 		List<Casa> casasfinais = new ArrayList<Casa>();
 		Map<Casa, List<Casa>> jogadaspossiveis = new HashMap<Casa, List<Casa>>();
