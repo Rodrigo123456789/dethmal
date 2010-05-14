@@ -17,7 +17,7 @@ public class Utility {
 	 *            Tabuleiro original
 	 * @return Retorna o Tabuleiro clonado
 	 */
-	public static Casa[][] copy(Object orig) {
+	public static Casa[][] clone(Object orig) {
 		Object obj = null;
 		try {
 			// Write the object out to a byte array
@@ -37,5 +37,19 @@ public class Utility {
 			cnfe.printStackTrace();
 		}
 		return (Casa[][]) obj;
+	}
+	
+	/**
+	 * Retorna o objeto Casa correto para o tabuleiro informado.
+	 * 
+	 * @param tabuleiro Tabuleiro novo
+	 * @param casa Casa
+	 * @return Retorna a casa na posição do Tabuleiro passado
+	 */
+	public Casa getCasaCerta(Casa[][] tabuleiro, Casa casa) {
+		Casa casaNova = null;
+		casaNova = tabuleiro[casa.getLinha()][casa.getColuna()];
+		
+		return casaNova;
 	}
 }
