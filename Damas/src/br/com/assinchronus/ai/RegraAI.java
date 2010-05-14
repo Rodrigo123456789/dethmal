@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
+
 import br.com.assinchronus.componentes.Casa;
 import br.com.assinchronus.componentes.Dama;
 import br.com.assinchronus.componentes.Peao;
@@ -16,7 +18,9 @@ import br.com.assinchronus.negocio.RegraDama;
 import br.com.assinchronus.util.Utility;
 
 public class RegraAI {
-
+	
+	private Logger logger = Logger.getLogger(RegraAI.class);
+	
 	private int jogada;
 	private int nivelArvore;
 	private Casa[][] tabuleiro;
@@ -41,10 +45,10 @@ public class RegraAI {
 			List<Casa> casasFinais = new ArrayList<Casa>();
 			// Jogadas Obrigatorias
 			if (!jogadaObrigatoria.isEmpty()) {
-				System.out.println("obrigatoria");
+				logger.debug("obrigatoria");
 				Set<Casa> listaCasasIniciais = jogadaObrigatoria.keySet();
 				for (Casa casaInicial : listaCasasIniciais) {
-					System.out.println("Chamando criaJogada para:" + casaInicial.getLinha() + "," + casaInicial.getColuna());
+					logger.debug("Chamando criaJogada para:" + casaInicial.getLinha() + "," + casaInicial.getColuna());
 					casasFinais = jogadaObrigatoria.get(casaInicial);
 					criaJogada(node, casaInicial, casasFinais, nivel, true);
 				}
@@ -127,8 +131,8 @@ public class RegraAI {
 			Casa casaFinalNova = node.getTabuleiro()[casaFinal.getLinha()][casaFinal.getColuna()];
 
 			if (obrigatoria) {
-				Casa adversaria = acharAdversario(root.getTabuleiro(), casaInicialNova, casaFinalNova);
-				System.out.println("Chamou comer para:" + casaInicialNova.getLinha() + "," + casaInicialNova.getColuna() + " até " + casaFinalNova.getLinha()
+				Casa adversaria = acharAdversario(node.getTabuleiro(), casaInicialNova, casaFinalNova);
+				logger.debug("Chamou comer para:" + casaInicialNova.getLinha() + "," + casaInicialNova.getColuna() + " até " + casaFinalNova.getLinha()
 						+ "," + casaFinalNova.getColuna());
 				node.getTabuleiro()[casaInicialNova.getLinha()][casaInicialNova.getColuna()].getPeca().comer(casaInicialNova, adversaria, casaFinalNova);
 
@@ -139,9 +143,9 @@ public class RegraAI {
 
 					if (sequencia.size() == 0) {
 						// se nao houver sequencia
-						System.out.println("Não tinha sequencia.");
+						logger.debug("Não tinha sequencia.");
 						node.setValor((int) calculaValorPosicional(node.getTabuleiro()));
-						System.out.println("COMEU - Peca: " + casaInicialNova + " Para: " + casaFinalNova + " nivel: " + nivel + " valor: "
+						logger.debug("COMEU - Peca: " + casaInicialNova + " Para: " + casaFinalNova + " nivel: " + nivel + " valor: "
 								+ String.valueOf(node.getValor()));
 						root.addNode(node);
 					} else {
@@ -149,7 +153,7 @@ public class RegraAI {
 						Set<Casa> listaCasasIniciaisSeq = sequencia.keySet();
 						for (Casa casaInicialSeq : listaCasasIniciaisSeq) {
 							List<Casa> casasFinaisSeq = sequencia.get(casaInicialSeq);
-							criaJogadaPeaoSequencia(node, casaInicial, casasFinaisSeq);
+							criaJogadaPeaoSequencia(node, casaInicialSeq, casasFinaisSeq);
 						}
 
 					}
@@ -159,9 +163,9 @@ public class RegraAI {
 
 					if (sequencia.size() == 0) {
 						// se nao houver sequencia
-						System.out.println("Não tinha sequencia.");
+						logger.debug("Não tinha sequencia.");
 						node.setValor((int) calculaValorPosicional(node.getTabuleiro()));
-						System.out.println("COMEU - Peca: " + casaInicialNova + " Para: " + casaFinalNova + " nivel: " + nivel + " valor: "
+						logger.debug("COMEU - Peca: " + casaInicialNova + " Para: " + casaFinalNova + " nivel: " + nivel + " valor: "
 								+ String.valueOf(node.getValor()));
 						root.addNode(node);
 					} else {
@@ -173,7 +177,7 @@ public class RegraAI {
 			} else {
 				node.getTabuleiro()[casaInicialNova.getLinha()][casaInicialNova.getColuna()].getPeca().mover(casaInicialNova, casaFinalNova);
 				node.setValor((int) calculaValorPosicional(node.getTabuleiro()));
-				System.out.println("MOVEU - Peca: " + casaInicialNova + " Para: " + casaFinalNova + " nivel: " + nivel + " valor: "
+				logger.debug("MOVEU - Peca: " + casaInicialNova + " Para: " + casaFinalNova + " nivel: " + nivel + " valor: "
 						+ String.valueOf(node.getValor()));
 
 				root.addNode(node);
@@ -225,16 +229,16 @@ public class RegraAI {
 
 			if (sequencia.size() == 0) {
 				// se nao houver sequencia
-				System.out.println("Não tinha sequencia.");
+				logger.debug("Não tinha sequencia.");
 				node.setValor((int) calculaValorPosicional(node.getTabuleiro()));
-				System.out.println("COMEU - Peca: " + casaInicialNova + " Para: " + casaFinalNova + " nivel: " + String.valueOf(node.getValor()));
+				logger.debug("COMEU - Peca: " + casaInicialNova + " Para: " + casaFinalNova + " nivel: " + String.valueOf(node.getValor()));
 				root.addNode(node);
 			} else {
 				// se tem sequencia
 				Set<Casa> listaCasasIniciaisSeq = sequencia.keySet();
 				for (Casa casaInicialSeq : listaCasasIniciaisSeq) {
 					List<Casa> casasFinaisSeq = sequencia.get(casaInicialSeq);
-					criaJogadaPeaoSequencia(node, casaInicial, casasFinaisSeq);
+					criaJogadaPeaoSequencia(node, casaInicialSeq, casasFinaisSeq);
 				}
 			}
 		}
@@ -272,9 +276,9 @@ public class RegraAI {
 		// incrementar a partir da origem até o destino
 
 		while ((linha + y * z) != casaFinal.getLinha()) {
-			if (tabuleiro[linha + y * z][coluna + x * z].getPeca() != null
-					&& tabuleiro[linha + y * z][coluna + x * z].getPeca().getCor() != casaInicial.getPeca().getCor()) {
-				adversaria = tabuleiro[linha + y * z][coluna + x * z];
+			if (tab[linha + y * z][coluna + x * z].getPeca() != null
+					&& tab[linha + y * z][coluna + x * z].getPeca().getCor() != casaInicial.getPeca().getCor()) {
+				adversaria = tab[linha + y * z][coluna + x * z];
 			}
 			z++;
 		}
