@@ -176,9 +176,7 @@ public class Jogo extends JFrame implements ActionListener {
 						Casa[][] novoTabuleiro = i.jogar().getTabuleiro();
 						merge(tabuleiro.getTabuleiro(), novoTabuleiro);
 						atualizaTabuleiro(tabuleiro.getTabuleiro());
-						jogada =
-								Pecas.BRANCA;
-
+						jogada = Pecas.BRANCA;
 					} else if (jogada == Pecas.PRETA && RegraGeral.getSequencia() == false && passavez) {
 						jogada = Pecas.BRANCA;
 					}
@@ -286,6 +284,10 @@ public class Jogo extends JFrame implements ActionListener {
 						tabAtual[i][j].setPeca(null);
 					} else if (tabAtual[i][j].getPeca() == null && tabNovo[i][j].getPeca() != null) {
 						tabAtual[i][j].setPeca(tabNovo[i][j].getPeca());
+					}
+					
+					if(tabAtual[i][j].getPeca() != null && tabNovo[i][j].getPeca() != null) {
+						tabAtual[i][j].getPeca().setCapturada(tabNovo[i][j].getPeca().isCapturada());
 					}
 				}
 			}
